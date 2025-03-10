@@ -113,7 +113,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Premium} of the {@code EditPersonDescriptor} that we are building.
      *
-     * @param premium The premium value to set
+     * @param premiumList The premium list to set
      * @return this builder
      */
     public EditPersonDescriptorBuilder withPremiumList(PremiumList premiumList) {
@@ -121,8 +121,17 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the premium list of the {@code EditPersonDescriptor} using the specified premium string.
+     * This method parses the provided premium string and sets it in the descriptor.
+     * If the parsing fails, a {@code RuntimeException} is thrown.
+     *
+     * @param premium The premium string to be parsed and set in the descriptor.
+     * @return The {@code EditPersonDescriptorBuilder} object, with the updated premium list.
+     * @throws RuntimeException If the parsing of the premium string fails.
+     */
     public EditPersonDescriptorBuilder withPremiumList(String premium) {
-        try{
+        try {
             descriptor.setPremium(ParserUtil.parsePremium(premium));
         } catch (ParseException e) {
             throw new RuntimeException(e);

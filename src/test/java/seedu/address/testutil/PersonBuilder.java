@@ -6,7 +6,12 @@ import java.util.Set;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -106,6 +111,15 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the premium list for the {@code PersonBuilder} using the provided premium input string.
+     * This method parses the given premium input string and assigns it to the premium list.
+     * If the parsing fails, an {@code IllegalArgumentException} is thrown.
+     *
+     * @param premiumInput The premium input string to be parsed and assigned to the premium list.
+     * @return The {@code PersonBuilder} object, with the updated premium list.
+     * @throws IllegalArgumentException If the parsing of the premium input string fails.
+     */
     public PersonBuilder withPremiumList(String premiumInput) {
         try {
             this.premiumList = ParserUtil.parsePremium(premiumInput);
