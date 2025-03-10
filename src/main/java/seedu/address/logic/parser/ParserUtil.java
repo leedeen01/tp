@@ -13,8 +13,10 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -132,10 +134,17 @@ public class ParserUtil {
      */
     public static PremiumList parsePremium(String string) throws ParseException {
         requireNonNull(string);
-        Integer number = Integer.parseInt(string.trim());
-        if (!PremiumList.isValidPremium(number)) {
-            throw new ParseException(PremiumList.MESSAGE_CONSTRAINTS);
+        PremiumList premiumList = new PremiumList();
+        String[] split = string.split(" ");
+        for (int i = 0, size = split.length; i < size; i = i + 2) {
+            if (!Premium.isValidPremium(split[i], Integer.parseInt(split[i + 1]))) {
+                throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
+            }
+
+            Premium premium = new Premium(split[i], Integer.parseInt(split[i + 1]));
+            premiumList.add(premium);
+
         }
-        return new PremiumList(number);
+        return premiumList;
     }
 }

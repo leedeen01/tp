@@ -21,7 +21,11 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
@@ -99,7 +103,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         PremiumList updatedPremiumList = editPersonDescriptor.getPremium().orElse(personToEdit.getPremiumList());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedPremiumList);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPremiumList, updatedTags);
     }
 
     @Override

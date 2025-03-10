@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -114,8 +116,17 @@ public class EditPersonDescriptorBuilder {
      * @param premium The premium value to set
      * @return this builder
      */
-    public EditPersonDescriptorBuilder withPremium(Integer premium) {
-        descriptor.setPremium(new PremiumList(premium));
+    public EditPersonDescriptorBuilder withPremiumList(PremiumList premiumList) {
+        descriptor.setPremium(premiumList);
+        return this;
+    }
+
+    public EditPersonDescriptorBuilder withPremiumList(String premium) {
+        try{
+            descriptor.setPremium(ParserUtil.parsePremium(premium));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         return this;
     }
 

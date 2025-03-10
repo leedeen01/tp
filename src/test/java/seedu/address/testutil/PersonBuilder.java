@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.*;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
@@ -17,13 +20,16 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final Integer DEFAULT_PREMIUM = 1000;
+    public static final String DEFAULT_PREMIUM_NAME = "LifeShield";
+    public static final Integer DEFAULT_PREMIUM_AMOUNT = 100;
+    public static final ArrayList<Premium> DEFAULT_PREMIUM_LIST = new ArrayList<Premium>();
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Premium premium;
     private PremiumList premiumList;
 
     /**
@@ -35,7 +41,9 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        premiumList = new PremiumList(DEFAULT_PREMIUM);
+        premium = new Premium(DEFAULT_PREMIUM_NAME, DEFAULT_PREMIUM_AMOUNT);
+        DEFAULT_PREMIUM_LIST.add(premium);
+        this.premiumList = new PremiumList(DEFAULT_PREMIUM_LIST);
     }
 
     /**
@@ -93,13 +101,23 @@ public class PersonBuilder {
     /**
      * Sets the {@code Premium} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPremium(Integer premium) {
-        this.premiumList = new PremiumList(premium);
+    public PersonBuilder withPremiumList(PremiumList premiumList) {
+        this.premiumList = premiumList;
+        return this;
+    }
+
+    public PersonBuilder withPremiumList(String premiumInput) {
+        try {
+            this.premiumList = ParserUtil.parsePremium(premiumInput);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, premiumList);
+        return new Person(name, phone, email, address, premiumList, tags);
     }
 
 }
