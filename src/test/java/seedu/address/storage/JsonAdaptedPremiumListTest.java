@@ -7,7 +7,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 
@@ -71,7 +70,7 @@ public class JsonAdaptedPremiumListTest {
         JsonAdaptedPremiumList jsonAdaptedPremiumList = new JsonAdaptedPremiumList();
         assertTrue(jsonAdaptedPremiumList.isEmpty());
     }
-    
+
     /**
      * Helper class to create JsonAdaptedPremium for testing.
      * This is needed because we don't have the actual implementation in the test class.

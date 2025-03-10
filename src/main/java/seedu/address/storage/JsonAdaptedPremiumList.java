@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 
@@ -57,9 +56,8 @@ public class JsonAdaptedPremiumList {
      * Converts this Jackson-friendly adapted premium list into the model's {@code PremiumList} object.
      *
      * @return The model PremiumList object.
-     * @throws IllegalValueException If there were any data constraints violated.
      */
-    public PremiumList toModelType() throws IllegalValueException {
+    public PremiumList toModelType() {
         PremiumList modelPremiumList = new PremiumList();
         for (JsonAdaptedPremium premium : premiumList) {
             modelPremiumList.add(new Premium(premium.premiumName, premium.premiumAmount));
