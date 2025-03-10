@@ -13,7 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -130,12 +130,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code string} is invalid.
      */
-    public static Premium parsePremium(String string) throws ParseException {
+    public static PremiumList parsePremium(String string) throws ParseException {
         requireNonNull(string);
         Integer number = Integer.parseInt(string.trim());
-        if (!Premium.isValidPremium(number)) {
-            throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
+        if (!PremiumList.isValidPremium(number)) {
+            throw new ParseException(PremiumList.MESSAGE_CONSTRAINTS);
         }
-        return new Premium(number);
+        return new PremiumList(number);
     }
 }

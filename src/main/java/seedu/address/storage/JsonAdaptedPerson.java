@@ -10,12 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
+import seedu.address.model.person.*;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -60,7 +56,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        premium = source.getPremium().value;
+        premium = source.getPremiumList().value;
     }
 
     /**
@@ -109,16 +105,16 @@ class JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (premium == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Premium.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PremiumList.class.getSimpleName()));
         }
 
-        if (!Premium.isValidPremium(premium)) {
-            throw new IllegalValueException(Premium.MESSAGE_CONSTRAINTS);
+        if (!PremiumList.isValidPremium(premium)) {
+            throw new IllegalValueException(PremiumList.MESSAGE_CONSTRAINTS);
         }
 
-        final Premium modelPremium = new Premium(premium);
+        final PremiumList modelPremiumList = new PremiumList(premium);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelPremium);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelPremiumList);
     }
 
 }
