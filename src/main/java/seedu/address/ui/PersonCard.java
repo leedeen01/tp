@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        String premiums = person.getPremiumList().premiumList.stream()
+        String premiums = person.getPremiumList().premiumList.stream().sorted(Comparator.reverseOrder())
                 .map(Premium:: displayPremium).collect(Collectors.joining(", "));
         premiumList.setText(premiums);
         person.getTags().stream()
