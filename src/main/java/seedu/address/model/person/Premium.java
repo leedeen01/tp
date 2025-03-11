@@ -106,7 +106,7 @@ public class Premium {
     }
 
     public String displayPremium() {
-        return premiumName + ": " + premiumAmount;
+        return premiumName + ": $" + premiumAmount;
     }
 
     /**
