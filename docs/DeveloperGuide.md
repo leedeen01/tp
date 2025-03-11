@@ -373,7 +373,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
         * "Please input valid phone number" (if phone number is invalid).
         * "Please input valid email" (if email is invalid).
         * "Please input valid birthday" (if birthday format is incorrect).
-        * "Please input valid premium" (if premium field is invalid).
+        * "Please input valid premiumList" (if premiumList field is invalid).
     * 2a2. Use case resumes at step 1.
 
 * 3a. Client already exists in the database.

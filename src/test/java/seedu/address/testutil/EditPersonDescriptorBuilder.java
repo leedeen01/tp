@@ -5,13 +5,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,7 +52,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(person.getAddress());
         descriptor.setBirthday(person.getBirthday());
         descriptor.setTags(person.getTags());
-        descriptor.setPremium(person.getPremium());
+        descriptor.setPremium(person.getPremiumList());
     }
 
     /**
@@ -121,11 +123,29 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Premium} of the {@code EditPersonDescriptor} that we are building.
      *
-     * @param premium The premium value to set
+     * @param premiumList The premium list to set
      * @return this builder
      */
-    public EditPersonDescriptorBuilder withPremium(Integer premium) {
-        descriptor.setPremium(new Premium(premium));
+    public EditPersonDescriptorBuilder withPremiumList(PremiumList premiumList) {
+        descriptor.setPremium(premiumList);
+        return this;
+    }
+
+    /**
+     * Sets the premium list of the {@code EditPersonDescriptor} using the specified premium string.
+     * This method parses the provided premium string and sets it in the descriptor.
+     * If the parsing fails, a {@code RuntimeException} is thrown.
+     *
+     * @param premium The premium string to be parsed and set in the descriptor.
+     * @return The {@code EditPersonDescriptorBuilder} object, with the updated premium list.
+     * @throws RuntimeException If the parsing of the premium string fails.
+     */
+    public EditPersonDescriptorBuilder withPremiumList(String premium) {
+        try {
+            descriptor.setPremium(ParserUtil.parsePremium(premium));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         return this;
     }
 

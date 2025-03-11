@@ -10,30 +10,34 @@ public class PremiumTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Premium(null));
+        assertThrows(NullPointerException.class, () -> new Premium(null, null));
     }
 
     @Test
     public void constructor_invalidPremiumNegative_throwsIllegalArgumentException() {
-        int invalidPremium = -1;
-        assertThrows(IllegalArgumentException.class, () -> new Premium(invalidPremium));
+        assertThrows(IllegalArgumentException.class, () -> new Premium("name", -100));
+    }
+
+    @Test
+    public void constructor_invalidPremiumName_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Premium("asd as d name", -100));
     }
 
     @Test
     public void isValidPremium() {
         // null premium
-        assertThrows(NullPointerException.class, () -> Premium.isValidPremium(null));
+        assertThrows(NullPointerException.class, () -> PremiumList.isValidPremium(null));
 
         //invalid premium
-        assertFalse(Premium.isValidPremium(-1)); // negative number
+        assertFalse(Premium.isValidPremium("asd", -100)); // negative number
     }
 
     @Test
     public void equals() {
-        Premium premium = new Premium(111);
+        Premium premium = new Premium("asd", 100);
 
         // same values -> return true
-        assertTrue(premium.equals(new Premium(111)));
+        assertTrue(premium.equals(new Premium("asd", 100)));
 
         // same object -> return true
         assertTrue(premium.equals(premium));
@@ -45,20 +49,19 @@ public class PremiumTest {
         assertFalse(premium.equals("111"));
 
         // different values -> return false
-        assertFalse(premium.equals(new Premium(222)));
+        assertFalse(premium.equals(new Premium("asdads", 222)));
     }
 
     @Test
     public void testToString() {
-        Premium premium = new Premium(111);
-        assertTrue(premium.toString().equals("111"));
+        Premium premium = new Premium("asd", 100);
+        assertTrue(premium.toString().equals("[asd, 100]"));
     }
 
     @Test
     public void testHashCode() {
-        Premium premium = new Premium(111);
-        Integer correctPremium = 111;
-        Integer premiumHash = correctPremium.hashCode();
+        Premium premium = new Premium("asd", 100);
+        Integer premiumHash = new String("asd").hashCode() + new Integer(100).hashCode();
         assertTrue(premium.hashCode() == premiumHash);
     }
 }

@@ -20,7 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -51,9 +51,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Birthday birthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Premium premium = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get());
+        PremiumList premiumList = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get());
 
-        Person person = new Person(name, phone, email, address, birthday, premium, tagList);
+        Person person = new Person(name, phone, email, birthday, address, premiumList, tagList);
 
         return new AddCommand(person);
     }

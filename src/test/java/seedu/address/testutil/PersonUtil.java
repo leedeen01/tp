@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,9 +38,13 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_BIRTHDAY + person.getBirthday().toString() + " ");
-        sb.append(PREFIX_PREMIUM + person.getPremium().value.toString() + " ");
+        sb.append(PREFIX_PREMIUM).append(" ");
+        person.getPremiumList().premiumList.stream().forEach(
+                p -> sb.append(
+                        p.getPremiumName()).append(" ").append(p.getPremiumAmount()).append(" ")
+        );
         person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+                s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
@@ -55,6 +60,15 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_BIRTHDAY)
                 .append(birthday.toString()).append(" "));
+        sb.append(PREFIX_PREMIUM).append(" ");
+        if (descriptor.getPremium().isPresent()) {
+            PremiumList premiumList = descriptor.getPremium().get();
+            if (!premiumList.isEmpty()) {
+                premiumList.premiumList.stream().forEach(p -> sb.append(
+                        p.getPremiumName()).append(" ").append(p.getPremiumAmount()).append(" "));
+            }
+        }
+
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
@@ -63,7 +77,7 @@ public class PersonUtil {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
         }
-        descriptor.getPremium().ifPresent(premium -> sb.append(PREFIX_PREMIUM).append(premium.value).append(" "));
+
         return sb.toString();
     }
 }
