@@ -38,7 +38,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
                         PREFIX_BIRTHDAY, PREFIX_PREMIUM);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_BIRTHDAY, PREFIX_PREMIUM)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_BIRTHDAY, PREFIX_PREMIUM)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -53,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         PremiumList premiumList = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get());
 
-        Person person = new Person(name, phone, email, birthday, address, premiumList, tagList);
+        Person person = new Person(name, phone, email, address, birthday, premiumList, tagList);
 
         return new AddCommand(person);
     }

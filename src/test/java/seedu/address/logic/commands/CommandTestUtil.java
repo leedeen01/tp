@@ -79,7 +79,8 @@ public class CommandTestUtil {
                 .withBirthday(VALID_BIRTHDAY_AMY).withPremiumList(VALID_PREMIUM_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withBirthday(VALID_BIRTHDAY_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withPremiumList(VALID_PREMIUM_BOB).build();
+                .withBirthday(VALID_BIRTHDAY_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                .withPremiumList(VALID_PREMIUM_BOB).build();
     }
 
     /**

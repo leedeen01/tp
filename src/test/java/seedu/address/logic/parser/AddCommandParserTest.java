@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Address;
-//import seedu.address.model.person.Birthday;
+import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -168,7 +168,7 @@ public class AddCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                        + ADDRESS_DESC_AMY + BIRTHDAY_DESC_AMY, PREMIUM_DESC_AMY,
+                        + ADDRESS_DESC_AMY + BIRTHDAY_DESC_AMY + PREMIUM_DESC_AMY,
                 new AddCommand(expectedPerson));
     }
 
@@ -235,7 +235,7 @@ public class AddCommandParserTest {
         // invalid birthday
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_BIRTHDAY_DESC + PREMIUM_DESC_BOB,
-                           Premium.MESSAGE_CONSTRAINTS);
+                            Birthday.MESSAGE_CONSTRAINTS);
 
         // invalid premium
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -257,6 +257,5 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + BIRTHDAY_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
-
 
 }

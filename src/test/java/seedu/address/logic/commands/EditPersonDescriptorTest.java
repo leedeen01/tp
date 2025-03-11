@@ -70,9 +70,9 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", birthday="
-                + editPersonDescriptor.getBirthday().orElse(null) + ", premium="
-                + editPersonDescriptor.getPremium().orElse(null) + ', tags=';
-                + editPersonDescriptor.getTags().orElse(null) + "}";
+                + editPersonDescriptor.getBirthday().orElse(null) + ", tags="
+                + String.valueOf(editPersonDescriptor.getTags().orElse(null)) + ", premium="
+                + editPersonDescriptor.getPremium().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }
