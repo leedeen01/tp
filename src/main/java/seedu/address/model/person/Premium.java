@@ -105,6 +105,10 @@ public class Premium {
         return "[" + premiumName + ", " + premiumAmount + "]";
     }
 
+    public String displayPremium() {
+        return premiumName + ": " + premiumAmount;
+    }
+
     /**
      * Compares this premium with another object for equality.
      * Two premiums are equal if they have the same name and amount.
