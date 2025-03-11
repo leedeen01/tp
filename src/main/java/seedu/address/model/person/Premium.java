@@ -102,7 +102,8 @@ public class Premium {
      */
     @Override
     public String toString() {
-        return "[" + premiumName + ", " + premiumAmount + "]";
+        String result = "[" + premiumName + ", " + premiumAmount + "]";
+        return result;
     }
 
     /**
