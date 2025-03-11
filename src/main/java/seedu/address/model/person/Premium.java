@@ -111,7 +111,8 @@ public class Premium {
      * @return A string representation of this premium to be displayed.
      */
     public String displayPremium() {
-        return premiumName + ": $" + premiumAmount;
+        String display = premiumName + ": $" + premiumAmount;
+        return display;
     }
 
     /**

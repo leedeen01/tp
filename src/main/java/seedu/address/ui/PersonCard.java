@@ -60,8 +60,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         String premiums = person.getPremiumList().premiumList.stream()
-                .map(Premium:: displayPremium)
-                .collect(Collectors.joining(", "));
+                .map(Premium:: displayPremium).collect(Collectors.joining(", "));
         premiumList.setText(premiums);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
