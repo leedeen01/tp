@@ -4,6 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
@@ -82,6 +88,29 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(ALICE);
         String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
         assertEquals(expected, addCommand.toString());
+    }
+
+    @Test
+    public void testMessageUsage() {
+        String commandWord = "add";
+        String testString = commandWord + ": Adds a person to the address book. "
+                + "Parameters: "
+                + PREFIX_NAME + "NAME "
+                + PREFIX_PHONE + "PHONE "
+                + PREFIX_EMAIL + "EMAIL "
+                + PREFIX_ADDRESS + "ADDRESS "
+                + "[" + PREFIX_TAG + "TAG]...\n"
+                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT\n"
+                + "Example: " + commandWord + " "
+                + PREFIX_NAME + "John Doe "
+                + PREFIX_PHONE + "98765432 "
+                + PREFIX_EMAIL + "johnd@example.com "
+                + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+                + PREFIX_TAG + "friend "
+                + PREFIX_PREMIUM + "vivo360 $1000";
+        assertEquals(
+                testString,
+                AddCommand.MESSAGE_USAGE);
     }
 
     /**

@@ -59,9 +59,15 @@ public class PremiumTest {
     }
 
     @Test
+    public void testDisplayPremium() {
+        Premium premium = new Premium("asd", 100);
+        assertTrue(premium.displayPremium().equals("asd: $100"));
+    }
+
+    @Test
     public void testHashCode() {
         Premium premium = new Premium("asd", 100);
-        Integer premiumHash = new String("asd").hashCode() + new Integer(100).hashCode();
+        Integer premiumHash = new String("asd").hashCode() + Integer.valueOf(100).hashCode();
         assertTrue(premium.hashCode() == premiumHash);
     }
 }
