@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -69,5 +70,39 @@ public class PremiumTest {
         Premium premium = new Premium("asd", 100);
         Integer premiumHash = new String("asd").hashCode() + Integer.valueOf(100).hashCode();
         assertTrue(premium.hashCode() == premiumHash);
+    }
+
+    @Test
+    public void compareTo_nullPremium_throwsNullPointerException() {
+        Premium premium = new Premium("Standard", 100);
+        assertThrows(NullPointerException.class, () -> premium.compareTo(null));
+    }
+
+    @Test
+    public void compareTo_thisLessThanOther_returnsNegative() {
+        Premium premium1 = new Premium("Basic", 50);
+        Premium premium2 = new Premium("Standard", 100);
+        assertTrue(premium1.compareTo(premium2) < 0);
+    }
+
+    @Test
+    public void compareTo_thisGreaterThanOther_returnsPositive() {
+        Premium premium1 = new Premium("Premium", 200);
+        Premium premium2 = new Premium("Standard", 100);
+        assertTrue(premium1.compareTo(premium2) > 0);
+    }
+
+    @Test
+    public void compareTo_equalPremiums_returnsZero() {
+        Premium premium1 = new Premium("Standard", 100);
+        Premium premium2 = new Premium("Standard", 100);
+        assertEquals(0, premium1.compareTo(premium2));
+    }
+
+    @Test
+    public void compareTo_sameAmountDifferentName_returnsNameComparison() {
+        Premium premium1 = new Premium("Alpha", 100);
+        Premium premium2 = new Premium("Beta", 100);
+        assertTrue(premium1.compareTo(premium2) < 0);
     }
 }

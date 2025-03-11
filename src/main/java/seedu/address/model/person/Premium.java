@@ -6,7 +6,7 @@ import java.util.function.Predicate;
  * Represents an insurance premium with a name and an amount.
  * Guarantees: immutable; name and amount are valid as declared in {@link #isValidPremium(String, Integer)}
  */
-public class Premium {
+public class Premium implements Comparable<Premium> {
 
     public static final String MESSAGE_CONSTRAINTS = "Premium should be a valid name followed by a positive integer";
 
@@ -149,5 +149,17 @@ public class Premium {
     @Override
     public int hashCode() {
         return premiumName.hashCode() + premiumAmount.hashCode();
+    }
+
+    @Override
+    public int compareTo(Premium other) {
+        if (other == null) {
+            throw new NullPointerException("Cannot compare to null Premium");
+        }
+        int amountComparison = this.premiumAmount.compareTo(other.premiumAmount);
+        if (amountComparison != 0) {
+            return amountComparison;
+        }
+        return this.premiumName.compareTo(other.premiumName);
     }
 }
