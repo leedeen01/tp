@@ -1,14 +1,18 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,7 +25,9 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final Integer DEFAULT_PREMIUM = 1000;
+    public static final String DEFAULT_PREMIUM_NAME = "LifeShield";
+    public static final Integer DEFAULT_PREMIUM_AMOUNT = 100;
+    public static final ArrayList<Premium> DEFAULT_PREMIUM_LIST = new ArrayList<Premium>();
 
     private Name name;
     private Phone phone;
@@ -29,6 +35,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
     private Premium premium;
+    private PremiumList premiumList;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -39,7 +46,9 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        premium = new Premium(DEFAULT_PREMIUM);
+        premium = new Premium(DEFAULT_PREMIUM_NAME, DEFAULT_PREMIUM_AMOUNT);
+        DEFAULT_PREMIUM_LIST.add(premium);
+        this.premiumList = new PremiumList(DEFAULT_PREMIUM_LIST);
     }
 
     /**
@@ -51,7 +60,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        premium = personToCopy.getPremium();
+        premiumList = personToCopy.getPremiumList();
     }
 
     /**
@@ -97,13 +106,32 @@ public class PersonBuilder {
     /**
      * Sets the {@code Premium} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPremium(Integer premium) {
-        this.premium = new Premium(premium);
+    public PersonBuilder withPremiumList(PremiumList premiumList) {
+        this.premiumList = premiumList;
+        return this;
+    }
+
+    /**
+     * Sets the premium list for the {@code PersonBuilder} using the provided premium input string.
+     * This method parses the given premium input string and assigns it to the premium list.
+     * If the parsing fails, an {@code IllegalArgumentException} is thrown.
+     *
+     * @param premiumInput The premium input string to be parsed and assigned to the premium list.
+     * @return The {@code PersonBuilder} object, with the updated premium list.
+     * @throws IllegalArgumentException If the parsing of the premium input string fails.
+     */
+    public PersonBuilder withPremiumList(String premiumInput) {
+        try {
+            this.premiumList = ParserUtil.parsePremium(premiumInput);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, premium);
+        return new Person(name, phone, email, address, premiumList, tags);
     }
 
 }

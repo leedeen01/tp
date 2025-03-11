@@ -16,6 +16,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,7 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
-    private final Integer premium;
+    private final JsonAdaptedPremiumList premiumList = new JsonAdaptedPremiumList();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -38,7 +39,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("premium") Integer premium) {
+            @JsonProperty("premiums") String premium,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -46,7 +48,9 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
-        this.premium = premium;
+        if (premium != null) {
+            premiumList.add(premium);
+        }
     }
 
     /**
@@ -60,7 +64,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        premium = source.getPremium().value;
+        premiumList.addAll(source.getPremiumList());
     }
 
     /**
@@ -108,17 +112,20 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        if (premium == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Premium.class.getSimpleName()));
+        if (premiumList.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PremiumList.class
+                    .getSimpleName()));
         }
 
-        if (!Premium.isValidPremium(premium)) {
-            throw new IllegalValueException(Premium.MESSAGE_CONSTRAINTS);
+        for (JsonAdaptedPremium premium : premiumList.premiumList) {
+            if (!Premium.isValidPremium(premium.premiumName, premium.premiumAmount)) {
+                throw new IllegalValueException(Premium.MESSAGE_CONSTRAINTS);
+            }
         }
 
-        final Premium modelPremium = new Premium(premium);
+        final PremiumList modelPremiumList = new PremiumList(premiumList.toModelType());
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelPremium);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPremiumList, modelTags);
     }
 
 }

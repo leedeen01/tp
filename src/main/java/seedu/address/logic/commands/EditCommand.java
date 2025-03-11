@@ -26,7 +26,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -101,9 +101,9 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Premium updatedPremium = editPersonDescriptor.getPremium().orElse(personToEdit.getPremium());
+        PremiumList updatedPremiumList = editPersonDescriptor.getPremium().orElse(personToEdit.getPremiumList());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedPremium);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPremiumList, updatedTags);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private Premium premium;
+        private PremiumList premiumList;
 
         public EditPersonDescriptor() {}
 
@@ -154,7 +154,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
-            setPremium(toCopy.premium);
+            setPremium(toCopy.premiumList);
         }
 
         /**
@@ -196,12 +196,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setPremium(Premium premium) {
-            this.premium = premium;
+        public void setPremium(PremiumList premiumList) {
+            this.premiumList = premiumList;
         }
 
-        public Optional<Premium> getPremium() {
-            return Optional.ofNullable(premium);
+        public Optional<PremiumList> getPremium() {
+            return Optional.ofNullable(premiumList);
         }
 
         /**
@@ -238,7 +238,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(premium, otherEditPersonDescriptor.premium);
+                    && Objects.equals(premiumList, otherEditPersonDescriptor.premiumList);
         }
 
         @Override
@@ -249,7 +249,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
-                    .add("premium", premium)
+                    .add("premium", premiumList)
                     .toString();
         }
     }
