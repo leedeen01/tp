@@ -105,6 +105,11 @@ public class Premium {
         return "[" + premiumName + ", " + premiumAmount + "]";
     }
 
+    /**
+     * Returns a string representation of this premium in the format name: amount.
+     *
+     * @return A string representation of this premium to be displayed.
+     */
     public String displayPremium() {
         return premiumName + ": $" + premiumAmount;
     }
