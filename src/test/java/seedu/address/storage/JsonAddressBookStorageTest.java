@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
@@ -9,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -58,6 +60,28 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataLoadingException() {
         assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    }
+
+    @Test
+    public void readAddressBook_illegalValueException_throwsDataLoadingException() {
+        Path invalidFilePath = Paths.get("src", "test", "data", "InvalidAddressBook.json");
+
+        try {
+            Files.writeString(invalidFilePath, "{ \"invalidField\": \"invalidValue\" }");
+
+            assertThrows(DataLoadingException.class, () -> {
+                new JsonAddressBookStorage(invalidFilePath).readAddressBook(invalidFilePath);
+            });
+
+        } catch (IOException e) {
+            fail("Failed to create a temporary file for testing: " + e.getMessage());
+        } finally {
+            try {
+                Files.deleteIfExists(invalidFilePath);
+            } catch (IOException e) {
+                System.err.println("Failed to delete temporary test file: " + e.getMessage());
+            }
+        }
     }
 
     @Test

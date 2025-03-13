@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -99,18 +100,20 @@ public class AddCommandTest {
                 + PREFIX_PHONE + "PHONE "
                 + PREFIX_EMAIL + "EMAIL "
                 + PREFIX_ADDRESS + "ADDRESS "
+                + PREFIX_BIRTHDAY + "BIRTHDAY "
+                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT "
                 + "[" + PREFIX_TAG + "TAG]...\n"
-                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT\n"
                 + "Example: " + commandWord + " "
                 + PREFIX_NAME + "John Doe "
                 + PREFIX_PHONE + "98765432 "
                 + PREFIX_EMAIL + "johnd@example.com "
                 + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-                + PREFIX_TAG + "friend "
-                + PREFIX_PREMIUM + "vivo360 $1000";
+                + PREFIX_BIRTHDAY + "2002-11-24 "
+                + PREFIX_PREMIUM + "vivo360 $1000 "
+                + PREFIX_TAG + "friend ";
         assertEquals(
-                testString,
-                AddCommand.MESSAGE_USAGE);
+                AddCommand.MESSAGE_USAGE,
+                testString);
     }
 
     /**
