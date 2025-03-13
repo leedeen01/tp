@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -92,8 +93,8 @@ public class AddCommandTest {
 
     @Test
     public void testMessageUsage() {
-        String commandWord = "add";
-        String testString = commandWord + ": Adds a person to the address book. "
+        String COMMAND_WORD = "add";
+        String testString = COMMAND_WORD + ": Adds a person to the address book. "
                 + "Parameters: "
                 + PREFIX_NAME + "NAME "
                 + PREFIX_PHONE + "PHONE "
@@ -101,11 +102,12 @@ public class AddCommandTest {
                 + PREFIX_ADDRESS + "ADDRESS "
                 + "[" + PREFIX_TAG + "TAG]...\n"
                 + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT\n"
-                + "Example: " + commandWord + " "
+                + "Example: " + COMMAND_WORD + " "
                 + PREFIX_NAME + "John Doe "
                 + PREFIX_PHONE + "98765432 "
                 + PREFIX_EMAIL + "johnd@example.com "
                 + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+                + PREFIX_BIRTHDAY + "2002-11-24 "
                 + PREFIX_TAG + "friend "
                 + PREFIX_PREMIUM + "vivo360 $1000";
         assertEquals(
