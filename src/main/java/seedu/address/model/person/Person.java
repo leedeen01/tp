@@ -23,18 +23,21 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Birthday birthday;
     private final PremiumList premiumList = new PremiumList();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, PremiumList premiumlist, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, premiumlist, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Birthday birthday,
+                  PremiumList premiumlist, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, birthday, premiumlist, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.birthday = birthday;
         this.premiumList.addAll(premiumlist);
         this.tags.addAll(tags);
     }
@@ -53,6 +56,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
     }
 
     /**
@@ -100,6 +107,7 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && birthday.equals(otherPerson.birthday)
                 && premiumList.equals(otherPerson.premiumList)
                 && tags.equals(otherPerson.tags);
     }
@@ -107,7 +115,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, premiumList, tags);
+        return Objects.hash(name, phone, email, address, birthday, premiumList, tags);
     }
 
     @Override
@@ -117,6 +125,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("birthday", birthday)
                 .add("premiums", premiumList)
                 .add("tags", tags)
                 .toString();

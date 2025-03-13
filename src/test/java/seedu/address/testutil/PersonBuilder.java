@@ -7,6 +7,7 @@ import java.util.Set;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -25,6 +26,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_BIRTHDAY = "2002-01-01";
     public static final String DEFAULT_PREMIUM_NAME = "LifeShield";
     public static final Integer DEFAULT_PREMIUM_AMOUNT = 100;
     public static final ArrayList<Premium> DEFAULT_PREMIUM_LIST = new ArrayList<Premium>();
@@ -33,6 +35,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Birthday birthday;
     private Set<Tag> tags;
     private Premium premium;
     private PremiumList premiumList;
@@ -45,6 +48,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        birthday = new Birthday(DEFAULT_BIRTHDAY);
         tags = new HashSet<>();
         premium = new Premium(DEFAULT_PREMIUM_NAME, DEFAULT_PREMIUM_AMOUNT);
         DEFAULT_PREMIUM_LIST.add(premium);
@@ -59,6 +63,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        birthday = personToCopy.getBirthday();
         tags = new HashSet<>(personToCopy.getTags());
         premiumList = personToCopy.getPremiumList();
     }
@@ -104,6 +109,13 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Birthday} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withBirthday(String birthday) {
+        this.birthday = new Birthday(birthday);
+        return this;
+    }
+    /**
      * Sets the {@code Premium} of the {@code Person} that we are building.
      */
     public PersonBuilder withPremiumList(PremiumList premiumList) {
@@ -131,7 +143,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, premiumList, tags);
+        return new Person(name, phone, email, address, birthday, premiumList, tags);
     }
 
 }

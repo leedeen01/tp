@@ -3,6 +3,7 @@
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
+    "birthday": "1990-01-01",
     "premium" : "ElderShield 1000",
     "address": "4th street"
   }, {
@@ -10,6 +11,7 @@
     "phone": "948asdf2424",
     "email": "hans@example.com",
     "address": "4th street",
+    "birthday": "1990-01-01",
     "premium" : "ElderShield 1000",
   } ]
 }
