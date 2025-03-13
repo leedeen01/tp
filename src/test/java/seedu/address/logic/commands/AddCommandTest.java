@@ -100,19 +100,20 @@ public class AddCommandTest {
                 + PREFIX_PHONE + "PHONE "
                 + PREFIX_EMAIL + "EMAIL "
                 + PREFIX_ADDRESS + "ADDRESS "
+                + PREFIX_BIRTHDAY + "BIRTHDAY "
+                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT "
                 + "[" + PREFIX_TAG + "TAG]...\n"
-                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT\n"
                 + "Example: " + commandWord + " "
                 + PREFIX_NAME + "John Doe "
                 + PREFIX_PHONE + "98765432 "
                 + PREFIX_EMAIL + "johnd@example.com "
                 + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
                 + PREFIX_BIRTHDAY + "2002-11-24 "
-                + PREFIX_TAG + "friend "
-                + PREFIX_PREMIUM + "vivo360 $1000";
+                + PREFIX_PREMIUM + "vivo360 $1000 "
+                + PREFIX_TAG + "friend ";
         assertEquals(
-                testString,
-                AddCommand.MESSAGE_USAGE);
+                AddCommand.MESSAGE_USAGE,
+                testString);
     }
 
     /**
