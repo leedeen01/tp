@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -28,6 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -36,7 +38,8 @@ public class AddCommand extends Command {
             + PREFIX_BIRTHDAY + "2002-11-24 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney"
-            + PREFIX_TAG + 99999;
+            + PREFIX_TAG + 99999
+            + PREFIX_PREMIUM + "vivo360 $1000";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
