@@ -14,6 +14,37 @@
     -fx-background-color: darkgray;
 }
 
+#helpHBox {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+
 #helpMessageContainer {
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#commandTable {
+    -fx-background-color: #2e2e2e;
+    -fx-table-cell-border-color: gray;
+    -fx-control-inner-background: #2e2e2e;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.table-column {
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: #3a3a3a;
+}
+
+.table-row-cell:filled:selected, .table-cell:filled:selected {
+    -fx-background-color: #555555;
+}
+
+.table-cell {
+    -fx-padding: 10;
 }
