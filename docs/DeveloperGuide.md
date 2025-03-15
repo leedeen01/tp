@@ -328,26 +328,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClientNest` and the **Actor** is the `Young Undergraduate/Graduate Financial Advisor`, unless specified otherwise)
 
 **Use case: View Client List Overview**
 
 **MSS**
 
 1. User requests to list all clients.
-2. AddressBook retrieves and displays a list of clients.
+2. ClientNest retrieves and displays a list of clients.
 
    Use case ends.
 
 **Extensions**
 
 * 2a. Client retrieval issues.
-    * 2a1. AddressBook shows an error message.
+    * 2a1. ClientNest shows an error message.
 
       Use case ends.
 
 * 2b. Deleted clients continue to show up.
-    * 2b1. AddressBook refreshes the client list and removes deleted clients.
+    * 2b1. ClientNest refreshes the client list and removes deleted clients.
 
       Use case resumes at step 2.
 
@@ -358,16 +358,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add a new client with details (name, optional fields).
-2. AddressBook validates the input fields.
-3. AddressBook adds the client to the database.
-4. AddressBook confirms the addition.
+2. ClientNest validates for details of the input fields.
+3. ClientNest adds the client to the database.
+4. ClientNest confirms the addition.
 
    Use case ends.
 
 **Extensions**
 
 * 2a. One or more input fields are invalid.
-    * 2a1. AddressBook shows an error message:
+    * 2a1. ClientNest shows an error message:
         * "Please input valid name" (if name is missing or invalid).
         * "Please input valid address" (if address is invalid).
         * "Please input valid phone number" (if phone number is invalid).
@@ -377,12 +377,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a2. Use case resumes at step 1.
 
 * 3a. Client already exists in the database.
-    * 3a1. AddressBook shows an error message and displays the existing client details.
+    * 3a1. ClientNest shows an error message and displays the existing client details.
 
       Use case ends.
 
 * 3b. Database error occurs while saving the client.
-    * 3b1. AddressBook shows an error message.
+    * 3b1. ClientNest shows an error message.
 
       Use case ends.
 
@@ -393,26 +393,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to delete a specific client by name.
-2. AddressBook validates the input.
-3. AddressBook deletes the client from the database.
-4. AddressBook confirms the deletion.
+2. ClientNest validates the input.
+3. ClientNest deletes the client from the database.
+4. ClientNest confirms the deletion.
 
    Use case ends.
 
 **Extensions**
 
 * 2a. The provided name is invalid or empty.
-    * 2a1. AddressBook shows an error message: "Please input valid name."
+    * 2a1. ClientNest shows an error message: "Please input valid name."
 
       Use case resumes at step 1.
 
 * 3a. The client does not exist in the database.
-    * 3a1. AddressBook shows an error message: "Client not found."
+    * 3a1. ClientNest shows an error message: "Client not found."
 
       Use case ends.
 
 * 3b. A database error occurs while deleting the client.
-    * 3b1. AddressBook shows an error message.
+    * 3b1. ClientNest shows an error message.
 
       Use case ends.
 
@@ -432,11 +432,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Financial Advisor (FA)**: A professional who provides financial services and advice to clients, including investment management, tax planning, and estate planning.
+* **Touchpoint**: Any interaction between a financial advisor and a client, such as meetings, phone calls, emails, or events, aimed at building and maintaining the relationship.
 * **Client**: An individual or organization for whom financial advisory services are provided, whose details are stored within the system.
-* **Sensitive Data**: Information that must be protected due to privacy or confidentiality requirements, including personal, financial, or identification details
-* **Interaction**: A record of any communication or engagement with a client, including meetings, calls, emails, and follow-ups
+* **Followup**: An actions taken by a financial advisor to reconnect with potential or existing clients after an initial interaction
+* **CLI Interface**: A text-based user interface that allows users to interact with software by typing commands.
+* **Retention Rate**: 
+* **Server Downtime**:
+* **mainstream OS**:
+* **Response Time**: The time taken by the system to respond to a user's action or request
+* **Commands**: Instructions given by a user to perform specific operations within the system.
+* **User Interface (UI)**: The means through which a user interacts with the system, encompassing design, layout, and interactive elements
+* **Search Functionality**: Features that allow users to query and retrieve specific data from the system
+* **Export**: The process of saving data in a specific format for use outside the system
+* **CSV (Comma-Separated Values)**: A file format that uses commas to separate values, commonly used for data exchange between applications
+* **Excel**: A spreadsheet program developed by Microsoft, used for data organization and analysis.
+* **JSON (JavaScript Object Notation)**: A lightweight data interchange format that is easy for humans to read and write, and for machines to parse and generate.
+* **Encryption**: The process of converting data into a coded form to prevent unauthorized access.
+* **Data Integrity**: The accuracy and consistency of data over its lifecycle.
+* **Data Recovery**: The process of restoring data that has been lost, accidentally deleted, corrupted, or made inaccessible.
+* **Error Handling**: The process of anticipating, detecting, and resolving errors in the system
+* **User Experience (UX)**: The overall experience of a person using the system, especially in terms of how easy and pleasant it is to use.
+* **System Crash**: An unexpected failure of a computer program or operating system, leading to its abrupt termination.
+* **Server Overload**: A state where a server is unable to handle incoming requests due to excessive load, leading to slow response times or failures.
 
 --------------------------------------------------------------------------------------------------------------------
 
