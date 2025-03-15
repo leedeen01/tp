@@ -2,9 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
@@ -17,6 +17,18 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String COMMAND_SUMMARY = "Command Summary:\n" +
+            "Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​\n" +
+            "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague\n\n" +
+            "Clear: clear\n\n" +
+            "Delete: delete INDEX\n" +
+            "e.g., delete 3\n\n" +
+            "Edit: edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​\n" +
+            "e.g., edit 2 n/James Lee e/jameslee@example.com\n\n" +
+            "Find: find KEYWORD [MORE_KEYWORDS]\n" +
+            "e.g., find James Jake\n\n" +
+            "List: list\n\n" +
+            "Help: help";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -27,6 +39,14 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private TableView<String[]> commandTable;
+
+    @FXML
+    private TableColumn<String[], String> actionColumn;
+
+    @FXML
+    private TableColumn<String[], String> formatColumn;
     /**
      * Creates a new HelpWindow.
      *
@@ -35,6 +55,42 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+        populateCommandSummary();
+    }
+
+    private void populateCommandSummary() {
+        String[] actions = {
+                "Add", "Clear", "Delete", "Edit", "Find", "List", "Help"
+        };
+
+        String[] formats = {
+                "add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…*\n" +
+                        "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 b/2002-11-24 pr/vivo360 1000 t/friend t/colleague",
+
+                "clear",
+
+                "delete INDEX\n" +
+                        "e.g., delete 3",
+
+                "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [t/TAG]…*\n" +
+                        "e.g., edit 2 n/James Lee e/jameslee@example.com b/2001-02-13",
+
+                "find KEYWORD [MORE_KEYWORDS]\n" +
+                        "e.g., find James Jake",
+
+                "list",
+
+                "help"
+        };
+
+        // Set up the table columns to use array elements as values
+        actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[0]));
+        formatColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[1]));
+
+        // Populate the table with the action and format pairs
+        for (int i = 0; i < actions.length; i++) {
+            commandTable.getItems().add(new String[]{actions[i], formats[i]});
+        }
     }
 
     /**
