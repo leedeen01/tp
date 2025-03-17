@@ -153,11 +153,12 @@ public class ParserUtil {
         PremiumList premiumList = new PremiumList();
         String[] split = string.split(" ");
         for (int i = 0, size = split.length; i < size; i = i + 2) {
-            if (!Premium.isValidPremium(split[i], Integer.parseInt(split[i + 1]))) {
+            String premiumValue = split[i + 1].replace("$", "");
+            if (!Premium.isValidPremium(split[i], Integer.parseInt(premiumValue))) {
                 throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
             }
 
-            Premium premium = new Premium(split[i], Integer.parseInt(split[i + 1]));
+            Premium premium = new Premium(split[i], Integer.parseInt(premiumValue));
             premiumList.add(premium);
 
         }
