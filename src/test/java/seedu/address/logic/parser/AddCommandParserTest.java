@@ -200,10 +200,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + VALID_BIRTHDAY_BOB + PREMIUM_DESC_BOB, expectedMessage);
 
-        // missing premium prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + BIRTHDAY_DESC_BOB + VALID_PREMIUM_BOB, expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
                         + VALID_ADDRESS_BOB + VALID_ADDRESS_BOB + VALID_BIRTHDAY_BOB + VALID_PREMIUM_BOB,
