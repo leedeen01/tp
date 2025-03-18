@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPremiumBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -18,13 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private PremiumBookStorage premiumBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, PremiumBookStorage premiumBookStorage, UserPrefsStorage userPrefsStorage) {
         this.addressBookStorage = addressBookStorage;
+        this.premiumBookStorage = premiumBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -75,4 +78,31 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ PremiumBook methods ==============================
+    @Override
+    public Path getPremiumBookFilePath() {
+        return premiumBookStorage.getPremiumBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyPremiumBook> readPremiumBook() throws DataLoadingException {
+        return readPremiumBook(premiumBookStorage.getPremiumBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyPremiumBook> readPremiumBook(Path filePath) throws DataLoadingException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return premiumBookStorage.readPremiumBook(filePath);
+    }
+
+    @Override
+    public void savePremiumBook(ReadOnlyPremiumBook premiumBook) throws IOException {
+        savePremiumBook(premiumBook, premiumBookStorage.getPremiumBookFilePath());
+    }
+
+    @Override
+    public void savePremiumBook(ReadOnlyPremiumBook premiumBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        premiumBookStorage.savePremiumBook(premiumBook, filePath);
+    }
 }

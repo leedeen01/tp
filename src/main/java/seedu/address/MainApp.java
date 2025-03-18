@@ -18,13 +18,17 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PremiumBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPremiumBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPremiumBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PremiumBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -57,8 +61,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        PremiumBookStorage premiumBookStorage = new JsonPremiumBookStorage(userPrefs.getPremiumBookFilePath());
+        storage = new StorageManager(addressBookStorage, premiumBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -68,29 +74,45 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and premium book and {@code userPrefs}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using premium data file : " + storage.getPremiumBookFilePath());
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyPremiumBook> premiumBookOptional;
+        ReadOnlyAddressBook initialAddressBookData;
+        ReadOnlyPremiumBook initialPremiumBookData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            initialAddressBookData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            premiumBookOptional = storage.readPremiumBook();
+            if (!premiumBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getPremiumBookFilePath()
+                        + " populated with a sample PremiumBook.");
+            }
+            //initialPremiumBookData = premiumBookOptional.orElseGet(SampleDataUtil::getSamplePremiumBook);
+            initialPremiumBookData = new PremiumBook();
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getPremiumBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty PremiumBook.");
+            initialPremiumBookData = new PremiumBook();
+        }
+
+        return new ModelManager(initialAddressBookData, initialPremiumBookData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -170,7 +192,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ClientNest" + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
@@ -179,6 +201,8 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping AddressBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveAddressBook(model.getAddressBook());
+            storage.savePremiumBook(model.getPremiumBook());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

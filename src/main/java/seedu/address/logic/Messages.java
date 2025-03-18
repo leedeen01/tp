@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
+import seedu.address.model.premium.Premium;
 
 /**
  * Container for user visible messages.
@@ -18,6 +19,8 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_PREMIUM_DISPLAYED_INDEX = "The premium index provided is invalid";
+    public static final String MESSAGE_PREMIUMS_LISTED_OVERVIEW = "%1$d premiums listed!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -47,6 +50,22 @@ public class Messages {
                 .append(person.getBirthday())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code premium} for display to the user.
+     */
+    public static String formatPremium(Premium premium) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("; Premium Name: ")
+                .append(premium.getPremiumName())
+                .append("; Policy Number: ")
+                .append(premium.getPolicyNumber())
+                .append("; Provider Company: ")
+                .append(premium.getProviderCompany())
+                .append("; Policy Link: ")
+                .append(premium.getPolicyLink());
         return builder.toString();
     }
 

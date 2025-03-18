@@ -8,7 +8,8 @@ import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Represents a Premium in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public class Premium {
 
@@ -21,8 +22,8 @@ public class Premium {
     /**
      * Every field must be present and not null.
      */
-    public Premium(PolicyLink policyLink, PolicyNumber policyNumber,
-                   PremiumName premiumName, ProviderCompany providerCompany) {
+    public Premium(PremiumName premiumName, PolicyNumber policyNumber,
+            ProviderCompany providerCompany, PolicyLink policyLink) {
         requireAllNonNull(policyLink, policyNumber, premiumName, providerCompany);
         this.policyLink = policyLink;
         this.policyNumber = policyNumber;
@@ -30,7 +31,7 @@ public class Premium {
         this.providerCompany = providerCompany;
     }
 
-    public PolicyLink getPremiumLink() {
+    public PolicyLink getPolicyLink() {
         return policyLink;
     }
 
@@ -42,7 +43,7 @@ public class Premium {
         return premiumName;
     }
 
-    public ProviderCompany getProvider() {
+    public ProviderCompany getProviderCompany() {
         return providerCompany;
     }
 
@@ -74,7 +75,7 @@ public class Premium {
         }
 
         Premium otherPremium = (Premium) other;
-        return  policyLink.equals(otherPremium.policyLink)
+        return policyLink.equals(otherPremium.policyLink)
                 && policyNumber.equals(otherPremium.policyNumber)
                 && premiumName.equals(otherPremium.premiumName)
                 && providerCompany.equals(otherPremium.providerCompany);

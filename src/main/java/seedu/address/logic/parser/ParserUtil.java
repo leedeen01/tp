@@ -16,6 +16,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
+import seedu.address.model.premium.PolicyLink;
+import seedu.address.model.premium.PolicyNumber;
+import seedu.address.model.premium.PremiumName;
+import seedu.address.model.premium.ProviderCompany;
 import seedu.address.model.tag.Tag;
 
 
@@ -163,5 +167,65 @@ public class ParserUtil {
 
         }
         return premiumList;
+    }
+
+        /**
+     * Parses a {@code String policyNumber} into a {@code PolicyNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code policyNumber} is invalid.
+     */
+    public static PolicyNumber parsePolicyNumber(String policyNumber) throws ParseException {
+        requireNonNull(policyNumber);
+        String trimmedPolicyNumber = policyNumber.trim();
+        if (!PolicyNumber.isValidPolicyNumber(trimmedPolicyNumber)) {
+            throw new ParseException(PolicyNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new PolicyNumber(trimmedPolicyNumber);
+    }
+
+    /**
+     * Parses a {@code String premiumName} into a {@code PremiumName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code premiumName} is invalid.
+     */
+    public static PremiumName parsePremiumName(String premiumName) throws ParseException {
+        requireNonNull(premiumName);
+        String trimmedPremiumName = premiumName.trim();
+        if (!PremiumName.isValidPremiumName(trimmedPremiumName)) {
+            throw new ParseException(PremiumName.MESSAGE_CONSTRAINTS);
+        }
+        return new PremiumName(trimmedPremiumName);
+    }
+
+    /**
+     * Parses a {@code String providerCompany} into a {@code ProviderCompany}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code providerCompany} is invalid.
+     */
+    public static ProviderCompany parseProviderCompany(String providerCompany) throws ParseException {
+        requireNonNull(providerCompany);
+        String trimmedProviderCompany = providerCompany.trim();
+        if (!ProviderCompany.isValidProviderCompany(trimmedProviderCompany)) {
+            throw new ParseException(ProviderCompany.MESSAGE_CONSTRAINTS);
+        }
+        return new ProviderCompany(trimmedProviderCompany);
+    }
+
+    /**
+     * Parses a {@code String policyLink} into a {@code PolicyLink}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code policyLink} is invalid.
+     */
+    public static PolicyLink parsePolicyLink(String policyLink) throws ParseException {
+        requireNonNull(policyLink);
+        String trimmedPolicyLink = policyLink.trim();
+        if (!PolicyLink.isValidPolicyLink(trimmedPolicyLink)) {
+            throw new ParseException(PolicyLink.MESSAGE_CONSTRAINTS);
+        }
+        return new PolicyLink(trimmedPolicyLink);
     }
 }
