@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -27,9 +25,6 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_BIRTHDAY = "2002-01-01";
-    public static final String DEFAULT_PREMIUM_NAME = "LifeShield";
-    public static final Integer DEFAULT_PREMIUM_AMOUNT = 100;
-    public static final ArrayList<Premium> DEFAULT_PREMIUM_LIST = new ArrayList<Premium>();
 
     private Name name;
     private Phone phone;
@@ -37,7 +32,6 @@ public class PersonBuilder {
     private Address address;
     private Birthday birthday;
     private Set<Tag> tags;
-    private Premium premium;
     private PremiumList premiumList;
 
     /**
@@ -50,9 +44,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         birthday = new Birthday(DEFAULT_BIRTHDAY);
         tags = new HashSet<>();
-        premium = new Premium(DEFAULT_PREMIUM_NAME, DEFAULT_PREMIUM_AMOUNT);
-        DEFAULT_PREMIUM_LIST.add(premium);
-        this.premiumList = new PremiumList(DEFAULT_PREMIUM_LIST);
+        this.premiumList = new PremiumList();
     }
 
     /**

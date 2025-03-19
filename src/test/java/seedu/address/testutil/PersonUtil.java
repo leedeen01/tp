@@ -38,14 +38,18 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_BIRTHDAY + person.getBirthday().toString() + " ");
-        sb.append(PREFIX_PREMIUM).append(" ");
-        person.getPremiumList().premiumList.stream().forEach(
-                p -> sb.append(
-                        p.getPremiumName()).append(" ").append(p.getPremiumAmount()).append(" ")
-        );
+
+        if (!person.getPremiumList().isEmpty()) {
+            PremiumList premiumList = person.getPremiumList();
+            sb.append(PREFIX_PREMIUM).append(" ");
+            premiumList.premiumList.stream().forEach(p -> sb.append(
+                p.getPremiumName()).append(" ").append(p.getPremiumAmount()).append(" "));
+        }
+
         person.getTags().stream().forEach(
                 s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+
         return sb.toString();
     }
 
@@ -60,13 +64,19 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getBirthday().ifPresent(birthday -> sb.append(PREFIX_BIRTHDAY)
                 .append(birthday.toString()).append(" "));
-        sb.append(PREFIX_PREMIUM).append(" ");
         if (descriptor.getPremium().isPresent()) {
             PremiumList premiumList = descriptor.getPremium().get();
             if (!premiumList.isEmpty()) {
+                sb.append(PREFIX_PREMIUM).append(" ");
                 premiumList.premiumList.stream().forEach(p -> sb.append(
                         p.getPremiumName()).append(" ").append(p.getPremiumAmount()).append(" "));
+            } else {
+                sb.append(PREFIX_PREMIUM).append(" ");
+                sb.append("");
             }
+        } else {
+            sb.append(PREFIX_PREMIUM).append(" ");
+            sb.append("");
         }
 
         if (descriptor.getTags().isPresent()) {
