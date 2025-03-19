@@ -105,8 +105,7 @@ public class MainApp extends Application {
                 logger.info("Creating a new data file " + storage.getPolicyBookFilePath()
                         + " populated with a sample PolicyBook.");
             }
-            //initialPolicyBookData = policyBookOptional.orElseGet(SampleDataUtil::getSamplePolicyook);
-            initialPolicyBookData = new PolicyBook();
+            initialPolicyBookData = policyBookOptional.orElseGet(SampleDataUtil::getSamplePolicyBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getPolicyBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty PolicyBook.");

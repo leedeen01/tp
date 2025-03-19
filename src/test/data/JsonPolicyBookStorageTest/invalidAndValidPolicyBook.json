@@ -1,0 +1,17 @@
+{
+    "policies": [
+      {
+        "policyLink": "https://www.shieldcorp.com/policy123",
+        "policyNumber": "POL123",
+        "policyName": "LifeShield",
+        "providerCompany": "ShieldCorp"
+      },
+      {
+        "policyLink": "https://www.healthcorp.com/policy456",
+        "policyNumber": "456",
+        "policyName": "HealthPlus",
+        "providerCompany": ""
+      }
+    ]
+  }
+  

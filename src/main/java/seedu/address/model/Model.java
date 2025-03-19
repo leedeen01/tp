@@ -108,7 +108,7 @@ public interface Model {
      * Adds the given policy.
      * {@code policy} must not already exist in the policy book.
      */
-    void addPolicy(Policy policy); // New method
+    void addPolicy(Policy policy);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
