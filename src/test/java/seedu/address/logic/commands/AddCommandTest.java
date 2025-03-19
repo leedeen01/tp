@@ -28,8 +28,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -189,6 +191,57 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Policy> getFilteredPolicyList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPolicyList(Predicate<Policy> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPolicy(Policy target, Policy editedPolicy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePolicy(Policy target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPolicyBook getPolicyBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPolicyBook(ReadOnlyPolicyBook policyBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPolicyBookFilePath(Path policyBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getPolicyBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

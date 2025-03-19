@@ -1,4 +1,4 @@
-package seedu.address.model.premium;
+package seedu.address.model.policy;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ProviderCompany {
 
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
         "Provider company names should not be blank";
 
     /*

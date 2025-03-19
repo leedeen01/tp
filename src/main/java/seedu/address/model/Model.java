@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
-import seedu.address.model.premium.Premium;
+import seedu.address.model.policy.Policy;
 
 /**
  * The API of the Model component.
@@ -14,7 +14,7 @@ import seedu.address.model.premium.Premium;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Premium> PREDICATE_SHOW_ALL_PREMIUMS = unused -> true; // New predicate
+    Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true; // New predicate
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -46,16 +46,16 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-    // New methods for PremiumBook
+    // New methods for PolicyBook
     /**
-     * Returns the user prefs' premium book file path.
+     * Returns the user prefs' policy book file path.
      */
-    Path getPremiumBookFilePath();
+    Path getPolicyBookFilePath();
 
     /**
-     * Sets the user prefs' premium book file path.
+     * Sets the user prefs' policy book file path.
      */
-    void setPremiumBookFilePath(Path premiumBookFilePath);
+    void setPolicyBookFilePath(Path policyBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -66,23 +66,23 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Replaces premium book data with the data in {@code premiumBook}.
+     * Replaces policy book data with the data in {@code policyBook}.
      */
-    void setPremiumBook(ReadOnlyPremiumBook premiumBook); // New method
+    void setPolicyBook(ReadOnlyPolicyBook policyBook); // New method
 
-    /** Returns the PremiumBook */
-    ReadOnlyPremiumBook getPremiumBook(); // New method
+    /** Returns the PolicyBook */
+    ReadOnlyPolicyBook getPolicyBook(); // New method
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
 
-    // New method for Premium
+    // New method for Policy
     /**
-     * Returns true if a premium with the same identity as {@code premium} exists in the premium book.
+     * Returns true if a policy with the same identity as {@code policy} exists in the policy book.
      */
-    boolean hasPremium(Premium premium); // New method
+    boolean hasPolicy(Policy policy); // New method
 
     /**
      * Deletes the given person.
@@ -90,12 +90,12 @@ public interface Model {
      */
     void deletePerson(Person target);
 
-    // New method for Premium
+    // New method for Policy
     /**
-     * Deletes the given premium.
-     * The premium must exist in the premium book.
+     * Deletes the given policy.
+     * The policy must exist in the policy book.
      */
-    void deletePremium(Premium target); // New method
+    void deletePolicy(Policy target);
 
     /**
      * Adds the given person.
@@ -103,12 +103,12 @@ public interface Model {
      */
     void addPerson(Person person);
 
-    // New method for Premium
+    // New method for Policy
     /**
-     * Adds the given premium.
-     * {@code premium} must not already exist in the premium book.
+     * Adds the given policy.
+     * {@code policy} must not already exist in the policy book.
      */
-    void addPremium(Premium premium); // New method
+    void addPolicy(Policy policy); // New method
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -117,19 +117,20 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    // New method for Premium
+    // New method for Policy
     /**
-     * Replaces the given premium {@code target} with {@code editedPremium}.
-     * {@code target} must exist in the premium book.
-     * The premium identity of {@code editedPremium} must not be the same as another existing premium in the premium book.
+     * Replaces the given policy {@code target} with {@code editedPolicy}.
+     * {@code target} must exist in the policy book.
+     * The policy identity of {@code editedPolicy} must not be the same as
+     * another existing policy in the policy book.
      */
-    void setPremium(Premium target, Premium editedPremium); // New method
+    void setPolicy(Policy target, Policy editedPolicy);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered premium list */
-    ObservableList<Premium> getFilteredPremiumList(); // New method
+    /** Returns an unmodifiable view of the filtered policy list */
+    ObservableList<Policy> getFilteredPolicyList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -138,8 +139,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered premium list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered policy list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPremiumList(Predicate<Premium> predicate); // New method
+    void updateFilteredPolicyList(Predicate<Policy> predicate);
 }

@@ -18,17 +18,17 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PremiumBook;
+import seedu.address.model.PolicyBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPremiumBook;
+import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonPremiumBookStorage;
+import seedu.address.storage.JsonPolicyBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.PremiumBookStorage;
+import seedu.address.storage.PolicyBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -61,10 +61,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        PremiumBookStorage premiumBookStorage = new JsonPremiumBookStorage(userPrefs.getPremiumBookFilePath());
-        storage = new StorageManager(addressBookStorage, premiumBookStorage, userPrefsStorage);
+        PolicyBookStorage policyBookStorage = new JsonPolicyBookStorage(userPrefs.getPolicyBookFilePath());
+        storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -74,16 +74,17 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and premium book and {@code userPrefs}.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s
+     * address book and premium book and {@code userPrefs}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
-        logger.info("Using premium data file : " + storage.getPremiumBookFilePath());
+        logger.info("Using premium data file : " + storage.getPolicyBookFilePath());
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        Optional<ReadOnlyPremiumBook> premiumBookOptional;
+        Optional<ReadOnlyPolicyBook> policyBookOptional;
         ReadOnlyAddressBook initialAddressBookData;
-        ReadOnlyPremiumBook initialPremiumBookData;
+        ReadOnlyPolicyBook initialPolicyBookData;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -99,20 +100,20 @@ public class MainApp extends Application {
         }
 
         try {
-            premiumBookOptional = storage.readPremiumBook();
-            if (!premiumBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getPremiumBookFilePath()
-                        + " populated with a sample PremiumBook.");
+            policyBookOptional = storage.readPolicyBook();
+            if (!policyBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getPolicyBookFilePath()
+                        + " populated with a sample PolicyBook.");
             }
-            //initialPremiumBookData = premiumBookOptional.orElseGet(SampleDataUtil::getSamplePremiumBook);
-            initialPremiumBookData = new PremiumBook();
+            //initialPolicyBookData = policyBookOptional.orElseGet(SampleDataUtil::getSamplePolicyook);
+            initialPolicyBookData = new PolicyBook();
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getPremiumBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty PremiumBook.");
-            initialPremiumBookData = new PremiumBook();
+            logger.warning("Data file at " + storage.getPolicyBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty PolicyBook.");
+            initialPolicyBookData = new PolicyBook();
         }
 
-        return new ModelManager(initialAddressBookData, initialPremiumBookData, userPrefs);
+        return new ModelManager(initialAddressBookData, initialPolicyBookData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -202,7 +203,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(model.getUserPrefs());
             storage.saveAddressBook(model.getAddressBook());
-            storage.savePremiumBook(model.getPremiumBook());
+            storage.savePolicyBook(model.getPolicyBook());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

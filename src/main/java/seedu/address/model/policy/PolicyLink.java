@@ -1,4 +1,4 @@
-package seedu.address.model.premium;
+package seedu.address.model.policy;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PolicyLink {
 
     public static final String MESSAGE_CONSTRAINTS = "Policy links should be valid URLs";
-    public static final String VALIDATION_REGEX = 
+    public static final String VALIDATION_REGEX =
         "^(https?|ftp)://[-a-zA-Z0-9+&@#/%?=~_|$!:,.;]*[-a-zA-Z0-9+&@#/%=~_|$]";
-    
+
     public final String value;
 
     /**

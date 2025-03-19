@@ -16,10 +16,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
-import seedu.address.model.premium.PolicyLink;
-import seedu.address.model.premium.PolicyNumber;
-import seedu.address.model.premium.PremiumName;
-import seedu.address.model.premium.ProviderCompany;
+import seedu.address.model.policy.PolicyLink;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.PolicyNumber;
+import seedu.address.model.policy.ProviderCompany;
 import seedu.address.model.tag.Tag;
 
 
@@ -169,7 +169,7 @@ public class ParserUtil {
         return premiumList;
     }
 
-        /**
+    /**
      * Parses a {@code String policyNumber} into a {@code PolicyNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -185,18 +185,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String premiumName} into a {@code PremiumName}.
+     * Parses a {@code String policyName} into a {@code PolicyName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code premiumName} is invalid.
+     * @throws ParseException if the given {@code policyName} is invalid.
      */
-    public static PremiumName parsePremiumName(String premiumName) throws ParseException {
-        requireNonNull(premiumName);
-        String trimmedPremiumName = premiumName.trim();
-        if (!PremiumName.isValidPremiumName(trimmedPremiumName)) {
-            throw new ParseException(PremiumName.MESSAGE_CONSTRAINTS);
+    public static PolicyName parsePolicyName(String policyName) throws ParseException {
+        requireNonNull(policyName);
+        String trimmedPolicyName = policyName.trim();
+        if (!PolicyName.isValidPolicyName(trimmedPolicyName)) {
+            throw new ParseException(PolicyName.MESSAGE_CONSTRAINTS);
         }
-        return new PremiumName(trimmedPremiumName);
+        return new PolicyName(trimmedPolicyName);
     }
 
     /**

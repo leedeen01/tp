@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.premium.Premium;
+import seedu.address.model.policy.Policy;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,29 +21,29 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final PremiumBook premiumBook;
+    private final PolicyBook policyBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Premium> filteredPremiums;
+    private final FilteredList<Policy> filteredPolicies;
 
     /**
-     * Initializes a ModelManager with the given addressBook, premiumBook, and userPrefs.
+     * Initializes a ModelManager with the given addressBook, policyBook, and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPremiumBook premiumBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, premiumBook, userPrefs);
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPolicyBook policyBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(addressBook, policyBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + ", premium book: " + premiumBook 
+        logger.fine("Initializing with address book: " + addressBook + ", policy book: " + policyBook
                 + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.premiumBook = new PremiumBook(premiumBook);
+        this.policyBook = new PolicyBook(policyBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredPremiums = new FilteredList<>(this.premiumBook.getPremiumList());
+        filteredPolicies = new FilteredList<>(this.policyBook.getPolicyList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new PremiumBook(), new UserPrefs());
+        this(new AddressBook(), new PolicyBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,14 +82,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getPremiumBookFilePath() {
-        return userPrefs.getPremiumBookFilePath();
+    public Path getPolicyBookFilePath() {
+        return userPrefs.getPolicyBookFilePath();
     }
 
     @Override
-    public void setPremiumBookFilePath(Path premiumBookFilePath) {
-        requireNonNull(premiumBookFilePath);
-        userPrefs.setPremiumBookFilePath(premiumBookFilePath);
+    public void setPolicyBookFilePath(Path policyBookPath) {
+        requireNonNull(policyBookPath);
+        userPrefs.setPolicyBookFilePath(policyBookPath);
     }
 
     //=========== AddressBook ================================================================================
@@ -128,40 +128,40 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== PremiumBook ================================================================================
+    //=========== PolicyBook ================================================================================
 
     @Override
-    public void setPremiumBook(ReadOnlyPremiumBook premiumBook) {
-        this.premiumBook.resetData(premiumBook);
+    public void setPolicyBook(ReadOnlyPolicyBook policyBook) {
+        this.policyBook.resetData(policyBook);
     }
 
     @Override
-    public ReadOnlyPremiumBook getPremiumBook() {
-        return premiumBook;
+    public ReadOnlyPolicyBook getPolicyBook() {
+        return policyBook;
     }
 
     @Override
-    public boolean hasPremium(Premium premium) {
-        requireNonNull(premium);
-        return premiumBook.hasPremium(premium);
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policyBook.hasPolicy(policy);
     }
 
     @Override
-    public void deletePremium(Premium target) {
-        premiumBook.removePremium(target);
+    public void deletePolicy(Policy target) {
+        policyBook.removePolicy(target);
     }
 
     @Override
-    public void addPremium(Premium premium) {
-        premiumBook.addPremium(premium);
-        updateFilteredPremiumList(Model.PREDICATE_SHOW_ALL_PREMIUMS);
+    public void addPolicy(Policy policy) {
+        policyBook.addPolicy(policy);
+        updateFilteredPolicyList(Model.PREDICATE_SHOW_ALL_POLICIES);
     }
 
     @Override
-    public void setPremium(Premium target, Premium editedPremium) {
-        requireAllNonNull(target, editedPremium);
+    public void setPolicy(Policy target, Policy editedPolicy) {
+        requireAllNonNull(target, editedPolicy);
 
-        premiumBook.setPremium(target, editedPremium);
+        policyBook.setPolicy(target, editedPolicy);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -181,21 +181,21 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Premium List Accessors ============================================================
+    //=========== Filtered Policy List Accessors ============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Premium} backed by the internal list of
-     * {@code versionedPremiumBook}
+     * Returns an unmodifiable view of the list of {@code Policy} backed by the internal list of
+     * {@code versionedPolicyBook}
      */
     @Override
-    public ObservableList<Premium> getFilteredPremiumList() {
-        return filteredPremiums;
+    public ObservableList<Policy> getFilteredPolicyList() {
+        return filteredPolicies;
     }
 
     @Override
-    public void updateFilteredPremiumList(Predicate<Premium> predicate) {
+    public void updateFilteredPolicyList(Predicate<Policy> predicate) {
         requireNonNull(predicate);
-        filteredPremiums.setPredicate(predicate);
+        filteredPolicies.setPredicate(predicate);
     }
 
     @Override
@@ -211,10 +211,10 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-                && premiumBook.equals(otherModelManager.premiumBook)
+                && policyBook.equals(otherModelManager.policyBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
-                && filteredPremiums.equals(otherModelManager.filteredPremiums);
+                && filteredPolicies.equals(otherModelManager.filteredPolicies);
     }
-    
+
 }

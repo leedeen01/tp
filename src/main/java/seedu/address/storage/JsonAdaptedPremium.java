@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Jackson-friendly version of {@link Premium}.
+ * Jackson-friendly version of {@link Policy}.
  * Used for JSON serialization/deserialization of premium data.
  */
 public class JsonAdaptedPremium {
@@ -34,4 +34,3 @@ public class JsonAdaptedPremium {
     }
 }
 
-//can delete

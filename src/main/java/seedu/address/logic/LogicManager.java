@@ -15,7 +15,7 @@ import seedu.address.logic.parser.ClientNestParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPremiumBook;
+import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-            storage.savePremiumBook(model.getPremiumBook());
+            storage.savePolicyBook(model.getPolicyBook());
 
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
@@ -70,8 +70,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyPremiumBook getPremiumBook() {
-        return model.getPremiumBook();
+    public ReadOnlyPolicyBook getPolicyBook() {
+        return model.getPolicyBook();
     }
 
     @Override
@@ -85,8 +85,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getPremiumBookFilePath() {
-        return model.getPremiumBookFilePath();
+    public Path getPolicyBookFilePath() {
+        return model.getPolicyBookFilePath();
     }
 
     @Override

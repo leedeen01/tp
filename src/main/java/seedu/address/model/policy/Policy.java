@@ -1,4 +1,4 @@
-package seedu.address.model.premium;
+package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,27 +7,27 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Represents a Premium in the address book.
+ * Represents a Policy in the address book.
  * Guarantees: details are present and not null, field values are validated,
  * immutable.
  */
-public class Premium {
+public class Policy {
 
     // Identity fields
     private final PolicyLink policyLink;
     private final PolicyNumber policyNumber;
-    private final PremiumName premiumName;
+    private final PolicyName policyName;
     private final ProviderCompany providerCompany;
 
     /**
      * Every field must be present and not null.
      */
-    public Premium(PremiumName premiumName, PolicyNumber policyNumber,
+    public Policy(PolicyName policyName, PolicyNumber policyNumber,
             ProviderCompany providerCompany, PolicyLink policyLink) {
-        requireAllNonNull(policyLink, policyNumber, premiumName, providerCompany);
+        requireAllNonNull(policyLink, policyNumber, policyName, providerCompany);
         this.policyLink = policyLink;
         this.policyNumber = policyNumber;
-        this.premiumName = premiumName;
+        this.policyName = policyName;
         this.providerCompany = providerCompany;
     }
 
@@ -39,8 +39,8 @@ public class Premium {
         return policyNumber;
     }
 
-    public PremiumName getPremiumName() {
-        return premiumName;
+    public PolicyName getPolicyName() {
+        return policyName;
     }
 
     public ProviderCompany getProviderCompany() {
@@ -48,21 +48,21 @@ public class Premium {
     }
 
     /**
-     * Returns true if both premiums have the same policy number.
-     * This defines a weaker notion of equality between two premiums.
+     * Returns true if both policies have the same policy number.
+     * This defines a weaker notion of equality between two policies.
      */
-    public boolean isSamePremium(Premium otherPremium) {
-        if (otherPremium == this) {
+    public boolean isSamePolicy(Policy otherPolicy) {
+        if (otherPolicy == this) {
             return true;
         }
 
-        return otherPremium != null
-                && otherPremium.getPolicyNumber().equals(getPolicyNumber());
+        return otherPolicy != null
+                && otherPolicy.getPolicyNumber().equals(getPolicyNumber());
     }
 
     /**
-     * Returns true if both premiums have the same identity and data fields.
-     * This defines a stronger notion of equality between two premiums.
+     * Returns true if both policies have the same identity and data fields.
+     * This defines a stronger notion of equality between two policies.
      */
     @Override
     public boolean equals(Object other) {
@@ -70,26 +70,26 @@ public class Premium {
             return true;
         }
 
-        if (!(other instanceof Premium)) {
+        if (!(other instanceof Policy)) {
             return false;
         }
 
-        Premium otherPremium = (Premium) other;
-        return policyLink.equals(otherPremium.policyLink)
-                && policyNumber.equals(otherPremium.policyNumber)
-                && premiumName.equals(otherPremium.premiumName)
-                && providerCompany.equals(otherPremium.providerCompany);
+        Policy otherPolicy = (Policy) other;
+        return policyLink.equals(otherPolicy.policyLink)
+                && policyNumber.equals(otherPolicy.policyNumber)
+                && policyName.equals(otherPolicy.policyName)
+                && providerCompany.equals(otherPolicy.providerCompany);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(policyLink, policyNumber, premiumName, providerCompany);
+        return Objects.hash(policyLink, policyNumber, policyName, providerCompany);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("premiumName", premiumName)
+                .add("policyName", policyName)
                 .add("policyNumber", policyNumber)
                 .add("provider", providerCompany)
                 .add("planType", policyLink)
