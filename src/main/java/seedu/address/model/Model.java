@@ -68,10 +68,10 @@ public interface Model {
     /**
      * Replaces policy book data with the data in {@code policyBook}.
      */
-    void setPolicyBook(ReadOnlyPolicyBook policyBook); 
+    void setPolicyBook(ReadOnlyPolicyBook policyBook);
 
     /** Returns the PolicyBook */
-    ReadOnlyPolicyBook getPolicyBook(); 
+    ReadOnlyPolicyBook getPolicyBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -82,7 +82,7 @@ public interface Model {
     /**
      * Returns true if a policy with the same identity as {@code policy} exists in the policy book.
      */
-    boolean hasPolicy(Policy policy); 
+    boolean hasPolicy(Policy policy);
 
     /**
      * Deletes the given person.
