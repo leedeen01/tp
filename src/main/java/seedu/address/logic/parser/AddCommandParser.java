@@ -39,7 +39,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_BIRTHDAY, PREFIX_PREMIUM);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_BIRTHDAY, PREFIX_PREMIUM)
+                PREFIX_BIRTHDAY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -52,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Birthday birthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        PremiumList premiumList = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get());
+        PremiumList premiumList = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM));
 
         Person person = new Person(name, phone, email, address, birthday, premiumList, tagList);
 

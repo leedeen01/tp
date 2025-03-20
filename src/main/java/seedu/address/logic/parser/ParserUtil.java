@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -167,6 +168,23 @@ public class ParserUtil {
 
         }
         return premiumList;
+    }
+
+    /**
+     * Parses an optional string into a {@code PremiumList}.
+     * If the optional string is present, it is parsed into a {@code PremiumList}.
+     * Otherwise, an empty {@code PremiumList} is returned.
+     *
+     * @param string An {@code Optional<String>} containing the premium data.
+     * @return A {@code PremiumList} parsed from the string if present, otherwise an empty {@code PremiumList}.
+     * @throws ParseException If the string cannot be parsed into a {@code PremiumList}.
+     */
+    public static PremiumList parsePremium(Optional<String> string) throws ParseException {
+        if (string.isPresent()) {
+            return parsePremium(string.get());
+        } else {
+            return new PremiumList();
+        }
     }
 
     /**
