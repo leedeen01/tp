@@ -198,7 +198,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping ClientNest ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
             storage.saveAddressBook(model.getAddressBook());

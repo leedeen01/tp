@@ -350,3 +350,15 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.hyperlink {
+    -fx-text-fill: #1a0dab; 
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+    -fx-underline: true;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: lightblue; /* Color when hovering over hyperlinks */
+}

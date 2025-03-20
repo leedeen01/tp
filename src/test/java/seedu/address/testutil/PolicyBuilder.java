@@ -11,8 +11,6 @@ import seedu.address.model.policy.ProviderCompany;
  */
 public class PolicyBuilder {
 
-    public static final String DEFAULT_COVERAGE_TYPE = "Life";
-    public static final String DEFAULT_PLAN_TYPE = "Basic";
     public static final String DEFAULT_POLICY_NUMBER = "POL123";
     public static final String DEFAULT_PREMIUM_NAME = "LifeShield";
     public static final String DEFAULT_PROVIDER_COMPANY = "ShieldCorp";
