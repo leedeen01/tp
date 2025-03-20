@@ -14,7 +14,7 @@ import seedu.address.model.policy.Policy;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true; // New predicate
+    Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -68,10 +68,10 @@ public interface Model {
     /**
      * Replaces policy book data with the data in {@code policyBook}.
      */
-    void setPolicyBook(ReadOnlyPolicyBook policyBook); // New method
+    void setPolicyBook(ReadOnlyPolicyBook policyBook); 
 
     /** Returns the PolicyBook */
-    ReadOnlyPolicyBook getPolicyBook(); // New method
+    ReadOnlyPolicyBook getPolicyBook(); 
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -82,7 +82,7 @@ public interface Model {
     /**
      * Returns true if a policy with the same identity as {@code policy} exists in the policy book.
      */
-    boolean hasPolicy(Policy policy); // New method
+    boolean hasPolicy(Policy policy); 
 
     /**
      * Deletes the given person.
