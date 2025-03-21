@@ -13,7 +13,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" maxWidth="1000.0" maxHeight="450.0">
+<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" maxWidth="1110.0" maxHeight="450.0">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -34,8 +34,8 @@
             </HBox>
             <TableView fx:id="commandTable" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn text="Action" fx:id="actionColumn" prefWidth="300"/>
-                <TableColumn text="Format" fx:id="formatColumn" prefWidth="600"/>
+                <TableColumn text="Action" fx:id="actionColumn"/>
+                <TableColumn text="Format" fx:id="formatColumn"/>
               </columns>
             </TableView>
           </children>
