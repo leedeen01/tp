@@ -26,7 +26,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredUpcomingBirthdays;
-    private final ObservableList<Person> persons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,7 +39,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredUpcomingBirthdays = new FilteredList<>(this.addressBook.getPersonList());
-        this.persons = this.addressBook.getPersonList();
     }
 
     public ModelManager() {

@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" spacing="10">
-    <VBox>
+    <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
+          spacing="10" style=" -fx-padding: 10 10 10 10;">
         <Label fx:id="name" styleClass="cell_big_label"/>
         <Label fx:id="birthday" styleClass="cell_small_label"/>
         <FlowPane fx:id="tags"/>
