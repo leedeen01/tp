@@ -18,6 +18,10 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.policy.PolicyLink;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.PolicyNumber;
+import seedu.address.model.policy.ProviderCompany;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -33,6 +37,17 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    // Constants for policy fields
+    private static final String VALID_POLICY_NUMBER = "PN12345678";
+    private static final String VALID_POLICY_NAME = "Life Insurance";
+    private static final String VALID_PROVIDER_COMPANY = "BestInsure";
+    private static final String VALID_POLICY_LINK = "http://www.bestinsure.com/policy";
+
+    private static final String INVALID_POLICY_NUMBER = "!!!"; // Assumed to be invalid
+    private static final String INVALID_POLICY_NAME = ""; // Empty string is invalid
+    private static final String INVALID_PROVIDER_COMPANY = ""; // Empty string is invalid
+    private static final String INVALID_POLICY_LINK = "invalidLink"; // Assumed to be invalid
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -189,8 +204,102 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    // ================= Policy Parser Tests =================
+
+    @Test
+    public void parsePolicyNumber_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePolicyNumber(null));
+    }
+
+    @Test
+    public void parsePolicyNumber_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePolicyNumber(INVALID_POLICY_NUMBER));
+    }
+
+    @Test
+    public void parsePolicyNumber_validValueWithoutWhitespace_returnsPolicyNumber() throws Exception {
+        PolicyNumber expectedPolicyNumber = new PolicyNumber(VALID_POLICY_NUMBER);
+        assertEquals(expectedPolicyNumber, ParserUtil.parsePolicyNumber(VALID_POLICY_NUMBER));
+    }
+
+    @Test
+    public void parsePolicyNumber_validValueWithWhitespace_returnsTrimmedPolicyNumber() throws Exception {
+        String policyNumberWithWhitespace = WHITESPACE + VALID_POLICY_NUMBER + WHITESPACE;
+        PolicyNumber expectedPolicyNumber = new PolicyNumber(VALID_POLICY_NUMBER);
+        assertEquals(expectedPolicyNumber, ParserUtil.parsePolicyNumber(policyNumberWithWhitespace));
+    }
+
+    @Test
+    public void parsePolicyName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePolicyName(null));
+    }
+
+    @Test
+    public void parsePolicyName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePolicyName(INVALID_POLICY_NAME));
+    }
+
+    @Test
+    public void parsePolicyName_validValueWithoutWhitespace_returnsPolicyName() throws Exception {
+        PolicyName expectedPolicyName = new PolicyName(VALID_POLICY_NAME);
+        assertEquals(expectedPolicyName, ParserUtil.parsePolicyName(VALID_POLICY_NAME));
+    }
+
+    @Test
+    public void parsePolicyName_validValueWithWhitespace_returnsTrimmedPolicyName() throws Exception {
+        String policyNameWithWhitespace = WHITESPACE + VALID_POLICY_NAME + WHITESPACE;
+        PolicyName expectedPolicyName = new PolicyName(VALID_POLICY_NAME);
+        assertEquals(expectedPolicyName, ParserUtil.parsePolicyName(policyNameWithWhitespace));
+    }
+
+    @Test
+    public void parseProviderCompany_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseProviderCompany(null));
+    }
+
+    @Test
+    public void parseProviderCompany_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseProviderCompany(INVALID_PROVIDER_COMPANY));
+    }
+
+    @Test
+    public void parseProviderCompany_validValueWithoutWhitespace_returnsProviderCompany() throws Exception {
+        ProviderCompany expectedProviderCompany = new ProviderCompany(VALID_PROVIDER_COMPANY);
+        assertEquals(expectedProviderCompany, ParserUtil.parseProviderCompany(VALID_PROVIDER_COMPANY));
+    }
+
+    @Test
+    public void parseProviderCompany_validValueWithWhitespace_returnsTrimmedProviderCompany() throws Exception {
+        String providerCompanyWithWhitespace = WHITESPACE + VALID_PROVIDER_COMPANY + WHITESPACE;
+        ProviderCompany expectedProviderCompany = new ProviderCompany(VALID_PROVIDER_COMPANY);
+        assertEquals(expectedProviderCompany, ParserUtil.parseProviderCompany(providerCompanyWithWhitespace));
+    }
+
+    @Test
+    public void parsePolicyLink_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePolicyLink(null));
+    }
+
+    @Test
+    public void parsePolicyLink_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePolicyLink(INVALID_POLICY_LINK));
+    }
+
+    @Test
+    public void parsePolicyLink_validValueWithoutWhitespace_returnsPolicyLink() throws Exception {
+        PolicyLink expectedPolicyLink = new PolicyLink(VALID_POLICY_LINK);
+        assertEquals(expectedPolicyLink, ParserUtil.parsePolicyLink(VALID_POLICY_LINK));
+    }
+
+    @Test
+    public void parsePolicyLink_validValueWithWhitespace_returnsTrimmedPolicyLink() throws Exception {
+        String policyLinkWithWhitespace = WHITESPACE + VALID_POLICY_LINK + WHITESPACE;
+        PolicyLink expectedPolicyLink = new PolicyLink(VALID_POLICY_LINK);
+        assertEquals(expectedPolicyLink, ParserUtil.parsePolicyLink(policyLinkWithWhitespace));
     }
 }

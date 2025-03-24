@@ -437,7 +437,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Client**: An individual or organization for whom financial advisory services are provided, whose details are stored within the system.
 * **Followup**: An actions taken by a financial advisor to reconnect with potential or existing clients after an initial interaction
 * **CLI Interface**: A text-based user interface that allows users to interact with software by typing commands.
-* **Retention Rate**: 
+* **Retention Rate**:
 * **Server Downtime**:
 * **mainstream OS**:
 * **Response Time**: The time taken by the system to respond to a user's action or request
