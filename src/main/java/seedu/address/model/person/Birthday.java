@@ -32,6 +32,15 @@ public class Birthday {
     }
 
     /**
+     * Returns the {@code LocalDate} representation of the birthday.
+     *
+     * @return LocalDate value of this birthday.
+     */
+    public LocalDate getValue() {
+        return value;
+    }
+
+    /**
      * Returns true if given string is a valid birthday.
      */
     public static boolean isValidBirthday(String test) {
