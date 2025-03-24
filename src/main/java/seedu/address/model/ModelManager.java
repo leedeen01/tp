@@ -152,13 +152,31 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Person> getUpcomingBirthdays() {
-        filteredUpcomingBirthdays.setPredicate(p -> p.getBirthday().isWithinNext30Days());
-        return filteredUpcomingBirthdays;
+        LocalDate today = LocalDate.now();
+
+        return FXCollections.observableArrayList(
+            filteredUpcomingBirthdays.stream()
+                .filter(p -> p.getBirthday().isWithinNext30Days())
+                .sorted((p1, p2) -> {
+                    LocalDate b1 = p1.getBirthday().getValue().withYear(today.getYear());
+                    LocalDate b2 = p2.getBirthday().getValue().withYear(today.getYear());
+
+                    if (b1.isBefore(today)) {
+                        b1 = b1.plusYears(1);
+                    }
+                    if (b2.isBefore(today)) {
+                        b2 = b2.plusYears(1);
+                    }
+
+                    return b1.compareTo(b2);
+                    })
+                    .collect(Collectors.toList())
+        );
     }
+
 
     @Override
     public void updateUpcomingBirthdays() {
         filteredUpcomingBirthdays.setPredicate(p -> p.getBirthday().isWithinNext30Days());
     }
-
 }
