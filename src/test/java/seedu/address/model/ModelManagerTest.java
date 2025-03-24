@@ -16,8 +16,10 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.policy.Policy;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PolicyBookBuilder;
 
@@ -133,5 +135,53 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, policyBook, differentUserPrefs)));
+    }
+
+    // ======== Policy-related Tests ========
+
+    @Test
+    public void hasPolicy_nullPolicy_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasPolicy(null));
+    }
+
+    @Test
+    public void hasPolicy_policyNotInPolicyBook_returnsFalse() {
+        // HEALTH_2040 is not added yet.
+        assertFalse(modelManager.hasPolicy(HEALTH_2040));
+    }
+
+    @Test
+    public void hasPolicy_policyInPolicyBook_returnsTrue() {
+        modelManager.addPolicy(HEALTH_2040);
+        assertTrue(modelManager.hasPolicy(HEALTH_2040));
+    }
+
+    @Test
+    public void addPolicy_policy_success() {
+        modelManager.addPolicy(HEALTH_2040);
+        assertTrue(modelManager.hasPolicy(HEALTH_2040));
+    }
+
+    @Test
+    public void deletePolicy_policy_success() {
+        modelManager.addPolicy(HEALTH_2040);
+        modelManager.deletePolicy(HEALTH_2040);
+        assertFalse(modelManager.hasPolicy(HEALTH_2040));
+    }
+
+    @Test
+    public void updateFilteredPolicyList_validPredicate_filtersCorrectly() {
+        modelManager.addPolicy(HEALTH_2040);
+        modelManager.addPolicy(LIFE_SHIELD);
+        // Use a predicate that matches only HEALTH_2040.
+        modelManager.updateFilteredPolicyList(policy -> policy.equals(HEALTH_2040));
+        ObservableList<Policy> filteredList = modelManager.getFilteredPolicyList();
+        assertEquals(1, filteredList.size());
+        assertEquals(HEALTH_2040, filteredList.get(0));
+    }
+
+    @Test
+    public void getFilteredPolicyList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPolicyList().remove(0));
     }
 }
