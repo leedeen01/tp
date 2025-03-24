@@ -75,7 +75,8 @@ public class HelpWindow extends UiPart<Stage> {
         };
 
         String[] formats = {
-            "add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…*\n"
+            "add [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]"
+                    + " [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…*\n"
                     + "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, "
                     + "1234665 b/2002-11-24 pr/vivo360 1000 t/friend t/colleague",
             "clear",
