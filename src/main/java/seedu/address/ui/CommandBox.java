@@ -90,7 +90,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Adds a command to the history list, keeping the list size within the limit.
      */
-    public void addToHistory(String commandText) {
+    private void addToHistory(String commandText) {
         if (commandHistory.size() >= HISTORY_LIMIT) {
             commandHistory.removeFirst();
         }
