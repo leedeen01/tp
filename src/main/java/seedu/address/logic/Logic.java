@@ -47,4 +47,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the list of persons with upcoming birthdays in the next 30 days.
+     */
+    ObservableList<Person> getUpcomingBirthdays();
 }

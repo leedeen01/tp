@@ -4,51 +4,39 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
+/**
+ * Panel displaying persons with birthdays in the next 30 days.
+ */
 public class UpcomingBirthdaysPanel extends UiPart<Region> {
     private static final String FXML = "UpcomingBirthdaysPanel.fxml";
 
     @FXML
-    private ListView<String> birthdayListView;
+    private ListView<Person> birthdayListView;
 
-    public UpcomingBirthdaysPanel(List<Person> persons) {
+    public UpcomingBirthdaysPanel(ObservableList<Person> upcomingBirthdays) {
         super(FXML);
-        populateBirthdayList(persons);
+        birthdayListView.setItems(upcomingBirthdays);
+        birthdayListView.setCellFactory(listView -> new BirthdayListViewCell());
     }
 
-    private void populateBirthdayList(List<Person> persons) {
-        LocalDate now = LocalDate.now();
-        LocalDate upperBound = now.plusDays(30);
+    class BirthdayListViewCell extends ListCell<Person> {
+        @Override
+        protected void updateItem(Person person, boolean empty) {
+            super.updateItem(person, empty);
 
-        List<String> birthdayMessages = persons.stream()
-                .filter(p -> {
-                    LocalDate birthday = p.getBirthday().getValue();
-                    LocalDate nextBirthday = birthday.withYear(now.getYear());
-                    if (nextBirthday.isBefore(now)) {
-                        nextBirthday = nextBirthday.plusYears(1);
-                    }
-                    return !nextBirthday.isAfter(upperBound);
-                })
-                .sorted((a, b) -> {
-                    LocalDate aNext = a.getBirthday().getValue().withYear(now.getYear());
-                    if (aNext.isBefore(now)) aNext = aNext.plusYears(1);
-                    LocalDate bNext = b.getBirthday().getValue().withYear(now.getYear());
-                    if (bNext.isBefore(now)) bNext = bNext.plusYears(1);
-                    return aNext.compareTo(bNext);
-                })
-                .map(p -> {
-                    String name = p.getName().fullName;
-                    LocalDate bday = p.getBirthday().getValue();
-                    LocalDate next = bday.withYear(now.getYear());
-                    if (next.isBefore(now)) next = next.plusYears(1);
-                    return String.format("%s - %s", name, next);
-                })
-                .collect(Collectors.toList());
-
-        birthdayListView.getItems().setAll(birthdayMessages);
+            if (empty || person == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new UpcomingBirthdayCard(person).getRoot());
+            }
+        }
     }
 }

@@ -75,4 +75,22 @@ public class Birthday {
     public int hashCode() {
         return value.hashCode();
     }
+
+    /**
+     * Returns true if the birthday is within the next 30 days from today.
+     */
+    public boolean isWithinNext30Days() {
+        LocalDate now = LocalDate.now();
+        LocalDate in30Days = now.plusDays(30);
+
+        // Birthday this year
+        LocalDate thisYearsBirthday = value.withYear(now.getYear());
+
+        // Handle birthday passed already this year (check next year's birthday)
+        if (thisYearsBirthday.isBefore(now)) {
+            thisYearsBirthday = thisYearsBirthday.plusYears(1);
+        }
+
+        return !thisYearsBirthday.isAfter(in30Days);
+    }
 }

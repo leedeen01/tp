@@ -84,4 +84,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of persons whose birthdays are within the next 30 days.
+     */
+    ObservableList<Person> getUpcomingBirthdays();
+
+    void updateUpcomingBirthdays();
 }
