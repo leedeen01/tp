@@ -20,8 +20,13 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyLink;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.PolicyNumber;
+import seedu.address.model.policy.ProviderCompany;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PolicyBookBuilder;
+import seedu.address.testutil.PolicyBuilder;
 
 public class ModelManagerTest {
 
@@ -183,5 +188,70 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPolicyList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPolicyList().remove(0));
+    }
+
+    @Test
+    public void setAndGetPolicyBookFilePath_validPath_success() {
+        Path testPath = Paths.get("dummy", "policybook.json");
+        modelManager.setPolicyBookFilePath(testPath);
+        assertEquals(testPath, modelManager.getPolicyBookFilePath());
+    }
+
+    @Test
+    public void setPolicyBook_validPolicyBook_success() {
+        PolicyBook dummyPolicyBook = new PolicyBook();
+        Policy samplePolicy = new Policy(
+                new PolicyName("Test Policy"),
+                new PolicyNumber("TP123"),
+                new ProviderCompany("TestCompany"),
+                new PolicyLink("http://testpolicy.com")
+        );
+        dummyPolicyBook.addPolicy(samplePolicy);
+        modelManager.setPolicyBook(dummyPolicyBook);
+        // Verify that the model's policy book matches the dummy policy book.
+        assertEquals(dummyPolicyBook, modelManager.getPolicyBook());
+    }
+
+    @Test
+    public void setPolicy_validTargetAndEditedPolicy_success() {
+        Policy originalPolicy = new Policy(
+                new PolicyName("Original Policy"),
+                new PolicyNumber("OP001"),
+                new ProviderCompany("CompanyA"),
+                new PolicyLink("http://companyA.com/original")
+        );
+        modelManager.addPolicy(originalPolicy);
+
+        Policy editedPolicy = new PolicyBuilder(originalPolicy)
+                .withPolicyLink("http://companyA.com/edited")
+                .build();
+        modelManager.setPolicy(originalPolicy, editedPolicy);
+
+        Policy updatedPolicy = modelManager.getPolicyBook().getPolicyList().get(0);
+
+        assertEquals(editedPolicy, updatedPolicy);
+    }
+
+    @Test
+    public void setPolicy_nullTarget_throwsNullPointerException() {
+        Policy editedPolicy = new PolicyBuilder()
+                .withPolicyName("Edited Policy")
+                .withPolicyNumber("EP002")
+                .withProviderCompany("CompanyB")
+                .withPolicyLink("http://companyB.com/edited")
+                .build();
+        assertThrows(NullPointerException.class, () -> modelManager.setPolicy(null, editedPolicy));
+    }
+
+    @Test
+    public void setPolicy_nullEditedPolicy_throwsNullPointerException() {
+        Policy originalPolicy = new PolicyBuilder()
+                .withPolicyName("Original Policy")
+                .withPolicyNumber("OP003")
+                .withProviderCompany("CompanyC")
+                .withPolicyLink("http://companyC.com/original")
+                .build();
+        modelManager.addPolicy(originalPolicy);
+        assertThrows(NullPointerException.class, () -> modelManager.setPolicy(originalPolicy, null));
     }
 }

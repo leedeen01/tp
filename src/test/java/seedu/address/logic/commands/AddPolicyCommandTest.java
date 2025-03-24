@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_LINK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NUMBER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROVIDER_COMPANY;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -21,10 +26,15 @@ import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyLink;
+import seedu.address.model.policy.PolicyName;
+import seedu.address.model.policy.PolicyNumber;
+import seedu.address.model.policy.ProviderCompany;
 import seedu.address.testutil.PolicyBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code AddPolicyCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for
+ * {@code AddPolicyCommand}.
  */
 public class AddPolicyCommandTest {
 
@@ -36,7 +46,7 @@ public class AddPolicyCommandTest {
 
         CommandResult commandResult = addPolicyCommand.execute(modelStub);
         String expectedMessage = String.format(AddPolicyCommand.MESSAGE_SUCCESS,
-                                               seedu.address.logic.Messages.formatPolicy(validPolicy));
+                seedu.address.logic.Messages.formatPolicy(validPolicy));
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
         assertEquals(List.of(validPolicy), modelStub.policiesAdded);
     }
@@ -199,6 +209,20 @@ public class AddPolicyCommandTest {
         @Override
         public Path getPolicyBookFilePath() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Test
+        public void toString_returnsCorrectFormat() {
+            Policy policy = new Policy(
+                    new PolicyName(VALID_POLICY_NAME),
+                    new PolicyNumber(VALID_POLICY_NUMBER),
+                    new ProviderCompany(VALID_PROVIDER_COMPANY),
+                    new PolicyLink(VALID_POLICY_LINK));
+            AddPolicyCommand command = new AddPolicyCommand(policy);
+            String expected = new ToStringBuilder(command)
+                    .add("toAdd", policy)
+                    .toString();
+            assertEquals(expected, command.toString());
         }
 
     }

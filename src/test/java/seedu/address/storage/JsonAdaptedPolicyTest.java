@@ -89,4 +89,14 @@ public class JsonAdaptedPolicyTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "ProviderCompany");
         assertThrows(IllegalValueException.class, expectedMessage, adaptedPolicy::toModelType);
     }
+
+    @Test
+    public void getMethods_validInputs_returnCorrectValues() {
+        JsonAdaptedPolicy adaptedPolicy = new JsonAdaptedPolicy(VALID_POLICY_LINK, VALID_POLICY_NUMBER,
+                VALID_POLICY_NAME, VALID_PROVIDER_COMPANY);
+        assertEquals(VALID_POLICY_LINK, adaptedPolicy.getPolicyLink());
+        assertEquals(VALID_POLICY_NUMBER, adaptedPolicy.getPolicyNumber());
+        assertEquals(VALID_POLICY_NAME, adaptedPolicy.getPolicyName());
+        assertEquals(VALID_PROVIDER_COMPANY, adaptedPolicy.getProviderCompany());
+    }
 }

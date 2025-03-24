@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_LINK;
@@ -44,11 +45,11 @@ public class PolicyBookTest {
 
     @Test
     public void resetData_withDuplicatePolicies_throwsDuplicatePolicyException() {
-        // Create a duplicate: editedAlpha has the same identity as ETF_BONDS but with a different policy link.
-        Policy editedAlpha = new PolicyBuilder(ETF_BONDS)
-                .withPolicyLink(VALID_POLICY_LINK) // assume policyLink is non-identity field
+        // Create a duplicate: editedEtf has the same identity as ETF_BONDS but with a different policy link.
+        Policy editedEtf = new PolicyBuilder(ETF_BONDS)
+                .withPolicyLink(VALID_POLICY_LINK) // assume policyLink is a non-identity field
                 .build();
-        List<Policy> newPolicies = Arrays.asList(ETF_BONDS, editedAlpha);
+        List<Policy> newPolicies = Arrays.asList(ETF_BONDS, editedEtf);
         PolicyBookStub newData = new PolicyBookStub(newPolicies);
 
         assertThrows(DuplicatePolicyException.class, () -> policyBook.resetData(newData));
@@ -73,11 +74,11 @@ public class PolicyBookTest {
     @Test
     public void hasPolicy_policyWithSameIdentityFieldsInPolicyBook_returnsTrue() {
         policyBook.addPolicy(ETF_BONDS);
-        // Create a policy with same identity as ETF_BONDS but with a different policy link.
-        Policy editedAlpha = new PolicyBuilder(ETF_BONDS)
+        // Create a policy with the same identity as ETF_BONDS but with a different policy link.
+        Policy editedEtf = new PolicyBuilder(ETF_BONDS)
                 .withPolicyLink(VALID_POLICY_LINK)
                 .build();
-        assertTrue(policyBook.hasPolicy(editedAlpha));
+        assertTrue(policyBook.hasPolicy(editedEtf));
     }
 
     @Test
@@ -91,6 +92,79 @@ public class PolicyBookTest {
         assertEquals(expected, policyBook.toString());
     }
 
+    // =================== New Tests for setPolicy, equals, hashCode ===================
+
+    @Test
+    public void setPolicy_validTargetAndEditedPolicy_success() {
+        // Add an initial policy to the policyBook.
+        Policy originalPolicy = ETF_BONDS;
+        policyBook.addPolicy(originalPolicy);
+
+        // Create an edited version of the policy (e.g., with a changed policy link).
+        Policy editedPolicy = new PolicyBuilder(originalPolicy)
+                .withPolicyLink(VALID_POLICY_LINK)
+                .build();
+        policyBook.setPolicy(originalPolicy, editedPolicy);
+
+        // Retrieve the updated policy from the list.
+        Policy updatedPolicy = policyBook.getPolicyList().get(0);
+
+        // Verify that the updated policy equals the edited policy.
+        assertEquals(editedPolicy, updatedPolicy);
+
+        // Since isSamePolicy ignores policyLink, both originalPolicy and editedPolicy have the same identity.
+        // Therefore, hasPolicy for originalPolicy will still return true.
+        assertTrue(policyBook.hasPolicy(originalPolicy));
+    }
+
+    @Test
+    public void setPolicy_targetNotInList_throwsPolicyNotFoundException() {
+        Policy nonExistentPolicy = new PolicyBuilder(ETF_BONDS)
+                .withPolicyNumber("NONEXISTENT")
+                .build();
+        Policy editedPolicy = new PolicyBuilder(ETF_BONDS)
+                .withPolicyLink(VALID_POLICY_LINK)
+                .build();
+        assertThrows(seedu.address.model.policy.exceptions.PolicyNotFoundException.class, () ->
+            policyBook.setPolicy(nonExistentPolicy, editedPolicy));
+    }
+
+    @Test
+    public void equals_sameInstance_returnsTrue() {
+        assertTrue(policyBook.equals(policyBook));
+    }
+
+    @Test
+    public void equals_differentTypes_returnsFalse() {
+        assertFalse(policyBook.equals("NotAPolicyBook"));
+    }
+
+    @Test
+    public void equals_samePolicies_returnsTrue() {
+        PolicyBook pb1 = new PolicyBook();
+        PolicyBook pb2 = new PolicyBook();
+        pb1.addPolicy(ETF_BONDS);
+        pb2.addPolicy(ETF_BONDS);
+        assertTrue(pb1.equals(pb2));
+        // Ensure hashCode is the same for equal objects.
+        assertEquals(pb1.hashCode(), pb2.hashCode());
+    }
+
+    @Test
+    public void equals_differentPolicies_returnsFalse() {
+        PolicyBook pb1 = new PolicyBook();
+        PolicyBook pb2 = new PolicyBook();
+        pb1.addPolicy(ETF_BONDS);
+        Policy differentPolicy = new PolicyBuilder(ETF_BONDS)
+                .withPolicyName("Different Policy")
+                .build();
+        pb2.addPolicy(differentPolicy);
+        assertFalse(pb1.equals(pb2));
+        // Their hash codes should not be equal.
+        assertNotEquals(pb1.hashCode(), pb2.hashCode());
+    }
+
+    // =================== Helper Stub Class ===================
     /**
      * A stub ReadOnlyPolicyBook whose policy list can violate interface constraints.
      */
