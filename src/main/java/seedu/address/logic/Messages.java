@@ -40,6 +40,7 @@ public class Messages {
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
+                .append(System.lineSeparator())
                 .append("; Phone: ")
                 .append(person.getPhone())
                 .append("; Email: ")
@@ -58,7 +59,9 @@ public class Messages {
      */
     public static String formatPolicy(Policy policy) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("; Policy Name: ")
+        builder.append(policy.getPolicyNumber())
+                .append(System.lineSeparator())
+                .append("Policy Name: ")
                 .append(policy.getPolicyName())
                 .append("; Policy Number: ")
                 .append(policy.getPolicyNumber())
