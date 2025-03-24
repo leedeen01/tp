@@ -26,6 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditPolicyDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -53,6 +54,14 @@ public class CommandTestUtil {
     public static final String VALID_POLICY_NAME = "LifeShield";
     public static final String VALID_PROVIDER_COMPANY = "ShieldCorp";
     public static final String VALID_POLICY_LINK = "https://www.shieldcorp.com/policy123";
+    public static final String VALID_POLICY_NUMBER_POL101 = "POL101";
+    public static final String VALID_POLICY_NUMBER_POL456 = "POL456";
+    public static final String VALID_POLICY_NAME_POL101 = "HomeSafe";
+    public static final String VALID_POLICY_NAME_POL456 = "HealthPlus";
+    public static final String VALID_PROVIDER_COMPANY_POL101 = "HomeGuard";
+    public static final String VALID_PROVIDER_COMPANY_POL456 = "HealthCorp";
+    public static final String VALID_POLICY_LINK_POL101 = "https://www.homeguard.com/policy101";
+    public static final String VALID_POLICY_LINK_POL456 = "https://www.healthcorp.com/policy456";
 
     //existing person command descriptors
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -71,10 +80,16 @@ public class CommandTestUtil {
     public static final String PREMIUM_DESC_BOB = " " + PREFIX_PREMIUM + VALID_PREMIUM_BOB;
 
     // Policy command descriptors
-    public static final String POLICY_NUMBER_DESC = " " + PREFIX_POLICY_NUMBER + VALID_POLICY_NUMBER;
-    public static final String PREMIUM_NAME_DESC = " " + PREFIX_POLICY_NAME + VALID_POLICY_NAME;
-    public static final String PROVIDER_COMPANY_DESC = " " + PREFIX_PROVIDER_COMPANY + VALID_PROVIDER_COMPANY;
-    public static final String POLICY_LINK_DESC = " " + PREFIX_POLICY_LINK + VALID_POLICY_LINK;
+    public static final String POLICY_NUMBER_DESC_POL101 = " " + PREFIX_POLICY_NUMBER + VALID_POLICY_NUMBER_POL101;
+    public static final String POLICY_NUMBER_DESC_POL456 = " " + PREFIX_POLICY_NUMBER + VALID_POLICY_NUMBER_POL456;
+    public static final String POLICY_NAME_DESC_POL101 = " " + PREFIX_POLICY_NAME + VALID_POLICY_NAME_POL101;
+    public static final String POLICY_NAME_DESC_POL456 = " " + PREFIX_POLICY_NAME + VALID_POLICY_NAME_POL456;
+    public static final String PROVIDER_COMPANY_DESC_POL101 =
+        " " + PREFIX_PROVIDER_COMPANY + VALID_PROVIDER_COMPANY_POL101;
+    public static final String PROVIDER_COMPANY_DESC_POL456 =
+        " " + PREFIX_PROVIDER_COMPANY + VALID_PROVIDER_COMPANY_POL456;
+    public static final String POLICY_LINK_DESC_POL101 = " " + PREFIX_POLICY_LINK + VALID_POLICY_LINK_POL101;
+    public static final String POLICY_LINK_DESC_POL456 = " " + PREFIX_POLICY_LINK + VALID_POLICY_LINK_POL456;
 
     //invalid person command descriptors
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
@@ -97,6 +112,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditPolicyCommand.EditPolicyDescriptor DESC_POLICY_POL101;
+    public static final EditPolicyCommand.EditPolicyDescriptor DESC_POLICY_POL456;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -106,6 +123,12 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withBirthday(VALID_BIRTHDAY_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                 .withPremiumList(VALID_PREMIUM_BOB).build();
+        DESC_POLICY_POL101 = new EditPolicyDescriptorBuilder().withPolicyNumber(VALID_POLICY_NUMBER_POL101)
+                .withPolicyName(VALID_POLICY_NAME_POL101).withProviderCompany(VALID_PROVIDER_COMPANY_POL101)
+                .withPolicyLink(VALID_POLICY_LINK_POL101).build();
+        DESC_POLICY_POL456 = new EditPolicyDescriptorBuilder().withPolicyNumber(VALID_POLICY_NUMBER_POL456)
+                .withPolicyName(VALID_POLICY_NAME_POL456).withProviderCompany(VALID_PROVIDER_COMPANY_POL456)
+                .withPolicyLink(VALID_POLICY_LINK_POL456).build();
     }
 
     /**
