@@ -5,9 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -243,11 +243,9 @@ public class ModelManager implements Model {
                     }
 
                     return b1.compareTo(b2);
-                    })
-                    .collect(Collectors.toList())
+                }).collect(Collectors.toList())
         );
     }
-
 
     @Override
     public void updateUpcomingBirthdays() {

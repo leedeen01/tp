@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,11 +19,21 @@ public class BirthdayPanel extends UiPart<Region> {
     @FXML
     private VBox birthdayListContainer;
 
+    /**
+     * Creates a new BirthdayPanel and populates it with persons whose birthdays are within the next 30 days.
+     *
+     * @param persons The full list of persons to filter from.
+     */
     public BirthdayPanel(List<Person> persons) {
         super(FXML);
         populateUpcomingBirthdays(persons);
     }
 
+    /**
+     * Filters and displays persons whose birthdays are within the next 30 days.
+     *
+     * @param persons Full list of persons.
+     */
     private void populateUpcomingBirthdays(List<Person> persons) {
         LocalDate today = LocalDate.now();
         LocalDate cutoff = today.plusDays(30);

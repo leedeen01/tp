@@ -1,9 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -20,12 +16,20 @@ public class UpcomingBirthdaysPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> birthdayListView;
 
+    /**
+     * Creates a panel and sets up its ListView to show upcoming birthdays using {@code UpcomingBirthdayCard}.
+     *
+     * @param upcomingBirthdays Observable list of persons with upcoming birthdays.
+     */
     public UpcomingBirthdaysPanel(ObservableList<Person> upcomingBirthdays) {
         super(FXML);
         birthdayListView.setItems(upcomingBirthdays);
         birthdayListView.setCellFactory(listView -> new BirthdayListViewCell());
     }
 
+    /**
+     * A custom {@code ListCell} that displays a {@code Person} using an {@code UpcomingBirthdayCard}.
+     */
     class BirthdayListViewCell extends ListCell<Person> {
         @Override
         protected void updateItem(Person person, boolean empty) {

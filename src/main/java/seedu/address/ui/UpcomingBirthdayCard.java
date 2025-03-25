@@ -30,6 +30,11 @@ public class UpcomingBirthdayCard extends UiPart<Region> {
     @FXML
     private Label daysUntil;
 
+    /**
+     * Constructs a card displaying the given person's upcoming birthday info.
+     *
+     * @param person Person whose birthday info is shown.
+     */
     public UpcomingBirthdayCard(Person person) {
         super(FXML);
         this.person = person;
@@ -41,6 +46,12 @@ public class UpcomingBirthdayCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+    /**
+     * Calculates how many days are left until the person's next birthday and styles the label accordingly.
+     *
+     * - "Today" and "Tomorrow" are shown in green and bold.
+     * - Other days are shown in gray italic.
+     */
     private void setDaysUntilTextAndStyle(Person person) {
         LocalDate today = LocalDate.now();
         LocalDate birthday = person.getBirthday().getValue();
