@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,26 +24,31 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final PolicyBook policyBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredUpcomingBirthdays;
+    private final FilteredList<Policy> filteredPolicies;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, policyBook, and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPolicyBook policyBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(addressBook, policyBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + ", policy book: " + policyBook
+                + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.policyBook = new PolicyBook(policyBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredUpcomingBirthdays = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPolicies = new FilteredList<>(this.policyBook.getPolicyList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new PolicyBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,6 +86,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getPolicyBookFilePath() {
+        return userPrefs.getPolicyBookFilePath();
+    }
+
+    @Override
+    public void setPolicyBookFilePath(Path policyBookPath) {
+        requireNonNull(policyBookPath);
+        userPrefs.setPolicyBookFilePath(policyBookPath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -106,7 +123,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -114,6 +131,42 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== PolicyBook ================================================================================
+
+    @Override
+    public void setPolicyBook(ReadOnlyPolicyBook policyBook) {
+        this.policyBook.resetData(policyBook);
+    }
+
+    @Override
+    public ReadOnlyPolicyBook getPolicyBook() {
+        return policyBook;
+    }
+
+    @Override
+    public boolean hasPolicy(Policy policy) {
+        requireNonNull(policy);
+        return policyBook.hasPolicy(policy);
+    }
+
+    @Override
+    public void deletePolicy(Policy target) {
+        policyBook.removePolicy(target);
+    }
+
+    @Override
+    public void addPolicy(Policy policy) {
+        policyBook.addPolicy(policy);
+        updateFilteredPolicyList(Model.PREDICATE_SHOW_ALL_POLICIES);
+    }
+
+    @Override
+    public void setPolicy(Policy target, Policy editedPolicy) {
+        requireAllNonNull(target, editedPolicy);
+
+        policyBook.setPolicy(target, editedPolicy);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -133,6 +186,23 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Policy List Accessors ============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Policy} backed by the internal list of
+     * {@code versionedPolicyBook}
+     */
+    @Override
+    public ObservableList<Policy> getFilteredPolicyList() {
+        return filteredPolicies;
+    }
+
+    @Override
+    public void updateFilteredPolicyList(Predicate<Policy> predicate) {
+        requireNonNull(predicate);
+        filteredPolicies.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -146,9 +216,13 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
+                && policyBook.equals(otherModelManager.policyBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredPolicies.equals(otherModelManager.filteredPolicies);
     }
+
+    //=========== Upcoming Birthdays  ============================================================
 
     @Override
     public ObservableList<Person> getUpcomingBirthdays() {

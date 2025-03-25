@@ -1,0 +1,10 @@
+{
+    "policies": [
+      {
+        "policyName": "LifeShield",
+        "policyNumber": "123",
+        "policyLink": "https://www.shieldcorp.com/policy123",
+        "providerCompany": ""
+      }
+    ]
+  }

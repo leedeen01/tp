@@ -7,7 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_LINK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROVIDER_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -28,6 +32,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //Person test data
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -43,6 +48,13 @@ public class CommandTestUtil {
     public static final String VALID_PREMIUM_AMY = "LifeShield " + 100;
     public static final String VALID_PREMIUM_BOB = "ElderShield " + 200;
 
+    // Policy test data
+    public static final String VALID_POLICY_NUMBER = "POL123";
+    public static final String VALID_POLICY_NAME = "LifeShield";
+    public static final String VALID_PROVIDER_COMPANY = "ShieldCorp";
+    public static final String VALID_POLICY_LINK = "https://www.shieldcorp.com/policy123";
+
+    //existing person command descriptors
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -58,6 +70,13 @@ public class CommandTestUtil {
     public static final String PREMIUM_DESC_AMY = " " + PREFIX_PREMIUM + VALID_PREMIUM_AMY;
     public static final String PREMIUM_DESC_BOB = " " + PREFIX_PREMIUM + VALID_PREMIUM_BOB;
 
+    // Policy command descriptors
+    public static final String POLICY_NUMBER_DESC = " " + PREFIX_POLICY_NUMBER + VALID_POLICY_NUMBER;
+    public static final String PREMIUM_NAME_DESC = " " + PREFIX_POLICY_NAME + VALID_POLICY_NAME;
+    public static final String PROVIDER_COMPANY_DESC = " " + PREFIX_PROVIDER_COMPANY + VALID_PROVIDER_COMPANY;
+    public static final String POLICY_LINK_DESC = " " + PREFIX_POLICY_LINK + VALID_POLICY_LINK;
+
+    //invalid person command descriptors
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -66,6 +85,12 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_PREMIUM_DESC = " " + PREFIX_PREMIUM + " asd " + -9999; // negative premium not
     // allowed
+
+    // Invalid policy data
+    public static final String INVALID_POLICY_NUMBER_DESC = " " + PREFIX_POLICY_NUMBER + "Invalid123";
+    public static final String INVALID_POLICY_NAME_DESC = " " + PREFIX_POLICY_NAME + "Invalid$Name";
+    public static final String INVALID_PROVIDER_COMPANY_DESC = " " + PREFIX_PROVIDER_COMPANY + "Invalid*Company";
+    public static final String INVALID_POLICY_LINK_DESC = " " + PREFIX_POLICY_LINK + "invalid-link";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

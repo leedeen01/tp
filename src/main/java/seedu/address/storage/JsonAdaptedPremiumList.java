@@ -74,3 +74,4 @@ public class JsonAdaptedPremiumList {
         return premiumList.isEmpty();
     }
 }
+

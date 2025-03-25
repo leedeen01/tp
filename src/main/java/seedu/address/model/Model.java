@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -44,6 +46,17 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
+    // New methods for PolicyBook
+    /**
+     * Returns the user prefs' policy book file path.
+     */
+    Path getPolicyBookFilePath();
+
+    /**
+     * Sets the user prefs' policy book file path.
+     */
+    void setPolicyBookFilePath(Path policyBookFilePath);
+
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
@@ -53,9 +66,23 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Replaces policy book data with the data in {@code policyBook}.
+     */
+    void setPolicyBook(ReadOnlyPolicyBook policyBook);
+
+    /** Returns the PolicyBook */
+    ReadOnlyPolicyBook getPolicyBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    // New method for Policy
+    /**
+     * Returns true if a policy with the same identity as {@code policy} exists in the policy book.
+     */
+    boolean hasPolicy(Policy policy);
 
     /**
      * Deletes the given person.
@@ -63,11 +90,25 @@ public interface Model {
      */
     void deletePerson(Person target);
 
+    // New method for Policy
+    /**
+     * Deletes the given policy.
+     * The policy must exist in the policy book.
+     */
+    void deletePolicy(Policy target);
+
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    // New method for Policy
+    /**
+     * Adds the given policy.
+     * {@code policy} must not already exist in the policy book.
+     */
+    void addPolicy(Policy policy);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -76,14 +117,32 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    // New method for Policy
+    /**
+     * Replaces the given policy {@code target} with {@code editedPolicy}.
+     * {@code target} must exist in the policy book.
+     * The policy identity of {@code editedPolicy} must not be the same as
+     * another existing policy in the policy book.
+     */
+    void setPolicy(Policy target, Policy editedPolicy);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered policy list */
+    ObservableList<Policy> getFilteredPolicyList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered policy list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPolicyList(Predicate<Policy> predicate);
 
     /**
      * Returns an unmodifiable view of the list of persons whose birthdays are within the next 30 days.

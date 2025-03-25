@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 
 /**
  * Container for user visible messages.
@@ -18,6 +19,8 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_POLICY_DISPLAYED_INDEX = "The policy index provided is invalid";
+    public static final String MESSAGE_POLICIES_LISTED_OVERVIEW = "%1$d policies listed!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -47,6 +50,22 @@ public class Messages {
                 .append(person.getBirthday())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code policy} for display to the user.
+     */
+    public static String formatPolicy(Policy policy) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("; Policy Name: ")
+                .append(policy.getPolicyName())
+                .append("; Policy Number: ")
+                .append(policy.getPolicyNumber())
+                .append("; Provider Company: ")
+                .append(policy.getProviderCompany())
+                .append("; Policy Link: ")
+                .append(policy.getPolicyLink());
         return builder.toString();
     }
 
