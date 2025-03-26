@@ -35,7 +35,7 @@ public class EditPremiumCommand extends Command {
 
     public static final String COMMAND_WORD = "editpr";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits the premium details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " Edits the premium details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Identifies premium policy by name and edits it if it exits. "
             + "Else it will add a new premium policy.\n"
@@ -45,7 +45,7 @@ public class EditPremiumCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + "LifeShield, $300";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PREMIUM_SUCCESS = "Edited Premium for Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
@@ -82,17 +82,18 @@ public class EditPremiumCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPremiumDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPremiumDescriptor editPremiumDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPremiumDescriptor editPremiumDescriptor) {
         assert personToEdit != null;
 
-        PremiumList updatedPremiumList = editPremiumDescriptor.getPremium().orElse(personToEdit.getPremiumList());
+        PremiumList updatedPremiumList = addPremium(personToEdit, editPremiumDescriptor.getPremium()
+                .orElse(personToEdit.getPremiumList()));
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getBirthday(),
@@ -112,7 +113,7 @@ public class EditPremiumCommand extends Command {
 
         EditPremiumCommand otherEditPremiumCommand = (EditPremiumCommand) other;
         return index.equals(otherEditPremiumCommand.index)
-                && otherEditPremiumCommand.equals(otherEditPremiumCommand.editPremiumDescriptor);
+                && editPremiumDescriptor.equals(otherEditPremiumCommand.editPremiumDescriptor);
     }
 
     @Override
@@ -121,6 +122,23 @@ public class EditPremiumCommand extends Command {
                 .add("index", index)
                 .add("editPremiumDescriptor", editPremiumDescriptor)
                 .toString();
+    }
+
+    /**
+     * Replaces Premium by name
+     *
+     * @param premiumList The premiums to replace with
+     */
+    public static PremiumList addPremium(Person personToEdit, PremiumList premiumList) {
+        for (Premium premium : premiumList.premiumList) {
+            if (personToEdit.getPremiumList().contains(premium)) {
+                personToEdit.getPremiumList().replace(premium);
+            } else {
+                personToEdit.getPremiumList().add(premium);
+            }
+        }
+
+        return personToEdit.getPremiumList();
     }
 
     /**
@@ -205,21 +223,6 @@ public class EditPremiumCommand extends Command {
 
         public Optional<PremiumList> getPremium() {
             return Optional.ofNullable(premiumList);
-        }
-
-        /**
-         * Replaces Premium by name
-         *
-         * @param premiumList The premiums to replace with
-         */
-        public void addPremium(PremiumList premiumList) {
-            for (Premium premium : premiumList.premiumList) {
-                if (this.premiumList.contains(premium)) {
-                    this.premiumList.replace(premium);
-                } else {
-                    this.premiumList.add(premium);
-                }
-            }
         }
 
         /**

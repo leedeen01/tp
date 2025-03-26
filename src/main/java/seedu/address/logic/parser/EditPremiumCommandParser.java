@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.exceptions.EditPremiumCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 
 import seedu.address.commons.core.index.Index;
@@ -28,7 +29,7 @@ public class EditPremiumCommandParser implements Parser<EditPremiumCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PREMIUM);
@@ -36,7 +37,7 @@ public class EditPremiumCommandParser implements Parser<EditPremiumCommand> {
         EditPremiumCommand.EditPremiumDescriptor editPremiumDescriptor = new EditPremiumCommand.EditPremiumDescriptor();
 
         if (argMultimap.getValue(PREFIX_PREMIUM).isPresent()) {
-            editPremiumDescriptor.addPremium(ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get()));
+            editPremiumDescriptor.setPremium(ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get()));
         }
 
         if (!editPremiumDescriptor.isAnyFieldEdited()) {

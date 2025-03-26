@@ -55,6 +55,18 @@ public class Messages {
     }
 
     /**
+     * Formats the {@code person} for display to the user when editing premiums.
+     */
+    public static String formatPremium(Person person) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(person.getName())
+                .append(System.lineSeparator())
+                .append(person.getPremiumList().toString());
+
+        return builder.toString();
+    }
+
+    /**
      * Formats the {@code policy} for display to the user.
      */
     public static String formatPolicy(Policy policy) {
