@@ -92,8 +92,8 @@ public class ClientNestParserTest {
 
     @Test
     public void parseCommand_editPremiumCommand() throws Exception {
-        assertTrue(parser.parseCommand(EditPremiumCommand.COMMAND_WORD + " 1 pr/ LifeShield, $300") instanceof
-                EditPremiumCommand);
+        assertTrue(parser.parseCommand(EditPremiumCommand.COMMAND_WORD + " 1 pr/ LifeShield, $300")
+                instanceof EditPremiumCommand);
     }
 
     @Test
