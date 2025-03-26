@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.exceptions;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
 
@@ -38,6 +40,7 @@ public class EditPremiumCommand extends Command {
             + "Identifies premium policy by name and edits it if it exits. "
             + "Else it will add a new premium policy.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_PREMIUM
             + "PREMIUM NAME,PREMIUM AMOUNT\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "LifeShield, $300";
@@ -91,7 +94,8 @@ public class EditPremiumCommand extends Command {
 
         PremiumList updatedPremiumList = editPremiumDescriptor.getPremium().orElse(personToEdit.getPremiumList());
 
-        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getBirthday(),
+        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), personToEdit.getBirthday(),
                 updatedPremiumList, personToEdit.getTags());
     }
 
@@ -204,6 +208,21 @@ public class EditPremiumCommand extends Command {
         }
 
         /**
+         * Replaces Premium by name
+         *
+         * @param premiumList The premiums to replace with
+         */
+        public void addPremium(PremiumList premiumList) {
+            for (Premium premium : premiumList.premiumList) {
+                if (this.premiumList.contains(premium)) {
+                    this.premiumList.replace(premium);
+                } else {
+                    this.premiumList.add(premium);
+                }
+            }
+        }
+
+        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
@@ -222,7 +241,9 @@ public class EditPremiumCommand extends Command {
                 return false;
             }
 
-            EditPremiumCommand.EditPremiumDescriptor otherEditPremiumDescriptor = (EditPremiumCommand.EditPremiumDescriptor) other;
+            EditPremiumCommand.EditPremiumDescriptor otherEditPremiumDescriptor =
+                    (EditPremiumCommand.EditPremiumDescriptor) other;
+
             return Objects.equals(name, otherEditPremiumDescriptor.name)
                     && Objects.equals(phone, otherEditPremiumDescriptor.phone)
                     && Objects.equals(email, otherEditPremiumDescriptor.email)
