@@ -181,40 +181,20 @@ public class EditPremiumCommand extends Command {
             this.name = name;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
         public void setPhone(Phone phone) {
             this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
         }
 
         public void setEmail(Email email) {
             this.email = email;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
         public void setAddress(Address address) {
             this.address = address;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
         public void setBirthday(Birthday birthday) {
             this.birthday = birthday;
-        }
-
-        public Optional<Birthday> getBirthday() {
-            return Optional.ofNullable(birthday);
         }
 
         public void setPremium(PremiumList premiumList) {
