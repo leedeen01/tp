@@ -20,8 +20,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.user.UserProfile;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyLink;
 import seedu.address.model.policy.PolicyName;
@@ -304,5 +307,20 @@ public class ModelManagerTest {
         assertEquals(2, birthdays.size());
         assertEquals("Soon", birthdays.get(0).getName().fullName); // Sorted by closest
         assertEquals("Later", birthdays.get(1).getName().fullName);
+    }
+
+    @Test
+    public void setUserProfileFilePath_validPath_updatesPath() {
+        Path path = Paths.get("new/file/path.json");
+        modelManager.setUserProfileFilePath(path);
+        assertEquals(path, modelManager.getUserProfileFilePath());
+    }
+
+    @Test
+    public void setUserProfile_validProfile_updatesProfile() {
+        UserProfile newProfile = new UserProfile(new Name("Guest Name"), new Email("guest@gmail.com"),
+                new Phone("91234567"));
+        modelManager.setUserProfile(modelManager.getUserProfile(), newProfile);
+        assertEquals(newProfile, modelManager.getUserProfile());
     }
 }
