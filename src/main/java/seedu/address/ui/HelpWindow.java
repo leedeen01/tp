@@ -20,19 +20,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-    public static final String COMMAND_SUMMARY = "Command Summary:\n"
-            + "Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…*\n"
-            + "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, "
-            + "1234665 t/friend t/colleague\n\n"
-            + "Clear: clear\n\n"
-            + "Delete: delete INDEX\n"
-            + "e.g., delete 3\n\n"
-            + "Edit: edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…*\n"
-            + "e.g., edit 2 n/James Lee e/jameslee@example.com\n\n"
-            + "Find: find KEYWORD [MORE_KEYWORDS]\n"
-            + "e.g., find James Jake\n\n"
-            + "List: list\n\n"
-            + "Help: help";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -75,14 +62,15 @@ public class HelpWindow extends UiPart<Stage> {
         };
 
         String[] formats = {
-            "add [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]"
+            "add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY"
                     + " [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…*\n"
                     + "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, "
                     + "1234665 b/2002-11-24 pr/vivo360 1000 t/friend t/colleague",
             "clear",
             "delete INDEX\n"
                     + "e.g., delete 3",
-            "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [t/TAG]…*\n"
+            "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] "
+                    + "[pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…*\n"
                     + "e.g., edit 2 n/James Lee e/jameslee@example.com b/2001-02-13",
             "find KEYWORD [MORE_KEYWORDS]\n"
                     + "e.g., find James Jake",

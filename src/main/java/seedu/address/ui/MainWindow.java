@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserProfilePanel userProfilePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private UpcomingBirthdaysPanel upcomingBirthdaysPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane birthdayPanelPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -135,6 +139,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+      
+        updateUpcomingBirthdaysPanel();
     }
 
     /**
@@ -193,6 +199,14 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+
+            // Refresh upcoming birthdays if a person was added/edited/deleted
+            if (commandText.trim().startsWith("add")
+                    || commandText.trim().startsWith("edit")
+                    || commandText.trim().startsWith("delete")) {
+                updateUpcomingBirthdaysPanel();
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -211,4 +225,11 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    private void updateUpcomingBirthdaysPanel() {
+        birthdayPanelPlaceholder.getChildren().clear();
+        upcomingBirthdaysPanel = new UpcomingBirthdaysPanel(logic.getUpcomingBirthdays());
+        birthdayPanelPlaceholder.getChildren().add(upcomingBirthdaysPanel.getRoot());
+    }
+
 }

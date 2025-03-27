@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -212,6 +213,34 @@ public class LogicManagerTest {
         expectedModel.addPerson(expectedPerson);
 
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void getUpcomingBirthdays_returnsCorrectList() throws Exception {
+        Person birthdaySoon = new PersonBuilder()
+                .withName("Soon")
+                .withBirthday("2000-04-11") // within 30 days from today
+                .build();
+
+        Person birthdayLater = new PersonBuilder()
+                .withName("Later")
+                .withBirthday("2000-05-06") // outside 30 days
+                .build();
+
+        Person birthdayPast = new PersonBuilder()
+                .withName("Past")
+                .withBirthday("2000-03-17") // already passed
+                .build();
+
+        model.addPerson(birthdaySoon);
+        model.addPerson(birthdayLater);
+        model.addPerson(birthdayPast);
+        model.updateUpcomingBirthdays();
+
+        ObservableList<Person> upcoming = logic.getUpcomingBirthdays();
+
+        assertEquals(1, upcoming.size());
+        assertEquals("Soon", upcoming.get(0).getName().toString());
     }
 
 }

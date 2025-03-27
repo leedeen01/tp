@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPolicy.LIFE_SHIELD;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyLink;
 import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.PolicyNumber;
 import seedu.address.model.policy.ProviderCompany;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PolicyBookBuilder;
 import seedu.address.testutil.PolicyBuilder;
 
@@ -258,5 +261,48 @@ public class ModelManagerTest {
                 .build();
         modelManager.addPolicy(originalPolicy);
         assertThrows(NullPointerException.class, () -> modelManager.setPolicy(originalPolicy, null));
+    }
+
+    @Test
+    public void updateUpcomingBirthdays_filtersCorrectly() {
+        Person upcoming = new PersonBuilder()
+                .withName("Upcoming")
+                .withBirthday(LocalDate.now().plusDays(3).withYear(2000).toString())
+                .build();
+        Person far = new PersonBuilder()
+                .withName("Far")
+                .withBirthday(LocalDate.now().plusDays(40).withYear(2000).toString())
+                .build();
+
+        modelManager.addPerson(upcoming);
+        modelManager.addPerson(far);
+        modelManager.updateUpcomingBirthdays();
+        ObservableList<Person> birthdays = modelManager.getUpcomingBirthdays();
+
+        assertEquals(1, birthdays.size());
+        assertEquals("Upcoming", birthdays.get(0).getName().fullName);
+    }
+
+    @Test
+    public void getUpcomingBirthdays_sortedCorrectly() {
+        LocalDate now = LocalDate.now();
+
+        Person p1 = new PersonBuilder()
+                .withName("Soon")
+                .withBirthday(now.plusDays(2).withYear(1990).toString())
+                .build();
+        Person p2 = new PersonBuilder()
+                .withName("Later")
+                .withBirthday(now.plusDays(10).withYear(1990).toString())
+                .build();
+
+        modelManager.addPerson(p2);
+        modelManager.addPerson(p1);
+        modelManager.updateUpcomingBirthdays();
+        ObservableList<Person> birthdays = modelManager.getUpcomingBirthdays();
+
+        assertEquals(2, birthdays.size());
+        assertEquals("Soon", birthdays.get(0).getName().fullName); // Sorted by closest
+        assertEquals("Later", birthdays.get(1).getName().fullName);
     }
 }

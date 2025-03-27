@@ -271,6 +271,16 @@ public class AddPolicyCommandTest {
             assertEquals(expected, command.toString());
         }
 
+        @Override
+        public void updateUpcomingBirthdays() {
+            // Not required for this test
+        }
+
+        @Override
+        public ObservableList<Person> getUpcomingBirthdays() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

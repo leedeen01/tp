@@ -125,11 +125,6 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        if (premiumList.isEmpty()) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PremiumList.class
-                    .getSimpleName()));
-        }
-
         for (JsonAdaptedPremium premium : premiumList.premiumList) {
             if (!Premium.isValidPremium(premium.premiumName, premium.premiumAmount)) {
                 throw new IllegalValueException(Premium.MESSAGE_CONSTRAINTS);
