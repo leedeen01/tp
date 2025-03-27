@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NUMBER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROVIDER_COMPANY;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,17 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyLink;
 import seedu.address.model.policy.PolicyName;
@@ -208,6 +213,47 @@ public class AddPolicyCommandTest {
 
         @Override
         public Path getPolicyBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public Path getUserProfileFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfileFilePath(Path userProfileFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfileName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfileEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfilePhone(Phone phone) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserProfile(UserProfile userProfile) throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 

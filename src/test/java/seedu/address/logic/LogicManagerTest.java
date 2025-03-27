@@ -33,6 +33,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonPolicyBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
@@ -50,9 +51,14 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(
                 temporaryFolder.resolve("addressBook.json"));
-        JsonPolicyBookStorage policyBookStorage = new JsonPolicyBookStorage(temporaryFolder.resolve("policyBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage);
+        JsonPolicyBookStorage policyBookStorage =
+                new JsonPolicyBookStorage(temporaryFolder.resolve("policyBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonUserProfileStorage userProfileStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage,
+                userProfileStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -141,7 +147,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs(),
+                model.getUserProfile(), null);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -188,8 +195,12 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
                 temporaryFolder.resolve("ExceptionUserPrefs.json"));
 
+        JsonUserProfileStorage userProfileStorage = new JsonUserProfileStorage(
+                temporaryFolder.resolve("userProfile.json"));
+
         // Construct StorageManager with all three storage components
-        StorageManager storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage,
+                userProfileStorage);
 
         logic = new LogicManager(model, storage);
 
