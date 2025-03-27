@@ -58,7 +58,8 @@ public class HelpWindow extends UiPart<Stage> {
 
     private void populateCommandSummary() {
         String[] actions = {
-            "Add", "Clear", "Delete", "Edit", "Find", "List", "Help"
+            "Add", "Clear", "Delete", "Edit", "Find", "List", "Help", "Add Policy", "List Policy", "Find Policy",
+            "Edit Policy", "Edit Premium", "Profile"
         };
 
         String[] formats = {
@@ -75,7 +76,18 @@ public class HelpWindow extends UiPart<Stage> {
             "find KEYWORD [MORE_KEYWORDS]\n"
                     + "e.g., find James Jake",
             "list",
-            "help"
+            "help",
+            "addpolicy pn/POLICY_NUMBER n/PREMIUM_NAME pc/PROVIDER_COMPANY pl/POLICY_LINK\n"
+                    + "e.g., addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123\n",
+            "listpolicy",
+            "findpolicy KEYWORD_IN_NAME [MORE KEYWORD_IN_NAME]\n"
+                    + "e.g., findpolicy Life",
+            "editpolicy INDEX [n/ POLICY_NAME] [pn/ POLICY_NUMBER] [pc/ PROVIDER_COMPANY] [pl/ POLICY_LINK]\n"
+                    + "e.g., editpolicy 1 n/Life Shield\n",
+            "editpr INDEX pr/ PREMIUM_NAME, PREMIUM_AMOUNT\n"
+                    + "e.g., editpr 1 pr/LifeShield, $300",
+            "profile [n/USER_NAME] [e/USER_EMAIL] [p/USER_PHONE]\n"
+                    + "e.g., profile n/James Ho e/jamesho@example.com p/22224444",
         };
 
         // Set up the table columns to use array elements as values
