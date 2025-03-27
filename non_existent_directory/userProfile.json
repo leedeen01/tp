@@ -1,0 +1,11 @@
+{
+  "name" : {
+    "fullName" : "Charlie"
+  },
+  "email" : {
+    "value" : "charlie@example.com"
+  },
+  "phone" : {
+    "value" : "555123456"
+  }
+}

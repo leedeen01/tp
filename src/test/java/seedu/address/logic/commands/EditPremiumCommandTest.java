@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.exceptions;
+package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,7 +15,9 @@ import static seedu.address.testutil.TypicalPolicy.getTypicalPolicyBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.EditPremiumCommand;
 import seedu.address.logic.commands.exceptions.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
@@ -32,7 +34,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditPremiumCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
+            new UserProfile(), null);
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() throws ParseException {
@@ -51,7 +54,7 @@ public class EditPremiumCommandTest {
         Person tempEditedPerson = EditPremiumCommand.createEditedPerson(firstPerson, descriptor);
         // Create a new model for this check to avoid modifying the test model
         Model tempModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new PolicyBook(model.getPolicyBook()), new UserPrefs());
+                new PolicyBook(model.getPolicyBook()), new UserPrefs(), new UserProfile(), null);
         if (!firstPerson.isSamePerson(tempEditedPerson) && tempModel.hasPerson(tempEditedPerson)) {
             EditPremiumCommand editPremiumCommand = new EditPremiumCommand(INDEX_FIRST_PERSON, descriptor);
             assertCommandFailure(editPremiumCommand, model, EditPremiumCommand.MESSAGE_DUPLICATE_PERSON);
