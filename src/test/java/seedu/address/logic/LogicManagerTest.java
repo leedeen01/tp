@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -29,6 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -243,4 +246,35 @@ public class LogicManagerTest {
         assertEquals("Soon", upcoming.get(0).getName().toString());
     }
 
+    @Test
+    public void getAddressBook_returnsCorrectAddressBook() {
+        ReadOnlyAddressBook expectedAddressBook = model.getAddressBook();
+        assertEquals(expectedAddressBook, logic.getAddressBook());
+    }
+
+    @Test
+    public void getPolicyBook_returnsCorrectPolicyBook() {
+        ReadOnlyPolicyBook expectedPolicyBook = model.getPolicyBook();
+        assertEquals(expectedPolicyBook, logic.getPolicyBook());
+    }
+
+    @Test
+    public void getUserProfile_returnsCorrectUserProfile() {
+        UserProfile expectedUserProfile = model.getUserProfile();
+        assertEquals(expectedUserProfile, logic.getUserProfile());
+    }
+
+    @Test
+    public void getSetGuiSettings_correctSettings() {
+        GuiSettings originalSettings = new GuiSettings(800, 600, 0, 0);
+        logic.setGuiSettings(originalSettings);
+
+        // Test getter returns the correct settings
+        assertEquals(originalSettings, logic.getGuiSettings());
+
+        // Modify settings and test again
+        GuiSettings modifiedSettings = new GuiSettings(1024, 768, 100, 100);
+        logic.setGuiSettings(modifiedSettings);
+        assertEquals(modifiedSettings, logic.getGuiSettings());
+    }
 }
