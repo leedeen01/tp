@@ -161,6 +161,22 @@ public class PremiumList {
     }
 
     /**
+     * Replaces Premium by name
+     *
+     * @param premium The premium to replace with
+     */
+    public void replace(Premium premium) {
+        for (Premium p : premiumList) {
+            if (p.getPremiumName().equals(premium.getPremiumName())) {
+                premiumList.remove(p);
+                premiumList.add(premium);
+                break;
+            }
+        }
+    }
+
+
+    /**
      * Checks if the PremiumList is empty.
      *
      * @return true if the list is empty, false otherwise.

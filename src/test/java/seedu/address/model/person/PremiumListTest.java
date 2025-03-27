@@ -223,4 +223,38 @@ public class PremiumListTest {
 
         assertEquals(list1.hashCode(), list2.hashCode());
     }
+
+    @Test
+    public void replace_existingPremium_success() {
+        Premium originalPremium = new Premium("test", 100);
+        Premium replacementPremium = new Premium("test", 200);
+        PremiumList premiumList = new PremiumList(originalPremium);
+
+        premiumList.replace(replacementPremium);
+
+        assertTrue(premiumList.contains(replacementPremium));
+        assertEquals(1, premiumList.premiumList.size());
+        assertTrue(premiumList.premiumList.get(0).getPremiumAmount().equals(200));
+    }
+
+    @Test
+    public void replace_nonExistingPremium_noChange() {
+        Premium originalPremium = new Premium("test1", 100);
+        Premium replacementPremium = new Premium("test2", 200);
+        PremiumList premiumList = new PremiumList(originalPremium);
+
+        premiumList.replace(replacementPremium);
+
+        assertTrue(premiumList.contains(originalPremium));
+        assertFalse(premiumList.contains(replacementPremium));
+        assertEquals(1, premiumList.premiumList.size());
+    }
+
+    @Test
+    public void replace_nullPremium_throwsNullPointerException() {
+        Premium premium = new Premium("test", 100);
+        PremiumList premiumList = new PremiumList(premium);
+
+        assertThrows(NullPointerException.class, () -> premiumList.replace(null));
+    }
 }
