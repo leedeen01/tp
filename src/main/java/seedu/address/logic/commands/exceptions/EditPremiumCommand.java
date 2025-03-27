@@ -42,7 +42,7 @@ public class EditPremiumCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_PREMIUM
             + "PREMIUM NAME,PREMIUM AMOUNT\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PREMIUM
             + "LifeShield, $300";
 
     public static final String MESSAGE_EDIT_PREMIUM_SUCCESS = "Edited Premium for Person: %1$s";
