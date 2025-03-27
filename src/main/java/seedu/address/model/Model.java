@@ -7,10 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.user.UserProfile;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 
 /**
@@ -78,11 +75,6 @@ public interface Model {
 
     /** Sets the user profile. */
     void setUserProfile(UserProfile currentProfile, UserProfile userProfile);
-
-    /** Sets the user profile individual values. */
-    void setUserProfileName(Name name);
-    void setUserProfileEmail(Email email);
-    void setUserProfilePhone(Phone phone);
 
     /** Saves the user profile into JSON file */
     void saveUserProfile(UserProfile userProfile) throws IOException;

@@ -17,10 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.storage.Storage;
 
@@ -137,21 +134,6 @@ public class ModelManager implements Model {
     @Override
     public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
         userProfile.setUserProfile(currentProfile, userProfile);
-    }
-
-    @Override
-    public void setUserProfileName(Name name) {
-        userProfile.setUserProfileName(name);
-    }
-
-    @Override
-    public void setUserProfileEmail(Email email) {
-        userProfile.setUserProfileEmail(email);
-    }
-
-    @Override
-    public void setUserProfilePhone(Phone phone) {
-        userProfile.setUserProfilePhone(phone);
     }
 
     @Override

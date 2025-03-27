@@ -32,10 +32,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPolicyBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.testutil.PersonBuilder;
 
@@ -264,21 +261,6 @@ public class AddCommandTest {
 
         @Override
         public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserProfileName(Name name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserProfileEmail(Email email) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserProfilePhone(Phone phone) {
             throw new AssertionError("This method should not be called.");
         }
 
