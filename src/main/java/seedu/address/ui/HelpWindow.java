@@ -20,19 +20,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-    public static final String COMMAND_SUMMARY = "Command Summary:\n"
-            + "Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…*\n"
-            + "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, "
-            + "1234665 t/friend t/colleague\n\n"
-            + "Clear: clear\n\n"
-            + "Delete: delete INDEX\n"
-            + "e.g., delete 3\n\n"
-            + "Edit: edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…*\n"
-            + "e.g., edit 2 n/James Lee e/jameslee@example.com\n\n"
-            + "Find: find KEYWORD [MORE_KEYWORDS]\n"
-            + "e.g., find James Jake\n\n"
-            + "List: list\n\n"
-            + "Help: help";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -71,23 +58,36 @@ public class HelpWindow extends UiPart<Stage> {
 
     private void populateCommandSummary() {
         String[] actions = {
-            "Add", "Clear", "Delete", "Edit", "Find", "List", "Help"
+            "Add", "Clear", "Delete", "Edit", "Find", "List", "Help", "Add Policy", "List Policy", "Find Policy",
+            "Edit Policy", "Edit Premium", "Profile"
         };
 
         String[] formats = {
-            "add [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY]"
+            "add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY"
                     + " [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…*\n"
                     + "e.g., add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, "
                     + "1234665 b/2002-11-24 pr/vivo360 1000 t/friend t/colleague",
             "clear",
             "delete INDEX\n"
                     + "e.g., delete 3",
-            "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [t/TAG]…*\n"
+            "edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] "
+                    + "[pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…*\n"
                     + "e.g., edit 2 n/James Lee e/jameslee@example.com b/2001-02-13",
             "find KEYWORD [MORE_KEYWORDS]\n"
                     + "e.g., find James Jake",
             "list",
-            "help"
+            "help",
+            "addpolicy pn/POLICY_NUMBER n/PREMIUM_NAME pc/PROVIDER_COMPANY pl/POLICY_LINK\n"
+                    + "e.g., addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123\n",
+            "listpolicy",
+            "findpolicy KEYWORD_IN_NAME [MORE KEYWORD_IN_NAME]\n"
+                    + "e.g., findpolicy Life",
+            "editpolicy INDEX [n/ POLICY_NAME] [pn/ POLICY_NUMBER] [pc/ PROVIDER_COMPANY] [pl/ POLICY_LINK]\n"
+                    + "e.g., editpolicy 1 n/Life Shield\n",
+            "editpr INDEX pr/ PREMIUM_NAME, PREMIUM_AMOUNT\n"
+                    + "e.g., editpr 1 pr/LifeShield, $300",
+            "profile [n/USER_NAME] [e/USER_EMAIL] [p/USER_PHONE]\n"
+                    + "e.g., profile n/James Ho e/jamesho@example.com p/22224444",
         };
 
         // Set up the table columns to use array elements as values

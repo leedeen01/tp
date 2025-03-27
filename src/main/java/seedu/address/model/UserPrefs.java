@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path policyBookFilePath = Paths.get("data", "policybook.json");
+    private Path userProfileFilePath = Paths.get("data", "userprofile.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setPolicyBookFilePath(newUserPrefs.getPolicyBookFilePath());
+
     }
 
     public GuiSettings getGuiSettings() {
@@ -65,6 +67,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setPolicyBookFilePath(Path policyBookFilePath) {
         requireNonNull(policyBookFilePath);
         this.policyBookFilePath = policyBookFilePath;
+    }
+
+    public Path getUserProfileFilePath() {
+        return userProfileFilePath;
+    }
+
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        this.userProfileFilePath = userProfileFilePath;
     }
 
     @Override
@@ -95,6 +106,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location (AddressBook) : " + addressBookFilePath);
         sb.append("\nLocal data file location (PolicyBook) : " + policyBookFilePath);
+        sb.append("\nLocal data file location (UserProfile) : " + userProfileFilePath);
         return sb.toString();
     }
 

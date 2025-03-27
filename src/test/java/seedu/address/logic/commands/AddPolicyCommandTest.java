@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_POLICY_NUMBER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROVIDER_COMPANY;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -211,6 +213,32 @@ public class AddPolicyCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        @Override
+        public Path getUserProfileFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfileFilePath(Path userProfileFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserProfile(UserProfile userProfile) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Test
         public void toString_returnsCorrectFormat() {
             Policy policy = new Policy(
@@ -223,6 +251,16 @@ public class AddPolicyCommandTest {
                     .add("toAdd", policy)
                     .toString();
             assertEquals(expected, command.toString());
+        }
+
+        @Override
+        public void updateUpcomingBirthdays() {
+            // Not required for this test
+        }
+
+        @Override
+        public ObservableList<Person> getUpcomingBirthdays() {
+            throw new AssertionError("This method should not be called.");
         }
 
     }

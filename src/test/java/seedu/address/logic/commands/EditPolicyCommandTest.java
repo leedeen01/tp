@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPolicy.getTypicalPolicyBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditPolicyCommand.EditPolicyDescriptor;
 import seedu.address.model.AddressBook;
@@ -24,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PolicyBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.policy.Policy;
+import seedu.address.storage.Storage;
 import seedu.address.testutil.EditPolicyDescriptorBuilder;
 import seedu.address.testutil.PolicyBuilder;
 
@@ -32,7 +34,9 @@ import seedu.address.testutil.PolicyBuilder;
  */
 public class EditPolicyCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs());
+    private Storage storage;
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
+            new UserProfile(), storage);
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -44,7 +48,7 @@ public class EditPolicyCommandTest {
             String.format(EditPolicyCommand.MESSAGE_EDIT_POLICY_SUCCESS, Messages.formatPolicy(editedPolicy));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new PolicyBook(model.getPolicyBook()), new UserPrefs());
+                new PolicyBook(model.getPolicyBook()), new UserPrefs(), new UserProfile(), storage);
         expectedModel.setPolicy(model.getFilteredPolicyList().get(0), editedPolicy);
 
         assertCommandSuccess(editPolicyCommand, model, expectedMessage, expectedModel);

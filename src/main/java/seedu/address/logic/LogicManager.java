@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -95,6 +96,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Path getUserProfileFilePath() {
+        return model.getUserProfileFilePath();
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        return model.getUserProfile();
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }
@@ -102,5 +113,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Person> getUpcomingBirthdays() {
+        return model.getUpcomingBirthdays();
     }
 }

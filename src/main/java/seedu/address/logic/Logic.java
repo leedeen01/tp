@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -56,6 +57,16 @@ public interface Logic {
     Path getPolicyBookFilePath();
 
     /**
+     * Returns the user profile's file path.
+     */
+    Path getUserProfileFilePath();
+
+    /**
+     * Returns the user profile.
+     */
+    UserProfile getUserProfile();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -64,4 +75,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the list of persons with upcoming birthdays in the next 30 days.
+     */
+    ObservableList<Person> getUpcomingBirthdays();
 }

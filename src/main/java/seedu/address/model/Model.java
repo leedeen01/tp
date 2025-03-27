@@ -1,10 +1,12 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 
@@ -56,6 +58,26 @@ public interface Model {
      * Sets the user prefs' policy book file path.
      */
     void setPolicyBookFilePath(Path policyBookFilePath);
+
+    // New methods for User Profile
+    /**
+     * Returns the user profile's file path.
+     */
+    Path getUserProfileFilePath();
+
+    /**
+     * Sets the user profile file path.
+     */
+    void setUserProfileFilePath(Path userProfileFilePath);
+
+    /** Returns the user profile. */
+    UserProfile getUserProfile();
+
+    /** Sets the user profile. */
+    void setUserProfile(UserProfile currentProfile, UserProfile userProfile);
+
+    /** Saves the user profile into JSON file */
+    void saveUserProfile(UserProfile userProfile) throws IOException;
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -143,4 +165,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPolicyList(Predicate<Policy> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of persons whose birthdays are within the next 30 days.
+     */
+    ObservableList<Person> getUpcomingBirthdays();
+
+    void updateUpcomingBirthdays();
 }

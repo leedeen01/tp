@@ -33,11 +33,16 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
+    private UserProfilePanel userProfilePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private UpcomingBirthdaysPanel upcomingBirthdaysPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private StackPane userProfilePanelPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -53,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane birthdayPanelPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -113,24 +121,16 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerPartsForPerson() {
+    void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    void fillInnerPartsForPolicy() {
         policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
         policyListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
 
+        userProfilePanel = new UserProfilePanel(logic.getUserProfile());
+        userProfilePanelPlaceholder.getChildren().add(userProfilePanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -139,6 +139,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        updateUpcomingBirthdaysPanel();
     }
 
     /**
@@ -197,6 +199,14 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+
+            // Refresh upcoming birthdays if a person was added/edited/deleted
+            if (commandText.trim().startsWith("add")
+                    || commandText.trim().startsWith("edit")
+                    || commandText.trim().startsWith("delete")) {
+                updateUpcomingBirthdaysPanel();
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -215,4 +225,11 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    private void updateUpcomingBirthdaysPanel() {
+        birthdayPanelPlaceholder.getChildren().clear();
+        upcomingBirthdaysPanel = new UpcomingBirthdaysPanel(logic.getUpcomingBirthdays());
+        birthdayPanelPlaceholder.getChildren().add(upcomingBirthdaysPanel.getRoot());
+    }
+
 }

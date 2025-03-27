@@ -32,6 +32,15 @@ public class Birthday {
     }
 
     /**
+     * Returns the {@code LocalDate} representation of the birthday.
+     *
+     * @return LocalDate value of this birthday.
+     */
+    public LocalDate getValue() {
+        return value;
+    }
+
+    /**
      * Returns true if given string is a valid birthday.
      */
     public static boolean isValidBirthday(String test) {
@@ -65,5 +74,23 @@ public class Birthday {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    /**
+     * Returns true if the birthday is within the next 30 days from today.
+     */
+    public boolean isWithinNext30Days() {
+        LocalDate now = LocalDate.now();
+        LocalDate in30Days = now.plusDays(30);
+
+        // Birthday this year
+        LocalDate thisYearsBirthday = value.withYear(now.getYear());
+
+        // Handle birthday passed already this year (check next year's birthday)
+        if (thisYearsBirthday.isBefore(now)) {
+            thisYearsBirthday = thisYearsBirthday.plusYears(1);
+        }
+
+        return !thisYearsBirthday.isAfter(in30Days);
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane styleClass="profile-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+    <HBox alignment="CENTER" style="-fx-padding: 20;">
+        <VBox fx:id="leftContainer" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <Label fx:id="nameLabel" text="Welcome, " wrapText="true"/>
+        </VBox>
+
+        <VBox fx:id="rightContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <Label fx:id="emailLabel" text="Email: " wrapText="true"/>
+            <Label fx:id="phoneLabel" text="Phone: " wrapText="true"/>
+        </VBox>
+    </HBox>
+
+</StackPane>

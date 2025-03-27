@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
@@ -28,10 +29,12 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonPolicyBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.PolicyBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserProfileStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -64,7 +67,8 @@ public class MainApp extends Application {
 
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         PolicyBookStorage policyBookStorage = new JsonPolicyBookStorage(userPrefs.getPolicyBookFilePath());
-        storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage);
+        UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
+        storage = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage, userProfileStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -80,11 +84,14 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
         logger.info("Using premium data file : " + storage.getPolicyBookFilePath());
+        logger.info("Using profile data file : " + storage.getUserProfileFilePath());
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyPolicyBook> policyBookOptional;
+        Optional<UserProfile> userProfileOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyPolicyBook initialPolicyBookData;
+        UserProfile initialUserProfileData;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -112,7 +119,21 @@ public class MainApp extends Application {
             initialPolicyBookData = new PolicyBook();
         }
 
-        return new ModelManager(initialAddressBookData, initialPolicyBookData, userPrefs);
+        try {
+            userProfileOptional = storage.readUserProfile();
+            if (!userProfileOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getUserProfileFilePath()
+                        + " populated with a default user profile.");
+            }
+            initialUserProfileData = new UserProfile();
+        } catch (Exception e) {
+            logger.warning("Data file at " + storage.getPolicyBookFilePath() + " could not be loaded."
+                    + " Will be starting with a default user profile.");
+            initialUserProfileData = new UserProfile();
+        }
+
+        return new ModelManager(initialAddressBookData, initialPolicyBookData, userPrefs,
+                initialUserProfileData, storage);
     }
 
     private void initLogging(Config config) {

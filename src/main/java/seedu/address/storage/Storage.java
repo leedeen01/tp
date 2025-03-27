@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPolicyBook;
@@ -13,7 +14,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, PolicyBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, PolicyBookStorage, UserPrefsStorage, UserProfileStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -41,5 +42,17 @@ public interface Storage extends AddressBookStorage, PolicyBookStorage, UserPref
 
     @Override
     void savePolicyBook(ReadOnlyPolicyBook policyBook) throws IOException;
+
+    @Override
+    Path getUserProfileFilePath();
+
+    @Override
+    Optional<UserProfile> readUserProfile() throws DataLoadingException, IOException;
+
+    @Override
+    Optional<UserProfile> readUserProfile(Path filePath) throws DataLoadingException, IOException;
+
+    @Override
+    void saveUserProfile(UserProfile userProfile) throws IOException;
 
 }

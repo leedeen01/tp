@@ -16,6 +16,13 @@ public class Phone {
     public final String value;
 
     /**
+     * A default constructor for User Profile
+     */
+    public Phone() {
+        this.value = "";
+    }
+
+    /**
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
