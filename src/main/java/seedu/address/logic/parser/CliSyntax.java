@@ -19,4 +19,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_POLICY_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PROVIDER_COMPANY = new Prefix("pc/");
     public static final Prefix PREFIX_POLICY_LINK = new Prefix("pl/");
+
+    /* Prefix definitions for user */
+    public static final Prefix PREFIX_USER_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_USER_PHONE = new Prefix("p/");
+    public static final Prefix PREFIX_USER_EMAIL = new Prefix("e/");
 }

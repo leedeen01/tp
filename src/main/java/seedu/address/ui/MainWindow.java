@@ -33,11 +33,15 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
+    private UserProfilePanel userProfilePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private StackPane userProfilePanelPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -113,23 +117,15 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerPartsForPerson() {
+    void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    void fillInnerPartsForPolicy() {
         policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
         policyListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+
+        userProfilePanel = new UserProfilePanel(logic.getUserProfile());
+        userProfilePanelPlaceholder.getChildren().add(userProfilePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

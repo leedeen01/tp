@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -54,6 +55,16 @@ public interface Logic {
      * Returns the user prefs' policy book file path.
      */
     Path getPolicyBookFilePath();
+
+    /**
+     * Returns the user profile's file path.
+     */
+    Path getUserProfileFilePath();
+
+    /**
+     * Returns the user profile.
+     */
+    UserProfile getUserProfile();
 
     /**
      * Returns the user prefs' GUI settings.

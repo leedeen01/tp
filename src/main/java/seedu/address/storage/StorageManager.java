@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPolicyBook;
@@ -21,15 +22,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private PolicyBookStorage policyBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private UserProfileStorage userProfileStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
     public StorageManager(AddressBookStorage addressBookStorage, PolicyBookStorage policyBookStorage,
-        UserPrefsStorage userPrefsStorage) {
+        UserPrefsStorage userPrefsStorage, UserProfileStorage userProfileStorage) {
         this.addressBookStorage = addressBookStorage;
         this.policyBookStorage = policyBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.userProfileStorage = userProfileStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -105,5 +108,32 @@ public class StorageManager implements Storage {
     public void savePolicyBook(ReadOnlyPolicyBook policyBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         policyBookStorage.savePolicyBook(policyBook, filePath);
+    }
+
+    @Override
+    public Path getUserProfileFilePath() {
+        return userProfileStorage.getUserProfileFilePath();
+    }
+
+    @Override
+    public Optional<UserProfile> readUserProfile() throws DataLoadingException, IOException {
+        return readUserProfile(userProfileStorage.getUserProfileFilePath());
+    }
+
+    @Override
+    public Optional<UserProfile> readUserProfile(Path filePath) throws DataLoadingException, IOException {
+        logger.fine("Attempting to read user profile from file: " + filePath);
+        return userProfileStorage.readUserProfile(filePath);
+    }
+
+    @Override
+    public void saveUserProfile(UserProfile userProfile) throws IOException {
+        saveUserProfile(userProfile, userProfileStorage.getUserProfileFilePath());
+    }
+
+    @Override
+    public void saveUserProfile(UserProfile userProfile, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        userProfileStorage.saveUserProfile(userProfile, filePath);
     }
 }
