@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -24,6 +27,7 @@ public class ModelManager implements Model {
     private final PolicyBook policyBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredUpcomingBirthdays;
     private final FilteredList<Policy> filteredPolicies;
 
     /**
@@ -39,6 +43,7 @@ public class ModelManager implements Model {
         this.policyBook = new PolicyBook(policyBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredUpcomingBirthdays = new FilteredList<>(this.addressBook.getPersonList());
         filteredPolicies = new FilteredList<>(this.policyBook.getPolicyList());
     }
 
@@ -217,4 +222,33 @@ public class ModelManager implements Model {
                 && filteredPolicies.equals(otherModelManager.filteredPolicies);
     }
 
+    //=========== Upcoming Birthdays  ============================================================
+
+    @Override
+    public ObservableList<Person> getUpcomingBirthdays() {
+        LocalDate today = LocalDate.now();
+
+        return FXCollections.observableArrayList(
+            filteredUpcomingBirthdays.stream()
+                .filter(p -> p.getBirthday().isWithinNext30Days())
+                .sorted((p1, p2) -> {
+                    LocalDate b1 = p1.getBirthday().getValue().withYear(today.getYear());
+                    LocalDate b2 = p2.getBirthday().getValue().withYear(today.getYear());
+
+                    if (b1.isBefore(today)) {
+                        b1 = b1.plusYears(1);
+                    }
+                    if (b2.isBefore(today)) {
+                        b2 = b2.plusYears(1);
+                    }
+
+                    return b1.compareTo(b2);
+                }).collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    public void updateUpcomingBirthdays() {
+        filteredUpcomingBirthdays.setPredicate(p -> p.getBirthday().isWithinNext30Days());
+    }
 }

@@ -46,23 +46,27 @@
           </padding>
         </StackPane>
 
-        <SplitPane fx:id="splitPane" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
-            <!-- Person List Pane -->
-            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="170" prefWidth="170">
-                <padding>
-                    <Insets top="10" right="5" bottom="10" left="10" />
-                </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
+          <SplitPane fx:id="splitPane" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
+              <!-- Person List Pane -->
+              <VBox fx:id="personList" styleClass="pane-with-border" minWidth="170" prefWidth="170">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
 
-            <!-- Policy List Pane -->
-            <VBox fx:id="policyList" styleClass="pane-with-border" minWidth="170" prefWidth="170">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="5" />
-                </padding>
-                <StackPane fx:id="policyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-        </SplitPane>
+              <!-- Policy List Pane -->
+              <VBox fx:id="policyList" styleClass="pane-with-border" minWidth="170" prefWidth="170">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="5" />
+                  </padding>
+                  <StackPane fx:id="policyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+
+              <!-- Birthday Panel -->
+              <StackPane fx:id="birthdayPanelPlaceholder" minWidth="180" prefWidth="200" maxWidth="300" styleClass="pane-with-border"/>
+          </SplitPane>
+
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
