@@ -19,8 +19,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyLink;
 import seedu.address.model.policy.PolicyName;
@@ -113,10 +117,11 @@ public class ModelManagerTest {
         PolicyBook policyBook = new PolicyBookBuilder().withPolicy(HEALTH_2040).withPolicy(LIFE_SHIELD).build();
         PolicyBook differentPolicyBook = new PolicyBook();
         UserPrefs userPrefs = new UserPrefs();
+        UserProfile userProfile = new UserProfile();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, policyBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, policyBook, userPrefs);
+        modelManager = new ModelManager(addressBook, policyBook, userPrefs, userProfile, null);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, policyBook, userPrefs, userProfile, null);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -129,12 +134,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentPolicyBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentPolicyBook, userPrefs,
+                userProfile, null)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, policyBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, policyBook, userPrefs,
+                userProfile, null)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -142,7 +149,8 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, policyBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, policyBook, differentUserPrefs,
+                userProfile, null)));
     }
 
     // ======== Policy-related Tests ========
@@ -299,5 +307,20 @@ public class ModelManagerTest {
         assertEquals(2, birthdays.size());
         assertEquals("Soon", birthdays.get(0).getName().fullName); // Sorted by closest
         assertEquals("Later", birthdays.get(1).getName().fullName);
+    }
+
+    @Test
+    public void setUserProfileFilePath_validPath_updatesPath() {
+        Path path = Paths.get("new/file/path.json");
+        modelManager.setUserProfileFilePath(path);
+        assertEquals(path, modelManager.getUserProfileFilePath());
+    }
+
+    @Test
+    public void setUserProfile_validProfile_updatesProfile() {
+        UserProfile newProfile = new UserProfile(new Name("Guest Name"), new Email("guest@gmail.com"),
+                new Phone("91234567"));
+        modelManager.setUserProfile(modelManager.getUserProfile(), newProfile);
+        assertEquals(newProfile, modelManager.getUserProfile());
     }
 }

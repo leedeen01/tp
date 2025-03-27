@@ -34,6 +34,13 @@ public class Email {
     public final String value;
 
     /**
+     * A default constructor for User Profile
+     */
+    public Email() {
+        this.value = "";
+    }
+
+    /**
      * Constructs an {@code Email}.
      *
      * @param email A valid email address.

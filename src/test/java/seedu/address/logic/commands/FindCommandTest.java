@@ -16,17 +16,22 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.storage.Storage;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs());
+    private Storage storage;
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
+            new UserProfile(), storage);
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
+            new UserProfile(), storage);
 
     @Test
     public void equals() {

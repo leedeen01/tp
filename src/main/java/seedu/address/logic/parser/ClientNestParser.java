@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.exceptions.EditPremiumCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -64,6 +65,9 @@ public class ClientNestParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommandParser().parse(arguments);
 
         /* Person */
         case AddCommand.COMMAND_WORD:

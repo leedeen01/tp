@@ -362,3 +362,34 @@
 .hyperlink:hover {
     -fx-text-fill: lightblue; /* Color when hovering over hyperlinks */
 }
+
+/* Profile Pane styling */
+.profile-pane {
+    -fx-border-radius: 2000px;
+    -fx-border-width: 2px;
+    -fx-background-color: derive(#ffffff, 20%);
+}
+
+#leftContainer {
+    -fx-padding: 0 0 0 30;
+}
+
+#rightContainer {
+    -fx-padding: 0 30 0 0;
+}
+
+/* Label styling for nameLabel and emailLabel/phoneLabel */
+#nameLabel {
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: derive(#1d1d1d, 20%);
+    -fx-opacity: 1;
+    -fx-font-weight: bold;
+}
+
+#emailLabel, #phoneLabel {
+    -fx-font-size: 18px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: derive(#1d1d1d, 20%);
+    -fx-opacity: 0.9;
+}

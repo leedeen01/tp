@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -239,6 +241,31 @@ public class AddCommandTest {
 
         @Override
         public Path getPolicyBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserProfileFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfileFilePath(Path userProfileFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserProfile getUserProfile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveUserProfile(UserProfile userProfile) throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 

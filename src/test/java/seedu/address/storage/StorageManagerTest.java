@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.model.AddressBook;
 import seedu.address.model.PolicyBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -30,7 +31,9 @@ public class StorageManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonPolicyBookStorage policyBookStorage = new JsonPolicyBookStorage(getTempFilePath("pb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage);
+        JsonUserProfileStorage userProfileStorage = new JsonUserProfileStorage(getTempFilePath("up"));
+        storageManager = new StorageManager(addressBookStorage, policyBookStorage, userPrefsStorage,
+                userProfileStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -63,6 +66,14 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void userProfileReadSave() throws Exception {
+        UserProfile original = new UserProfile();
+        storageManager.saveUserProfile(original);
+        UserProfile retrieved = storageManager.readUserProfile().get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
@@ -70,5 +81,10 @@ public class StorageManagerTest {
     @Test
     public void getPolicyBookFilePath() {
         assertNotNull(storageManager.getPolicyBookFilePath());
+    }
+
+    @Test
+    public void getUserProfileFilePath() {
+        assertNotNull(storageManager.getUserProfileFilePath());
     }
 }

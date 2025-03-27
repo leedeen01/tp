@@ -14,11 +14,13 @@ import static seedu.address.testutil.TypicalPolicy.getTypicalPolicyBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.storage.Storage;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -26,7 +28,9 @@ import seedu.address.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs());
+    private Storage storage;
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
+            new UserProfile(), storage);
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -36,7 +40,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs(),
+                model.getUserProfile(), storage);
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -60,7 +65,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getPolicyBook(), new UserPrefs(),
+                model.getUserProfile(), storage);
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 

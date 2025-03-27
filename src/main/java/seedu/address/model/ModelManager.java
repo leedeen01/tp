@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.function.Predicate;
@@ -14,8 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.user.UserProfile;
+import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.storage.Storage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,29 +30,34 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final PolicyBook policyBook;
     private final UserPrefs userPrefs;
+    private final UserProfile userProfile;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredUpcomingBirthdays;
     private final FilteredList<Policy> filteredPolicies;
+    private final Storage storage;
 
     /**
      * Initializes a ModelManager with the given addressBook, policyBook, and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPolicyBook policyBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, policyBook, userPrefs);
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPolicyBook policyBook,
+                        ReadOnlyUserPrefs userPrefs, UserProfile userProfile, Storage storage) {
+        requireAllNonNull(addressBook, policyBook, userPrefs, userProfile);
 
         logger.fine("Initializing with address book: " + addressBook + ", policy book: " + policyBook
-                + " and user prefs " + userPrefs);
+                + ", user prefs " + userPrefs + "and user profile " + userProfile);
 
         this.addressBook = new AddressBook(addressBook);
         this.policyBook = new PolicyBook(policyBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.userProfile = new UserProfile(userProfile.getName(), userProfile.getEmail(), userProfile.getPhone());
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredUpcomingBirthdays = new FilteredList<>(this.addressBook.getPersonList());
         filteredPolicies = new FilteredList<>(this.policyBook.getPolicyList());
+        this.storage = storage;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new PolicyBook(), new UserPrefs());
+        this(new AddressBook(), new PolicyBook(), new UserPrefs(), new UserProfile(), null);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -96,6 +105,42 @@ public class ModelManager implements Model {
         requireNonNull(policyBookPath);
         userPrefs.setPolicyBookFilePath(policyBookPath);
     }
+
+    @Override
+    public Path getUserProfileFilePath() {
+        return userPrefs.getUserProfileFilePath();
+    }
+
+    @Override
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        userPrefs.setUserProfileFilePath(userProfileFilePath);
+    }
+
+    @Override
+    public UserProfile getUserProfile() {
+        try {
+            if (storage != null) {
+                return storage.readUserProfile().orElse(userProfile);
+            } else {
+                return userProfile;
+            }
+        } catch (IOException | DataLoadingException e) {
+            logger.warning("Failed to read user profile from storage. Using in-memory profile.");
+            return userProfile;
+        }
+    }
+
+    @Override
+    public void setUserProfile(UserProfile currentProfile, UserProfile userProfile) {
+        userProfile.setUserProfile(currentProfile, userProfile);
+    }
+
+    @Override
+    public void saveUserProfile(UserProfile userProfile) throws IOException {
+        storage.saveUserProfile(userProfile);
+    }
+
 
     //=========== AddressBook ================================================================================
 

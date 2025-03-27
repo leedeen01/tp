@@ -22,6 +22,13 @@ public class Name {
     public final String fullName;
 
     /**
+     * A default constructor for User Profile
+     */
+    public Name() {
+        this.fullName = "";
+    }
+
+    /**
      * Constructs a {@code Name}.
      *
      * @param name A valid name.
