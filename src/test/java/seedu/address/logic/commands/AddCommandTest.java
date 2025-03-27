@@ -284,7 +284,7 @@ public class AddCommandTest {
 
         @Override
         public void saveUserProfile(UserProfile userProfile) throws IOException {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
