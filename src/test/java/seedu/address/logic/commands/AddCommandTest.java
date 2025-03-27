@@ -96,14 +96,14 @@ public class AddCommandTest {
     @Test
     public void testMessageUsage() {
         String commandWord = "add";
-        String testString = commandWord + ": Adds a person to the address book. "
+        String testString = commandWord + ": Adds a person to the address book.\n"
                 + "Parameters: "
                 + PREFIX_NAME + "NAME "
                 + PREFIX_PHONE + "PHONE "
                 + PREFIX_EMAIL + "EMAIL "
                 + PREFIX_ADDRESS + "ADDRESS "
                 + PREFIX_BIRTHDAY + "BIRTHDAY "
-                + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT "
+                + "[" + PREFIX_PREMIUM + "PREMIUM_NAME PREMIUM_AMOUNT] "
                 + "[" + PREFIX_TAG + "TAG]...\n"
                 + "Example: " + commandWord + " "
                 + PREFIX_NAME + "John Doe "
