@@ -97,4 +97,12 @@ public class BirthdayTest {
         Birthday b = new Birthday("1999-12-25");
         assertTrue(a.hashCode() == b.hashCode());
     }
+
+    @Test
+    public void isWithinNext30Days_withBirthdayExactlyIn30Days_returnsTrue() {
+        LocalDate in30Days = LocalDate.now().plusDays(30);
+        Birthday birthday = new Birthday(in30Days.withYear(1990).toString());
+        assertTrue(birthday.isWithinNext30Days());
+    }
+
 }
