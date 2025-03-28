@@ -133,11 +133,11 @@ The `Model` component,
 **Note:** The class diagrams below represent the internal structure of `AddressBook` and `PolicyBook` and their associated entities.  
 The `AddressBook` manages a `UniquePersonList`, where each `Person` aggregates multiple immutable fields (e.g., `Name`, `Email`, `Birthday`) and maintains associations to a `PremiumList` (containing zero or more `Premium` objects) and to zero or more `Tag` objects.
 
-<img src="images/ModelClassDiagram_AddressBook.png" width="200px">
+<img src="images/diagrams/ModelClassDiagram_AddressBook.png" width="400px">
 
 The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of value objects such as `PolicyName`, `PolicyNumber`, `PolicyLink`, and `ProviderCompany`. This parallel structure ensures consistency across both person and policy management within the app.
 
-<img src="images/ModelClassDiagram_PolicyBook.png" width="200px">
+<img src="images/diagrams/ModelClassDiagram_PolicyBook.png" width="400px">
 
 </box>
 
@@ -146,11 +146,11 @@ The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of v
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="diagrams/StorageClassDiagram.puml" width="550" />
+<img src="images/diagrams/StorageDiagram.png" width="700px">
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both address book data, policy book data, user profile data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `PolicyBookStorage`, `UserProileStorage` and `UserPrefStorage`, which means it can be treated as any one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
