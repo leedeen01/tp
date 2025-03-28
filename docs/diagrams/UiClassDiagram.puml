@@ -13,7 +13,7 @@ Class HelpWindow
 Class ResultDisplay
 Class StatusBarFooter
 Class CommandBox
-Class BirthdayPanel
+Class UpcomingBirthdaysPanel
 Class UpcomingBirthdayCard
 Class UserProfilePanel
 Class PersonListPanel
@@ -38,14 +38,14 @@ UiManager -down-> "1" MainWindow
 MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" StatusBarFooter
-MainWindow *-down-> "1" BirthdayPanel
+MainWindow *-down-> "1" UpcomingBirthdaysPanel
 MainWindow *-down-> "1" UserProfilePanel
 MainWindow *-down-> "1" PersonListPanel
 MainWindow *-down-> "1" PolicyListPanel
 MainWindow --> "0..1" HelpWindow
 
 PersonListPanel -down-> "*" PersonCard
-BirthdayPanel -down-> "*" UpcomingBirthdayCard
+UpcomingBirthdaysPanel -down-> "*" UpcomingBirthdayCard
 UpcomingBirthdayCard -down-> "*" PersonCard
 PolicyListPanel -down-> "*" PolicyCard
 
@@ -57,7 +57,7 @@ PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
-BirthdayPanel --|> UiPart
+UpcomingBirthdaysPanel --|> UiPart
 UpcomingBirthdayCard --|> UiPart
 PolicyListPanel --|> UiPart
 PolicyCard --|> UiPart
@@ -70,8 +70,8 @@ MainWindow -left-> Logic
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-StatusBarFooter -[hidden]left- BirthdayPanel
-BirthdayPanel -[hidden]left- UserProfilePanel
+StatusBarFooter -[hidden]left- UpcomingBirthdaysPanel
+UpcomingBirthdaysPanel -[hidden]left- UserProfilePanel
 UserProfilePanel -[hidden]left- PolicyListPanel
 PolicyListPanel -[hidden]left- PersonListPanel
 PersonListPanel -[hidden]left- BirthdayPanel
