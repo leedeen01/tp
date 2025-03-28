@@ -74,7 +74,6 @@ StatusBarFooter -[hidden]left- UpcomingBirthdaysPanel
 UpcomingBirthdaysPanel -[hidden]left- UserProfilePanel
 UserProfilePanel -[hidden]left- PolicyListPanel
 PolicyListPanel -[hidden]left- PersonListPanel
-PersonListPanel -[hidden]left- BirthdayPanel
 
 MainWindow -[hidden]-|> UiPart
 @enduml
