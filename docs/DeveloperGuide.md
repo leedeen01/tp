@@ -130,9 +130,14 @@ The `Model` component,
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+**Note:** The class diagrams below represent the internal structure of `AddressBook` and `PolicyBook` and their associated entities.  
+The `AddressBook` manages a `UniquePersonList`, where each `Person` aggregates multiple immutable fields (e.g., `Name`, `Email`, `Birthday`) and maintains associations to a `PremiumList` (containing zero or more `Premium` objects) and to zero or more `Tag` objects.
 
-<img src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<img src="images/ModelClassDiagram_AddressBook.png" width="200px">
+
+The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of value objects such as `PolicyName`, `PolicyNumber`, `PolicyLink`, and `ProviderCompany`. This parallel structure ensures consistency across both person and policy management within the app.
+
+<img src="images/ModelClassDiagram_PolicyBook.png" width="200px">
 
 </box>
 
