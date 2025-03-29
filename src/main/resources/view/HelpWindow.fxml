@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" maxWidth="1100.0" maxHeight="500.0">
   <icons>
-    <Image url="@/images/help_icon.png" />
+    <Image url="@/images/ClientNest_32.png" />
   </icons>
   <scene>
     <Scene>
