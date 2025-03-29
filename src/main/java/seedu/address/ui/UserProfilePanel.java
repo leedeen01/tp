@@ -36,8 +36,6 @@ public class UserProfilePanel extends UiPart<Region> {
 
     private final UserProfile userProfile;
 
-    private Timeline profileUpdateTimeline;
-
     /**
      * Creates a {@code UserProfilePanel} with the given model.
      */
