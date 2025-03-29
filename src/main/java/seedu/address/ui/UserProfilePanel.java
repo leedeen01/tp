@@ -45,19 +45,6 @@ public class UserProfilePanel extends UiPart<Region> {
         super(FXML);
         this.userProfile = userProfile;
         initializeUserProfile();
-        startPeriodicUpdates();
-    }
-
-    private void startPeriodicUpdates() {
-        profileUpdateTimeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
-            try {
-                updateProfile();
-            } catch (DataLoadingException e) {
-                throw new RuntimeException(e);
-            }
-        }));
-        profileUpdateTimeline.setCycleCount(Timeline.INDEFINITE); // Run forever
-        profileUpdateTimeline.play();
     }
 
     /**
@@ -67,27 +54,5 @@ public class UserProfilePanel extends UiPart<Region> {
         nameLabel.setText("Welcome, " + userProfile.getName().fullName);
         phoneLabel.setText("Phone: " + userProfile.getPhone().value);
         emailLabel.setText("Email: " + userProfile.getEmail().value);
-    }
-
-    /**
-     * Reloads and sets updated user profile data in the UI.
-     *
-     * @param updatedProfile The updated profile.
-     */
-    public void reloadUserProfile(Optional<UserProfile> updatedProfile) {
-        updatedProfile.ifPresent(profile -> Platform.runLater(() -> {
-            nameLabel.setText("Welcome, " + profile.getName().fullName);
-            phoneLabel.setText("Phone: " + profile.getPhone().value);
-            emailLabel.setText("Email: " + profile.getEmail().value);
-        }));
-    }
-
-    private void updateProfile() throws DataLoadingException {
-        Optional<UserProfile> updatedProfile = fetchUpdatedUserProfile();
-        reloadUserProfile(updatedProfile);
-    }
-
-    private Optional<UserProfile> fetchUpdatedUserProfile() throws DataLoadingException {
-        return JsonUtil.readJsonFile(Paths.get("data/userprofile.json"), UserProfile.class);
     }
 }
