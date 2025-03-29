@@ -205,6 +205,8 @@ public class MainWindow extends UiPart<Stage> {
                     || commandText.trim().startsWith("edit")
                     || commandText.trim().startsWith("delete")) {
                 updateUpcomingBirthdaysPanel();
+            } else if (commandText.trim().startsWith("profile")) {
+                updateUserProfilePanel();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -232,4 +234,9 @@ public class MainWindow extends UiPart<Stage> {
         birthdayPanelPlaceholder.getChildren().add(upcomingBirthdaysPanel.getRoot());
     }
 
+    private void updateUserProfilePanel() {
+        userProfilePanelPlaceholder.getChildren().clear();
+        userProfilePanel = new UserProfilePanel(logic.getUserProfile());
+        userProfilePanelPlaceholder.getChildren().add(userProfilePanel.getRoot());
+    }
 }
