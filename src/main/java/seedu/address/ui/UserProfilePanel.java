@@ -1,19 +1,10 @@
 package seedu.address.ui;
 
-import java.nio.file.Paths;
-import java.util.Optional;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import seedu.address.commons.core.user.UserProfile;
-import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.util.JsonUtil;
 
 /**
  * Panel containing the user profile information.
