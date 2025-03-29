@@ -146,7 +146,7 @@ The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of v
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/diagrams/StorageClassDiagram.png" width="600px">
+<img src="images/diagrams/StorageClassDiagram.png" width="700px">
 
 The `Storage` component,
 * can save both address book data, policy book data, user profile data and user preference data in JSON format, and read them back into corresponding objects.
