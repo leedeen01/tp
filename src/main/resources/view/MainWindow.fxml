@@ -33,7 +33,7 @@
           </Menu>
         </MenuBar>
 
-        <StackPane fx:id="userProfilePanelPlaceholder" VBox.vgrow="NEVER">
+        <StackPane VBox.vgrow="NEVER" fx:id="userProfilePanelPlaceholder">
           <padding>
               <Insets top="5" right="10" bottom="5" left="10" />
           </padding>

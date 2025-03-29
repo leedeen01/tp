@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.user.UserProfile;
@@ -41,7 +42,16 @@ public class UserProfilePanel extends UiPart<Region> {
      */
     private void initializeUserProfile() {
         nameLabel.setText("Welcome, " + userProfile.getName().fullName);
+        nameLabel.setMaxWidth(500);
+        nameLabel.setWrapText(false);
+        nameLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
         phoneLabel.setText("Phone: " + userProfile.getPhone().value);
+        phoneLabel.setMaxWidth(250);
+        phoneLabel.setWrapText(false);
+        phoneLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
         emailLabel.setText("Email: " + userProfile.getEmail().value);
+        emailLabel.setMaxWidth(250);
+        emailLabel.setWrapText(false);
+        emailLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
     }
 }
