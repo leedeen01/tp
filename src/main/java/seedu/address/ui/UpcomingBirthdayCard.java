@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -39,11 +38,8 @@ public class UpcomingBirthdayCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         name.setText(person.getName().fullName);
-        birthday.setText("Birthday: " + person.getBirthday().toString());
+        birthday.setText(person.getBirthday().toString());
         setDaysUntilTextAndStyle(person);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     /**

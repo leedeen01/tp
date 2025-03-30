@@ -5,16 +5,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
 <StackPane styleClass="profile-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
-    <HBox alignment="CENTER" style="-fx-padding: 20;">
-        <VBox fx:id="leftContainer" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-            <Label fx:id="nameLabel" text="Welcome, " wrapText="true"/>
+    <HBox alignment="CENTER_LEFT" styleClass="profile-hbox">
+        <VBox fx:id="leftContainer" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" styleClass="profile-left">
+            <Label fx:id="nameLabel" text="Welcome, " wrapText="true" alignment="CENTER_LEFT"/>
         </VBox>
-
-        <VBox fx:id="rightContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-            <Label fx:id="emailLabel" text="Email: " wrapText="true"/>
-            <Label fx:id="phoneLabel" text="Phone: " wrapText="true"/>
+        <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+        <VBox fx:id="rightContainer" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="profile-right">
+            <Label fx:id="emailLabel" text="Email: " wrapText="true" alignment="CENTER_RIGHT"/>
+            <Label fx:id="phoneLabel" text="Phone: " wrapText="true" alignment="CENTER_RIGHT"/>
         </VBox>
     </HBox>
 
