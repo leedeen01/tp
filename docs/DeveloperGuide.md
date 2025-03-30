@@ -130,7 +130,7 @@ The `Model` component,
 
 <box type="info" seamless>
 
-**Note:** The class diagrams below represent the internal structure of `AddressBook` and `PolicyBook` and their associated entities.  
+**Note:** The class diagrams below represent the internal structure of `AddressBook` and `PolicyBook` and their associated entities.
 The `AddressBook` manages a `UniquePersonList`, where each `Person` aggregates multiple immutable fields (e.g., `Name`, `Email`, `Birthday`) and maintains associations to a `PremiumList` (containing zero or more `Premium` objects) and to zero or more `Tag` objects.
 
 <img src="images/diagrams/ModelClassDiagram_AddressBook.png" width="200px">
