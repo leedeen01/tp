@@ -1,10 +1,9 @@
-package commands;
+package seedu.address.tasklist.commands;
 
 import java.util.ArrayList;
 
-import exception.PiggyException;
-import tasks.Task;
-
+import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.tasks.Task;
 
 
 /**
@@ -17,13 +16,13 @@ public class DeleteTask {
      * @param index The command containing the task index.
      * @param taskList The list of tasks.
      * @return A success message after deletion.
-     * @throws PiggyException If the index is invalid.
+     * @throws TaskListException If the index is invalid.
      */
-    public static String execute(String index, ArrayList<Task> taskList) throws PiggyException {
+    public static String execute(String index, ArrayList<Task> taskList) throws TaskListException {
         try {
             int taskIndex = Integer.parseInt(index.split(" ")[1]) - 1;
             if (taskIndex < 0 || taskIndex >= taskList.size()) {
-                throw new PiggyException("You need to pick a task to delete that is actually in the list, silly.");
+                throw new TaskListException("You need to pick an index from the existing task list.");
             }
             Task currTask = taskList.get(taskIndex);
             taskList.remove(taskIndex);
@@ -34,7 +33,7 @@ public class DeleteTask {
             return "Phew! We got rid of " + currTask
                     + "\nNow you have " + taskList.size() + " tasks to worry about.";
         } catch (NumberFormatException e) {
-            throw new PiggyException("You need to pick a single index number "
+            throw new TaskListException("You need to pick a single index number "
                     + "to delete from the list. You can try again.");
         }
     }

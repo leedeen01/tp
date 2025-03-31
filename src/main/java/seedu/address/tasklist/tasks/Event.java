@@ -1,10 +1,10 @@
-package tasks;
+package seedu.address.tasklist.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import exception.PiggyException;
+import seedu.address.tasklist.exception.TaskListException;
 
 
 /**
@@ -21,12 +21,12 @@ public class Event extends Task {
      * @param name The description of the event.
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
-     * @throws PiggyException If the start time is after the end time.
+     * @throws TaskListException If the start time is after the end time.
      */
-    public Event(String name, LocalDateTime start, LocalDateTime end) throws PiggyException {
+    public Event(String name, LocalDateTime start, LocalDateTime end) throws TaskListException {
         super(name);
         if (start.isAfter(end)) {
-            throw new PiggyException("Event start time must be before end time.");
+            throw new TaskListException("Event start time must be before end time.");
         }
         this.start = start;
         this.end = end;
@@ -39,12 +39,12 @@ public class Event extends Task {
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
      * @param isDone The completion status of the event.
-     * @throws PiggyException If the start time is after the end time.
+     * @throws TaskListException If the start time is after the end time.
      */
-    public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) throws PiggyException {
+    public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) throws TaskListException {
         super(name);
         if (start.isAfter(end)) {
-            throw new PiggyException("Event start time must be before end time.");
+            throw new TaskListException("Event start time must be before end time.");
         }
         this.start = start;
         this.end = end;

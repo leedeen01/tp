@@ -1,11 +1,11 @@
-package commands;
+package seedu.address.tasklist.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import tasks.Task;
+import seedu.address.tasklist.tasks.Task;
 
 /**
  * Represents a command to find tasks in the task list that match one or more keywords.
@@ -26,18 +26,7 @@ public class Find {
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
             return "You forgot to tell me what keyword(s) to look for. Try again!";
         }
-        /*
-        // Extract keywords and pass them as varargs
-        String[] rawKeywords = inputParts[1].trim().split(" ");
-        ArrayList<String> keywordList = new ArrayList<>();
 
-        for (String word : rawKeywords) {
-            if (!word.isEmpty()) {
-                keywordList.add(word);
-            }
-        }
-        String[] keywords = keywordList.toArray(new String[0]);
-        */
         // Extract keywords as a List (filters out any empty words)
         List<String> keywords = extractKeywords(inputParts[1]);
         return processKeywords(tasks, keywords);

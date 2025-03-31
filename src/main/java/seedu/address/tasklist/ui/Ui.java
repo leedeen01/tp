@@ -1,4 +1,4 @@
-package ui;
+package seedu.address.tasklist.ui;
 
 /**
  * Handles user interface interactions by displaying messages.

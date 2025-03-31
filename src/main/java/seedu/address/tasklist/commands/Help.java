@@ -1,4 +1,4 @@
-package commands;
+package seedu.address.tasklist.commands;
 
 /**
  * Handles the display of help information about available commands.

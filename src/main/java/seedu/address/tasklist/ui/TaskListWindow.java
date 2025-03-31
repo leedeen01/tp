@@ -1,8 +1,7 @@
-package ui;
+package seedu.address.tasklist.ui;
 
 import java.io.IOException;
 
-import exception.PiggyException;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,12 +16,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import piggyplanner.PiggyPlanner;
+import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.main.TaskList;
+
 /**
  * MainWindow initializes and manages the graphical user interface (GUI) for PiggyPlanner.
  * It extends the JavaFX Application class and handles user interactions.
  */
-public class MainWindow extends Application {
+public class TaskListWindow extends Application {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -35,30 +36,30 @@ public class MainWindow extends Application {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image piggyImage = new Image(this.getClass().getResourceAsStream("/images/pig.png"));
 
-    private PiggyPlanner piggyPlanner;
+    private TaskList taskList;
 
     /**
      * Starts the JavaFX application, setting up the primary stage and loading the UI components.
      *
      * @param stage The primary stage for the application.
-     * @throws PiggyException If there is an error initializing PiggyPlanner.
+     * @throws TaskListException If there is an error initializing PiggyPlanner.
      */
     @Override
     //overriding start method from Application
-    public void start(Stage stage) throws PiggyException { //main method JavaFX calls to set up + display GUI window
-        this.piggyPlanner = new PiggyPlanner();
+    public void start(Stage stage) throws TaskListException { //main method JavaFX calls to set up + display GUI window
+        this.taskList = new TaskList();
 
         try {
             // Load FXML file for UI layout - read by fxmlloader
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
             //attach anchor pane to window (Stage) using Scene.
             AnchorPane ap = fxmlLoader.load(); //Load UI components into AnchorPane
-            MainWindow controller = fxmlLoader.getController();
-            controller.setPiggyPlanner(this.piggyPlanner); // Pass initialized piggyPlanner to controller
+            TaskListWindow controller = fxmlLoader.getController();
+            controller.setTaskList(this.taskList); // Pass initialized piggyPlanner to controller
             Scene scene = new Scene(ap); //scene = window content
 
             // Set up the stage (window)
-            stage.setTitle("PiggyPlanner 🐷");
+            stage.setTitle("Task List");
             stage.setScene(scene);
 
             //Set  initial window size
@@ -111,7 +112,7 @@ public class MainWindow extends Application {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText(); // Get user's input from text field
-        String response = piggyPlanner.getResponse(input); // Get response from PiggyPlanner logic
+        String response = taskList.getResponse(input); // Get response from PiggyPlanner logic
 
         // Display user input and PiggyPlanner's response in the dialogContainer
         dialogContainer.getChildren().addAll(
@@ -129,11 +130,11 @@ public class MainWindow extends Application {
     }
 
     /**
-     * Sets the PiggyPlanner instance for the UI.
+     * Sets the TaskList instance for the UI.
      *
-     * @param piggyPlanner The PiggyPlanner instance.
+     * @param taskList The PiggyPlanner instance.
      */
-    public void setPiggyPlanner(PiggyPlanner piggyPlanner) {
-        this.piggyPlanner = piggyPlanner;
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
     }
 }

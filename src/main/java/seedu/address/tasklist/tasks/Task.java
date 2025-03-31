@@ -1,4 +1,4 @@
-package tasks;
+package seedu.address.tasklist.tasks;
 
 /**
  * Represents a generic task that can be tracked in the task list.

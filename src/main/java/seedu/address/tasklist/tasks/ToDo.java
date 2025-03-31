@@ -1,4 +1,4 @@
-package tasks;
+package seedu.address.tasklist.tasks;
 
 /**
  * Represents a simple task without any date/time.

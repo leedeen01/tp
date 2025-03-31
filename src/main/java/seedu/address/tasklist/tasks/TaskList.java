@@ -1,4 +1,4 @@
-package tasks;
+package seedu.address.tasklist.tasks;
 
 import java.util.ArrayList;
 

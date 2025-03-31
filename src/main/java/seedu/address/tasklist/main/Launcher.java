@@ -1,4 +1,4 @@
-package piggyplanner;
+package seedu.address.tasklist.main;
 
 import javafx.application.Application;
 
@@ -14,6 +14,6 @@ public class Launcher {
      * @param args Command-line arguments passed to the application (not used).
      */
     public static void main(String[] args) { //entry point to Java app
-        Application.launch(ui.MainWindow.class, args); //tells JavaFX to start GUI by launching MainWindow
+        Application.launch(seedu.address.tasklist.ui.TaskListWindow.class, args);
     }
 }

@@ -1,4 +1,4 @@
-package storage;
+package seedu.address.tasklist.storage;
 
 import java.io.BufferedReader; //read data source file (line by line) - input needs to be wrapped by FileReader
 import java.io.BufferedWriter; //read data source file (line by line) - input needs to be wrapped by FileReader
@@ -9,17 +9,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import exception.PiggyException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.tasks.Deadline;
+import seedu.address.tasklist.tasks.Event;
+import seedu.address.tasklist.tasks.Task;
+import seedu.address.tasklist.tasks.ToDo;
 
 /**
  * Handles the storage and retrieval of tasks from a file.
  * Provides methods to load, save, and ensure the file's existence.
  */
-public class Storage {
+public class TaskStorage {
     private static final String FILE_PATH = "data/taskList.txt";
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -48,9 +48,9 @@ public class Storage {
      * Parses each line and reconstructs corresponding Task objects.
      *
      * @return An ArrayList of Task objects representing the saved tasks.
-     * @throws PiggyException If an error occurs while loading tasks from the file.
+     * @throws TaskListException If an error occurs while loading tasks from the file.
      */
-    public static ArrayList<Task> loadList() throws PiggyException {
+    public static ArrayList<Task> loadList() throws TaskListException {
         ensureFileExists();
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class Storage {
                 }
             }
         } catch (Exception e) {
-            throw new PiggyException("An error occurred while loading tasks: " + e.getMessage());
+            throw new TaskListException("An error occurred while loading tasks: " + e.getMessage());
         }
 
         assert taskList != null : "Task list should never be null after loading";
@@ -129,16 +129,16 @@ public class Storage {
                 System.out.println("Warning: Unknown task type in file: " + type);
                 return null;
             }
-        } catch (PiggyException e) {
+        } catch (TaskListException e) {
             System.out.println("Warning: Skipping invalid entry - " + line);
             return null;
         }
     }
 
     private static Task createDeadline(String description, String timeInfo, boolean isDone, String line)
-            throws PiggyException {
+            throws TaskListException {
         if (!timeInfo.startsWith("by: ")) {
-            throw new PiggyException("Invalid time format for deadline - " + line);
+            throw new TaskListException("Invalid time format for deadline - " + line);
         }
         String dateStr = timeInfo.substring(4).trim();
         LocalDateTime by = LocalDateTime.parse(dateStr, INPUT_FORMATTER);
@@ -146,9 +146,9 @@ public class Storage {
     }
 
     private static Task createEvent(String description, String timeInfo, boolean isDone, String line)
-            throws PiggyException {
+            throws TaskListException {
         if (!timeInfo.startsWith("from: ") || !timeInfo.contains(", to: ")) {
-            throw new PiggyException("Invalid time format for event - " + line);
+            throw new TaskListException("Invalid time format for event - " + line);
         }
         String[] eventParts = timeInfo.split(", to: ");
         LocalDateTime from = LocalDateTime.parse(eventParts[0].substring(6).trim(), INPUT_FORMATTER);
@@ -161,9 +161,9 @@ public class Storage {
      * Creates a backup before writing and restores it if an error occurs.
      *
      * @param taskList The list of tasks to be saved.
-     * @throws PiggyException If an error occurs while updating the file.
+     * @throws TaskListException If an error occurs while updating the file.
      */
-    public static void updateList(ArrayList<Task> taskList) throws PiggyException {
+    public static void updateList(ArrayList<Task> taskList) throws TaskListException {
         ensureFileExists();
         File originalFile = new File(FILE_PATH);
         File backupFile = new File(FILE_PATH + ".bak");
@@ -182,7 +182,7 @@ public class Storage {
             if (backupFile.exists()) {
                 backupFile.renameTo(originalFile);
             }
-            throw new PiggyException("An error occurred while updating the task list: " + e.getMessage());
+            throw new TaskListException("An error occurred while updating the task list: " + e.getMessage());
         } finally {
             if (backupFile.exists()) {
                 backupFile.delete();

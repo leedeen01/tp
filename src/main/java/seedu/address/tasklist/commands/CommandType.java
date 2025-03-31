@@ -1,4 +1,4 @@
-package commands;
+package seedu.address.tasklist.commands;
 
 /**
  * Represents the different types of commands that can be executed.
