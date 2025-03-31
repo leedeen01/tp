@@ -1,4 +1,4 @@
-package seedu.address.tasklist.ui;
+package seedu.address.tasklist.taskui;
 
 /**
  * Handles user interface interactions by displaying messages.
@@ -8,16 +8,14 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public static String showWelcomeMessage() {
-        System.out.println("Hi! I'm your PiggyPlanner\nWhat shall we get done today?");
-        return "Hi! I'm your PiggyPlanner\n\nWhat shall we get done today?";
+        return "Welcome to the Task List.\n\nEnter some tasks to get started.";
     }
 
     /**
      * Displays the exit message when the application is terminated.
      */
     public static String showExitMessage() {
-        System.out.println("Bye. Excited to work with you again soon!");
-        return "Bye. Excited to work with you again soon!";
+        return "Exiting Task List ...";
     }
 
     /**

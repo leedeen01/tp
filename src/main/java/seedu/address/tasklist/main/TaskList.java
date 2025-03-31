@@ -15,11 +15,11 @@ import seedu.address.tasklist.commands.Unmark;
 import seedu.address.tasklist.exception.TaskListException;
 import seedu.address.tasklist.storage.TaskStorage;
 import seedu.address.tasklist.tasks.Task;
-import seedu.address.tasklist.ui.Ui;
+import seedu.address.tasklist.taskui.Ui;
 
 
 /**
- * The main class for the PiggyPlanner application.
+ * The main class for the TaskList application.
  * This class validates and processes commands.
  */
 public class TaskList {
@@ -27,7 +27,7 @@ public class TaskList {
     private final Scanner reader;
 
     /**
-     * Constructs a new PiggyPlanner instance.
+     * Constructs a new TaskList instance.
      * Initializes the task list by loading stored tasks and sets up a scanner for user input.
      *
      * @throws TaskListException if there is an error loading the stored tasks.
@@ -199,12 +199,12 @@ public class TaskList {
 
         case UNKNOWN:
         default:
-            assert false : "validateArguments should never receive an UNKNOWN command";
+            throw new TaskListException("Unknown command.\nType \"help\" to see available commands.");
         }
     }
 
     /**
-     * The entry point for the PiggyPlanner application.
+     * The entry point for the TaskList application.
      * Initializes and runs the application.
      *
      * @param args Command-line arguments (not used yet).

@@ -1,4 +1,4 @@
-package seedu.address.tasklist.ui;
+package seedu.address.tasklist.taskui;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +17,7 @@ import javafx.scene.shape.Circle;
 
 
 /**
- * DialogBox represents a message bubble for the user and PiggyPlanner.
+ * DialogBox represents a message bubble for the user and TaskList.
  * It extends HBox and allows messages to be displayed with an image.
  */
 public class DialogBox extends HBox {
@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(messageWithTimestamp, displayPicture); // Add message, image and timestamp
     }
     /**
-     * Flips the dialog box alignment to the left, for PiggyPlanner responses.
+     * Flips the dialog box alignment to the left, for TaskList responses.
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
@@ -91,13 +91,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for PiggyPlanner responses, with flipped alignment.
+     * Creates a DialogBox for TaskList responses, with flipped alignment.
      *
-     * @param message The PiggyPlanner’s message.
-     * @param piggyImage The PiggyPlanner’s profile image.
+     * @param message The TaskList’s message.
+     * @param piggyImage The TaskList’s profile image.
      * @return A DialogBox aligned to the left.
      */
-    public static DialogBox getPiggyPlannerDialog(String message, Image piggyImage) {
+    public static DialogBox getTaskListDialog(String message, Image piggyImage) {
         //Image pigImage = new Image(DialogBox.class.getResourceAsStream("/images/pig.png"));
         DialogBox dialogBox = new DialogBox(message, piggyImage);
         dialogBox.flip();

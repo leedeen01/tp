@@ -10,7 +10,7 @@ public class Help {
      * @return A string containing help information.
      */
     public static String execute() {
-        return "Here are the commands you can use in PiggyPlanner:\n\n"
+        return "Here are the commands you can use:\n\n"
                 + "1. list - View all tasks\n"
                 + "2. mark [task number] - Mark a task as done\n"
                 + "3. unmark [task number] - Mark a task as not done\n"
@@ -21,8 +21,7 @@ public class Help {
                 + "8. agenda for [d/M/yyyy] - View tasks on a specific date\n"
                 + "9. find [keywords] - Search tasks by keywords\n"
                 + "10. help - Show this help message\n"
-                + "11. bye - Exit PiggyPlanner\n\n"
-                + "For the full User Guide, visit:\n"
-                + "👉 https://teesha902.github.io/ip/";
+                + "11. exit - Exit Task List\n\n"
+                + "For the full User Guide, visit:\n";
     }
 }

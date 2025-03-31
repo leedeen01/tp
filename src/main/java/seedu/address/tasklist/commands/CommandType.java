@@ -45,7 +45,7 @@ public enum CommandType {
             return HELP;
         case "find":
             return FIND;
-        case "bye":
+        case "exit":
             return EXIT;
         default:
             return UNKNOWN;

@@ -1,4 +1,4 @@
-package seedu.address.tasklist.ui;
+package seedu.address.tasklist.taskui;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ import seedu.address.tasklist.exception.TaskListException;
 import seedu.address.tasklist.main.TaskList;
 
 /**
- * MainWindow initializes and manages the graphical user interface (GUI) for PiggyPlanner.
+ * MainWindow initializes and manages the graphical user interface (GUI) for TaskList.
  * It extends the JavaFX Application class and handles user interactions.
  */
 public class TaskListWindow extends Application {
@@ -42,7 +42,7 @@ public class TaskListWindow extends Application {
      * Starts the JavaFX application, setting up the primary stage and loading the UI components.
      *
      * @param stage The primary stage for the application.
-     * @throws TaskListException If there is an error initializing PiggyPlanner.
+     * @throws TaskListException If there is an error initializing TaskList.
      */
     @Override
     //overriding start method from Application
@@ -51,11 +51,11 @@ public class TaskListWindow extends Application {
 
         try {
             // Load FXML file for UI layout - read by fxmlloader
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/TaskListWindow.fxml"));
             //attach anchor pane to window (Stage) using Scene.
             AnchorPane ap = fxmlLoader.load(); //Load UI components into AnchorPane
             TaskListWindow controller = fxmlLoader.getController();
-            controller.setTaskList(this.taskList); // Pass initialized piggyPlanner to controller
+            controller.setTaskList(this.taskList); // Pass initialized taskList to controller
             Scene scene = new Scene(ap); //scene = window content
 
             // Set up the stage (window)
@@ -90,7 +90,7 @@ public class TaskListWindow extends Application {
 
         // Auto-scroll as new messages appear
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().add(DialogBox.getPiggyPlannerDialog(Ui.showWelcomeMessage(), piggyImage));
+        dialogContainer.getChildren().add(DialogBox.getTaskListDialog(Ui.showWelcomeMessage(), piggyImage));
 
         // Ensure user input field expands properly
         AnchorPane.setLeftAnchor(userInput, 10.0);
@@ -106,18 +106,18 @@ public class TaskListWindow extends Application {
     }
 
     /**
-     * Handles user input and generates a response from PiggyPlanner.
+     * Handles user input and generates a response from TaskList.
      * Displays the conversation in the UI.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText(); // Get user's input from text field
-        String response = taskList.getResponse(input); // Get response from PiggyPlanner logic
+        String response = taskList.getResponse(input); // Get response from TaskList logic
 
-        // Display user input and PiggyPlanner's response in the dialogContainer
+        // Display user input and TaskList's response in the dialogContainer
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPiggyPlannerDialog(response, piggyImage)
+                DialogBox.getTaskListDialog(response, piggyImage)
         );
         userInput.clear(); // Clear input field after sending msg
 
@@ -132,7 +132,7 @@ public class TaskListWindow extends Application {
     /**
      * Sets the TaskList instance for the UI.
      *
-     * @param taskList The PiggyPlanner instance.
+     * @param taskList The TaskList instance.
      */
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;

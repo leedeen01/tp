@@ -62,6 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane birthdayPanelPlaceholder;
 
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -78,6 +79,17 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    @FXML
+    private void handleOpenTaskList() {
+        seedu.address.tasklist.taskui.TaskListWindow taskListApp = new seedu.address.tasklist.taskui.TaskListWindow();
+        try {
+            Stage taskStage = new Stage();
+            taskListApp.start(taskStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Stage getPrimaryStage() {
