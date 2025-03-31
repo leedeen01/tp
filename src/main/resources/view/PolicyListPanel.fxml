@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-        <Label text="Policies"
-           style="-fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 10;"
+    <Label text="Policies"
            maxWidth="1.7976931348623157E308"
-           alignment="CENTER" />
+           alignment="CENTER"
+           styleClass="panel-heading"/>
     <ListView fx:id="policyListView" VBox.vgrow="ALWAYS" />
 </VBox>

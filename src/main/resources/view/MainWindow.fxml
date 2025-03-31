@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="ClientNest" minWidth="560" minHeight="600" onCloseRequest="#handleExit">
+         title="ClientNest" minWidth="560" minHeight="810" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/ClientNest_32.png" />
   </icons>
@@ -24,45 +24,34 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" styleClass="placeholder">
+              <Menu mnemonicParsing="false" text="File" styleClass="menu">
+                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" styleClass="menu-item" />
+              </Menu>
+              <Menu mnemonicParsing="false" text="Help" styleClass="menu">
+                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" styleClass="menu-item" />
+              </Menu>
+          </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="userProfilePanelPlaceholder">
-          <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+          <StackPane VBox.vgrow="NEVER" fx:id="userProfilePanelPlaceholder" styleClass="placeholder">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-          <SplitPane fx:id="splitPane" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
+          <StackPane styleClass="placeholder">
               <!-- Person List Pane -->
-              <VBox fx:id="personList" styleClass="pane-with-border" minWidth="200" prefWidth="200">
+              <VBox fx:id="personList" styleClass="pane-with-border" minWidth="200" prefWidth="200" minHeight="300" prefHeight="600">
                   <padding>
                       <Insets top="10" right="5" bottom="10" left="10" />
                   </padding>
                   <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
               </VBox>
+          </StackPane>
 
+          <SplitPane fx:id="splitPane" orientation="HORIZONTAL" VBox.vgrow="ALWAYS" styleClass="placeholder" minHeight="200" prefHeight="200">
               <!-- Policy List Pane -->
-              <VBox fx:id="policyList" styleClass="pane-with-border" minWidth="150" prefWidth="150">
+              <VBox fx:id="policyList" styleClass="pane-with-border" minWidth="500" prefWidth="250">
                   <padding>
                       <Insets top="10" right="5" bottom="10" left="5" />
                   </padding>
@@ -70,10 +59,28 @@
               </VBox>
 
               <!-- Birthday Panel -->
-              <StackPane fx:id="birthdayPanelPlaceholder" minWidth="250" prefWidth="200" maxWidth="300" styleClass="pane-with-border"/>
+              <VBox fx:id="birthdayList" styleClass="pane-with-border" minWidth="300" prefWidth="150">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="5" />
+                  </padding>
+                  <StackPane fx:id="birthdayPanelPlaceholder"/>
+              </VBox>
           </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="placeholder">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
+
+          <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="placeholder"
+                     minHeight="100" prefHeight="100" maxHeight="100">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
+
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="placeholder" />
       </VBox>
     </Scene>
   </scene>
