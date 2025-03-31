@@ -28,19 +28,20 @@ public class AddPremiumCommand extends Command{
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PREMIUM
             + "LifeShield $300";
 
-    public static final String MESSAGE_EDIT_PREMIUM_SUCCESS = "Added Premium for Person: %1$s";
+    public static final String MESSAGE_ADD_PREMIUM_SUCCESS = "Added Premium for Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one Premium to add must be provided.";
     public static final String MESSAGE_DUPLICATE_PREMIUM = "This premium already exists in the address book.";
+    public static final String MESSAGE_INVALID_PPREMIUM = "Premium name given does not exist.";
 
     private final Index index;
-    private final AddPremiumDescriptor addPremiumDescriptor;
+    private final PremiumList premiumList;
 
-    public AddPremiumCommand(Index index, AddPremiumDescriptor addPremiumDescriptor) {
+    public AddPremiumCommand(Index index, PremiumList premiumList) {
         requireNonNull(index);
-        requireNonNull(addPremiumDescriptor);
+        requireNonNull(premiumList);
 
         this.index = index;
-        this.addPremiumDescriptor = addPremiumDescriptor;
+        this.premiumList = premiumList;
     }
 
     @Override
@@ -54,14 +55,23 @@ public class AddPremiumCommand extends Command{
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        Person editedPerson = createEditedPerson(personToEdit, addPremiumDescriptor);
-
-        if (!personToEdit.hasPremium(editedPerson.getPremiumList())) {
-            throw new CommandException(MESSAGE_DUPLICATE_PREMIUM);
-        }
+        Person editedPerson = createAddedPerson(personToEdit, premiumList);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
+    }
+
+    public Person createAddedPerson(Person personToEdit, PremiumList premiumList) {
+        assert personToEdit != null;
+        assert premiumList != null;
+        Name name = personToEdit.getName();
+        Phone phone = personToEdit.getPhone();
+        Email email = personToEdit.getEmail();
+        Address address = personToEdit.getAddress();
+        Birthday birthday = personToEdit.getBirthday();
+        Set<Tag> tagList = personToEdit.getTags();
+
+        return new Person(name,phone,email,address,birthday,premiumList,tagList);
     }
 }

@@ -82,9 +82,6 @@ public class ClientNestParser {
         case EditPremiumCommand.COMMAND_WORD:
             return new EditPremiumCommandParser().parse(arguments);
 
-        case DeletePremiumCommand.COMMAND_WORD:
-            return new DeletePremiumCommandParser().parse(arguments);
-
         /* Policy */
         case AddPolicyCommand.COMMAND_WORD:
             return new AddPolicyCommandParser().parse(arguments);
