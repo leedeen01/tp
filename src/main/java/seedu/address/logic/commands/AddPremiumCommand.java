@@ -8,9 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -59,7 +57,7 @@ public class AddPremiumCommand extends Command{
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_ADD_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
     }
 
     public Person createAddedPerson(Person personToEdit, PremiumList premiumList) {

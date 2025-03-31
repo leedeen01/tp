@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.exceptions.EditPremiumCommand.EditPremiumDescriptor;
+import seedu.address.logic.commands.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;

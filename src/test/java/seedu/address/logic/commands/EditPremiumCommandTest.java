@@ -17,18 +17,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand.EditPremiumDescriptor;
+import seedu.address.logic.commands.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PolicyBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPremiumDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditPremiumCommand.

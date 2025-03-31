@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand;
+import seedu.address.logic.commands.EditPremiumCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

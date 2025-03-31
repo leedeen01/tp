@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand.EditPremiumDescriptor;
+import seedu.address.logic.commands.EditPremiumCommand;
+import seedu.address.logic.commands.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.model.person.Premium;
 import seedu.address.testutil.EditPremiumDescriptorBuilder;
 
