@@ -121,7 +121,7 @@ public class TaskListWindow extends Application {
         );
         userInput.clear(); // Clear input field after sending msg
 
-        if (input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("exit")) {
             // Delay closing the window for 1.5 seconds
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> Platform.exit());

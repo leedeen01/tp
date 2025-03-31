@@ -40,7 +40,7 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(50);
         displayPicture.setFitHeight(50);
         displayPicture.setPreserveRatio(true);
-        text.setStyle("-fx-background-color: #ffccd5; -fx-padding: 10; -fx-border-radius: 10; "
+        text.setStyle("-fx-background-color: #6FE2D2; -fx-padding: 10; -fx-border-radius: 10; "
                 + "-fx-background-radius: 10;");
 
         // Add timestamp (current time)
@@ -82,10 +82,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox aligned to the right.
      */
     public static DialogBox getUserDialog(String message, Image userImage) {
-        //Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/user.png"));
         DialogBox dialogBox = new DialogBox(message, userImage);
         dialogBox.setAlignment(Pos.TOP_RIGHT); //Ensure alignment to the right
-        dialogBox.text.setStyle("-fx-background-color: #FFE5EA; -fx-padding: 10; "
+        dialogBox.text.setStyle("-fx-background-color: #FB7749; -fx-text-fill: #EEEEEE; -fx-padding: 10; "
                 + "-fx-border-radius: 10; -fx-background-radius: 10;");
         return dialogBox;
     }
@@ -98,11 +97,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox aligned to the left.
      */
     public static DialogBox getTaskListDialog(String message, Image piggyImage) {
-        //Image pigImage = new Image(DialogBox.class.getResourceAsStream("/images/pig.png"));
         DialogBox dialogBox = new DialogBox(message, piggyImage);
         dialogBox.flip();
-        //lighter pink for piggy responses
-        dialogBox.text.setStyle("-fx-background-color: #ffccd5; -fx-padding: 10;"
+        dialogBox.text.setStyle("-fx-background-color: #684BFE; -fx-text-fill: #EEEEEE; -fx-padding: 10;"
                 + " -fx-border-radius: 10; -fx-background-radius: 10;");
         return dialogBox;
     }

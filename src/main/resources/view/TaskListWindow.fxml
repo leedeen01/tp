@@ -9,12 +9,24 @@
 <!-- Can organise everything with coordinates in AnchorPane, all elements are inside this -->
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="seedu.address.tasklist.taskui.TaskListWindow"
             prefWidth="400.0" prefHeight="600.0"
-            style="-fx-background-color: #ffe6f0;"> <!-- Light pink background -->
+            style="-fx-background-color: #13181F;">
 
     <!-- ScrollPane to display conversation -->
-    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <!-- Vbox inside ScrollPane -->
-        <VBox fx:id="dialogContainer" spacing="10.0" style="-fx-padding: 10;" prefWidth="380.0" />
+    <ScrollPane fx:id="scrollPane"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="ALWAYS"
+                vvalue="1.0"
+                AnchorPane.topAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="50.0"
+                style="-fx-background: #13181F; -fx-background-color: #13181F;">
+
+        <VBox fx:id="dialogContainer"
+              spacing="10.0"
+              prefWidth="380.0"
+              style="-fx-padding: 10; -fx-background-color: #13181F;" />
     </ScrollPane>
 
 
@@ -29,7 +41,7 @@
         <TextField fx:id="userInput" layoutX="10.0" layoutY="520.0" prefWidth="300.0" promptText="Enter your task here..." />
         <!-- Send Button -->
         <Button fx:id="sendButton" text="Send" layoutX="320.0" layoutY="520.0" prefWidth="70.0" onAction="#handleUserInput"
-                style="-fx-background-color: #ff99c8; -fx-text-fill: white;" /> <!-- Pink button -->
+                style="-fx-background-color: #D04FE6; -fx-text-fill: white;" />
 
         <AnchorPane.leftAnchor>10.0</AnchorPane.leftAnchor>
         <AnchorPane.rightAnchor>10.0</AnchorPane.rightAnchor>
