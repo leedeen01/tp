@@ -7,6 +7,7 @@ import seedu.address.tasklist.commands.AddTask;
 import seedu.address.tasklist.commands.CommandType;
 import seedu.address.tasklist.commands.DayPlan;
 import seedu.address.tasklist.commands.DeleteTask;
+import seedu.address.tasklist.commands.Exit;
 import seedu.address.tasklist.commands.Find;
 import seedu.address.tasklist.commands.Help;
 import seedu.address.tasklist.commands.ListCommand;
@@ -45,27 +46,30 @@ public class TaskList {
      * @throws TaskListException If an invalid command or incorrect arguments are provided.
      */
     private String processCommand(String userInput) throws TaskListException {
-        assert userInput != null : "User input should never be null";
-        assert !userInput.trim().isEmpty() : "User input should never be empty";
-        assert taskList != null : "Task list should not be null when processing a command";
+        if (userInput == null || userInput.trim().isEmpty()) {
+            throw new TaskListException("Input cannot be empty!");
+        }
 
-        String[] inputParts = userInput.trim().split(" ", 2); // Split: command, arguments
+        String[] inputParts = userInput.trim().split(" ", 2);
         CommandType command = CommandType.fromString(inputParts[0]);
-        assert command != null : "Command type should never be null in processCommand()";
+
+        if (command == CommandType.UNKNOWN) {
+            throw new TaskListException("Unknown command.\nType \"help\" to see available commands.");
+        }
+
         validateArguments(command, inputParts);
+
 
         switch (command) {
         case LIST:
             return ListCommand.execute(taskList);
 
         case MARK:
-            assert inputParts.length == 2 : command + " should have an argument";
             String markResponse = Mark.execute(userInput, taskList);
             TaskStorage.updateList(taskList);
             return markResponse;
 
         case UNMARK:
-            assert inputParts.length == 2 : command + " should have an argument";
             String unmarkResponse = Unmark.execute(userInput, taskList);
             TaskStorage.updateList(taskList);
             return unmarkResponse;
@@ -86,28 +90,23 @@ public class TaskList {
             return eventResponse;
 
         case DELETE:
-            assert inputParts.length == 2 : command + " should have an argument";
             String deleteResponse = DeleteTask.execute(userInput, taskList);
             TaskStorage.updateList(taskList);
             return deleteResponse;
 
         case FIND:
-            assert inputParts.length >= 2 : command + " should have an argument";
             return Find.execute(userInput, taskList);
 
         case DAYPLAN:
-            assert inputParts.length >= 2 : command + " should have an argument";
             return DayPlan.execute(userInput, taskList);
+
         case HELP:
             return Help.execute();
+
         case EXIT:
-            //Platform.exit();
-            return "Goodbye!";
+            return Exit.execute();
 
-
-        case UNKNOWN:
         default:
-            assert false : "processCommand should never receive an UNKNOWN command";
             throw new TaskListException("Unknown command.");
         }
     }
@@ -134,17 +133,14 @@ public class TaskList {
         Ui.showWelcomeMessage();
 
         while (true) {
-            String userInput = reader.nextLine(); // Get user input from console
-
-            assert userInput != null : "User input should never be null when reading from console";
-
+            String userInput = reader.nextLine();
             try {
                 String response = processCommand(userInput);
                 Ui.showMessage(response);
 
                 if (CommandType.fromString(userInput.split(" ")[0]) == CommandType.EXIT) {
                     Ui.showExitMessage();
-                    return; // Exit
+                    return;
                 }
 
             } catch (TaskListException e) {
@@ -152,6 +148,7 @@ public class TaskList {
             }
         }
     }
+
     /**
      * Validates the arguments provided for a given command.
      * Ensures the user input meets the expected format for each command.
@@ -161,45 +158,52 @@ public class TaskList {
      * @throws TaskListException if the provided arguments are incorrect or missing.
      */
     private void validateArguments(CommandType command, String[] inputParts) throws TaskListException {
-        assert command != null : "Command type should never be null in validateArguments";
-        int argLength = inputParts.length; // Check number of arguments
+        int argLength = inputParts.length;
 
         switch (command) {
         case LIST:
+        case HELP:
         case EXIT:
-            assert argLength == 1 : "LIST and EXIT commands should not have arguments";
+            if (argLength != 1) {
+                throw new TaskListException(command + " command should not have any arguments.");
+            }
             break;
 
         case MARK:
         case UNMARK:
         case DELETE:
-            assert argLength == 2 : "MARK, UNMARK, and DELETE commands require exactly one argument";
+        case DAYPLAN:
+            if (argLength != 2) {
+                throw new TaskListException(command + " command requires exactly one argument.");
+            }
             break;
+
         case FIND:
-            assert argLength >= 2 : "FIND command should have at least one keyword";
+            if (argLength < 2 || inputParts[1].trim().isEmpty()) {
+                throw new TaskListException("FIND command must include a keyword.");
+            }
             break;
 
         case TODO:
-            assert argLength == 2 && !inputParts[1].trim().isEmpty()
-                    : "TODO command must have a valid task description";
+            if (argLength != 2 || inputParts[1].trim().isEmpty()) {
+                throw new TaskListException("TODO command must include a task description.");
+            }
             break;
 
         case DEADLINE:
-            assert argLength >= 2 && inputParts[1].contains("/by") : "DEADLINE command must have a valid date format";
+            if (argLength < 2 || !inputParts[1].contains("/by")) {
+                throw new TaskListException("DEADLINE format: deadline <task> /by <date>");
+            }
             break;
 
         case EVENT:
-            assert argLength >= 2 && inputParts[1].contains("/from") && inputParts[1].contains("/to")
-                    : "EVENT command must have a valid start and end time";
+            if (argLength < 2 || !inputParts[1].contains("/from") || !inputParts[1].contains("/to")) {
+                throw new TaskListException("EVENT format: event <task> /from <start> /to <end>");
+            }
             break;
 
-        case DAYPLAN:
-            assert argLength == 2 : "DAYPLAN command requires a date argument";
-            break;
-
-        case UNKNOWN:
         default:
-            throw new TaskListException("Unknown command.\nType \"help\" to see available commands.");
+            throw new TaskListException("Invalid command or format.");
         }
     }
 

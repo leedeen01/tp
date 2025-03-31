@@ -21,7 +21,6 @@ public class Help {
                 + "8. agenda for [d/M/yyyy] - View tasks on a specific date\n"
                 + "9. find [keywords] - Search tasks by keywords\n"
                 + "10. help - Show this help message\n"
-                + "11. exit - Exit Task List\n\n"
-                + "For the full User Guide, visit:\n";
+                + "11. exit - Exit Task List\n\n";
     }
 }
