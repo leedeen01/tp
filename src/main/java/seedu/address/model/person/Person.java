@@ -87,8 +87,13 @@ public class Person {
                 && otherPerson.getName().equals(getName());
     }
 
-    public boolean hasPremium(Premium premium) {
-        return premiumList.contains(premium);
+    public boolean hasPremium(PremiumList premiumlist) {
+        for (Premium p : premiumlist.premiumList) {
+            if(this.premiumList.contains(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

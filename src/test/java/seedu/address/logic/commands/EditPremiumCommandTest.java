@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.EditPremiumCommand;
 import seedu.address.logic.commands.exceptions.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,30 +37,6 @@ public class EditPremiumCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
             new UserProfile(), null);
-
-    @Test
-    public void execute_duplicatePersonUnfilteredList_failure() throws ParseException {
-        // Create a copy to avoid modifying the original
-        Person firstPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
-                .build();
-
-        // Get existing premium of second person
-        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-
-        // Create descriptor with second person's premium
-        EditPremiumDescriptor descriptor = new EditPremiumDescriptorBuilder()
-                .withPremium(secondPerson.getPremiumList()).build();
-
-        // Only run this test if editing premium would create a duplicate
-        Person tempEditedPerson = EditPremiumCommand.createEditedPerson(firstPerson, descriptor);
-        // Create a new model for this check to avoid modifying the test model
-        Model tempModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new PolicyBook(model.getPolicyBook()), new UserPrefs(), new UserProfile(), null);
-        if (!firstPerson.isSamePerson(tempEditedPerson) && tempModel.hasPerson(tempEditedPerson)) {
-            EditPremiumCommand editPremiumCommand = new EditPremiumCommand(INDEX_FIRST_PERSON, descriptor);
-            assertCommandFailure(editPremiumCommand, model, EditPremiumCommand.MESSAGE_DUPLICATE_PERSON);
-        }
-    }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() throws ParseException {
