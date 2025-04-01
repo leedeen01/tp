@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="ClientNest" minWidth="560" minHeight="810" onCloseRequest="#handleExit">
   <icons>
@@ -25,13 +27,17 @@
 
       <VBox>
           <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" styleClass="placeholder">
-              <Menu mnemonicParsing="false" text="File" styleClass="menu">
-                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" styleClass="menu-item" />
+              <Menu text="File" styleClass="menu">
+                  <MenuItem text="Exit" onAction="#handleExit" styleClass="menu-item" />
               </Menu>
-              <Menu mnemonicParsing="false" text="Help" styleClass="menu">
-                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" styleClass="menu-item" />
+              <Menu text="Help" styleClass="menu">
+                  <MenuItem fx:id="helpMenuItem" text="Help" onAction="#handleHelp" styleClass="menu-item" />
+              </Menu>
+              <Menu text="Task List" styleClass="menu">
+                  <MenuItem fx:id="taskListButton" text="Open Task List" onAction="#handleOpenTaskList" styleClass="menu-item"/>
               </Menu>
           </MenuBar>
+
 
           <StackPane VBox.vgrow="NEVER" fx:id="userProfilePanelPlaceholder" styleClass="placeholder">
               <padding>
