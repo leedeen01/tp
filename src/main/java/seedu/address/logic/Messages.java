@@ -41,7 +41,7 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
                 .append(System.lineSeparator())
-                .append("; Phone: ")
+                .append("Phone: ")
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
