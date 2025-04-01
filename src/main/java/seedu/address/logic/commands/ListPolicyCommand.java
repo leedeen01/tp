@@ -11,7 +11,10 @@ import seedu.address.model.Model;
 public class ListPolicyCommand extends Command {
 
     public static final String COMMAND_WORD = "listpolicy";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists all policies in the policy book.\n"
+            + "There should not be any arguments.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Listed all policies";
 
     @Override

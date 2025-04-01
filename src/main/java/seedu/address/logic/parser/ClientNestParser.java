@@ -87,7 +87,11 @@ public class ClientNestParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            if (arguments.isEmpty()) {
+                return new ListCommand();
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            }
 
         /* Premium */
         case EditPremiumCommand.COMMAND_WORD:
@@ -98,7 +102,12 @@ public class ClientNestParser {
             return new AddPolicyCommandParser().parse(arguments);
 
         case ListPolicyCommand.COMMAND_WORD:
-            return new ListPolicyCommand();
+            if (arguments.isEmpty()) {
+                return new ListPolicyCommand();
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ListPolicyCommand.MESSAGE_USAGE));
+            }
 
         case FindPolicyCommand.COMMAND_WORD:
             return new FindPolicyCommandParser().parse(arguments);

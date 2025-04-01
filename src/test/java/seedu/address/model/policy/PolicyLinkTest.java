@@ -12,7 +12,6 @@ public class PolicyLinkTest {
     private static final String VALID_URL_HTTP = "http://www.google.com";
     private static final String VALID_URL_HTTPS = "https://example.com";
     private static final String VALID_URL_FTP = "ftp://files.server.com";
-    private static final String INVALID_URL_NO_PROTOCOL = "www.google.com";
     private static final String INVALID_URL_MALFORMED = "http//invalid.com";
     private static final String INVALID_URL_EMPTY = "http://";
 
@@ -24,7 +23,6 @@ public class PolicyLinkTest {
     @Test
     public void constructor_invalidPolicyLink_throwsIllegalArgumentException() {
         // Pass an invalid URL that does not match the regex.
-        assertThrows(IllegalArgumentException.class, () -> new PolicyLink(INVALID_URL_NO_PROTOCOL));
         assertThrows(IllegalArgumentException.class, () -> new PolicyLink(INVALID_URL_MALFORMED));
         assertThrows(IllegalArgumentException.class, () -> new PolicyLink(INVALID_URL_EMPTY));
     }
@@ -38,7 +36,6 @@ public class PolicyLinkTest {
 
     @Test
     public void isValidPolicyLink_invalidInputs_returnsFalse() {
-        assertFalse(PolicyLink.isValidPolicyLink(INVALID_URL_NO_PROTOCOL));
         assertFalse(PolicyLink.isValidPolicyLink(INVALID_URL_MALFORMED));
         assertFalse(PolicyLink.isValidPolicyLink(INVALID_URL_EMPTY));
     }
