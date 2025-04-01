@@ -34,7 +34,7 @@ public class TaskListWindow extends Application {
     private Button sendButton;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image piggyImage = new Image(this.getClass().getResourceAsStream("/images/pig.png"));
+    private final Image chatImage = new Image(this.getClass().getResourceAsStream("/images/chat.png"));
 
     private TaskList taskList;
 
@@ -59,7 +59,7 @@ public class TaskListWindow extends Application {
             Scene scene = new Scene(ap); //scene = window content
 
             // Set up the stage (window)
-            stage.setTitle("Task List");
+            stage.setTitle("ClientNest - Task List");
             stage.setScene(scene);
 
             //Set  initial window size
@@ -90,7 +90,7 @@ public class TaskListWindow extends Application {
 
         // Auto-scroll as new messages appear
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().add(DialogBox.getTaskListDialog(Ui.showWelcomeMessage(), piggyImage));
+        dialogContainer.getChildren().add(DialogBox.getTaskListDialog(Ui.showWelcomeMessage(), chatImage));
 
         // Ensure user input field expands properly
         AnchorPane.setLeftAnchor(userInput, 10.0);
@@ -117,7 +117,7 @@ public class TaskListWindow extends Application {
         // Display user input and TaskList's response in the dialogContainer
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTaskListDialog(response, piggyImage)
+                DialogBox.getTaskListDialog(response, chatImage)
         );
         userInput.clear(); // Clear input field after sending msg
 

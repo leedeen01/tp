@@ -8,7 +8,7 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public static String showWelcomeMessage() {
-        return "Welcome to the Task List.\n\nEnter some tasks to get started.";
+        return "Welcome to the ClientNest Task List.\n\nEnter some tasks to get started.";
     }
 
     /**

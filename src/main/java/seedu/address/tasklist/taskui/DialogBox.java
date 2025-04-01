@@ -12,8 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-
+import javafx.scene.shape.Rectangle;
 
 
 /**
@@ -33,7 +32,7 @@ public class DialogBox extends HBox {
     public DialogBox(String message, Image img) {
         text = new Label(message);
         text.setWrapText(true); //text wrapping
-        text.setMaxWidth(280); //limit width - prevent overflow
+        text.setMaxWidth(320); //limit width - prevent overflow
         displayPicture = new ImageView(img);
 
         // Set size and style
@@ -52,8 +51,10 @@ public class DialogBox extends HBox {
         VBox messageWithTimestamp = new VBox(text, timestampLabel);
         messageWithTimestamp.setSpacing(2);
         // Create a circular clip for the image
-        Circle clip = new Circle(25, 21, 13.5); // x, y, radius
-        displayPicture.setClip(clip); // Apply circular mask
+        Rectangle clip = new Rectangle(50, 50);
+        clip.setArcWidth(20); // controls roundness
+        clip.setArcHeight(20);
+        displayPicture.setClip(clip);
 
         this.setAlignment(Pos.TOP_RIGHT); // Default alignment for user
         this.setSpacing(2);
