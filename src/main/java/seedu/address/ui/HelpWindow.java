@@ -38,6 +38,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     @FXML
     private TableColumn<String[], String> formatColumn;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -83,7 +84,16 @@ public class HelpWindow extends UiPart<Stage> {
             "findpolicy KEYWORD_IN_NAME [MORE KEYWORD_IN_NAME]\n"
                     + "e.g., findpolicy Life",
             "editpolicy INDEX [n/ POLICY_NAME] [pn/ POLICY_NUMBER] [pc/ PROVIDER_COMPANY] [pl/ POLICY_LINK]\n"
-                    + "e.g., editpolicy 1 n/Life Shield\n",
+                    + "n/ POLICY_NAME: The name of the policy.\n"
+                    + "pn/ POLICY_NUMBER: The policy number.\n"
+                    + "pc/ PROVIDER_COMPANY: The name of the provider company.\n"
+                    + "pl/ POLICY_LINK: The link to the policy website.\n"
+                    + "                  It can optionally start with 'http://', 'https://', or 'ftp://',\n"
+                    + "                  and may include 'www.'. The domain name should consist of alphanumeric"
+                    + " characters, underscores, or hyphens,\n"
+                    + "                  followed by one or more top-level domains (e.g., '.com', '.org').\n"
+                    + "                  You can also include a path (starting with '/')\n"
+                    + "e.g., editpolicy 1 n/Life Shield pl/https://www.lifeshield.com",
             "editpr INDEX pr/ PREMIUM_NAME, PREMIUM_AMOUNT\n"
                     + "e.g., editpr 1 pr/LifeShield, $300",
             "profile [n/USER_NAME] [e/USER_EMAIL] [p/USER_PHONE]\n"
@@ -102,21 +112,24 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Shows the help window.
+     *
      * @throws IllegalStateException
-     *     <ul>
-     *         <li>
-     *             if this method is called on a thread other than the JavaFX Application Thread.
-     *         </li>
-     *         <li>
-     *             if this method is called during animation or layout processing.
-     *         </li>
-     *         <li>
-     *             if this method is called on the primary stage.
-     *         </li>
-     *         <li>
-     *             if {@code dialogStage} is already showing.
-     *         </li>
-     *     </ul>
+     *                               <ul>
+     *                               <li>
+     *                               if this method is called on a thread other than
+     *                               the JavaFX Application Thread.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called during animation or
+     *                               layout processing.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called on the primary stage.
+     *                               </li>
+     *                               <li>
+     *                               if {@code dialogStage} is already showing.
+     *                               </li>
+     *                               </ul>
      */
     public void show() {
         logger.fine("Showing help page about the application.");

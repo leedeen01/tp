@@ -94,7 +94,7 @@
     -fx-background-color: derive(#684BFE, -30%);
 }
 
-.table-cell {
+/* .table-cell {
     -fx-padding: 10 5 10 5;
     -fx-wrap-text: true;
     -fx-alignment: CENTER-LEFT;
@@ -103,7 +103,7 @@
 .table-cell .text {
     -fx-wrap-text: true;
     -fx-text-overrun: clip;
-}
+} */
 
 /*#copyButton, #helpMessage {*/
 /*    -fx-text-fill: white;*/

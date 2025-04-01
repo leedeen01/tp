@@ -9,10 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class PolicyLink {
 
-    public static final String MESSAGE_CONSTRAINTS = "Policy links should be valid URLs";
-    public static final String VALIDATION_REGEX =
-        "^(https?|ftp)://[-a-zA-Z0-9+&@#/%?=~_|$!:,.;]*[-a-zA-Z0-9+&@#/%=~_|$]";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Please enter a valid website.\n"
+            + "Examples: 'example.com', 'http://example.net/page#section'\n"
+            + "Please refer to help menu through the command 'help' for more information";
 
+    public static final String VALIDATION_REGEX =
+        "^((ftp|http|https):\\/\\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]"
+            + "+(\\.[a-zA-Z]+)+((\\/)[\\w#]+)*(\\/\\w+\\?[a-zA-Z0-9_]+=\\w+(&[a-zA-Z0-9_]+=\\w+)*)?\\/?$";
     public final String value;
 
     /**
