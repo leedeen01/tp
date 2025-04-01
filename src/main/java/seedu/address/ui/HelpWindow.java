@@ -60,7 +60,7 @@ public class HelpWindow extends UiPart<Stage> {
     private void populateCommandSummary() {
         String[] actions = {
             "Add", "Clear", "Delete", "Edit", "Find", "List", "Help", "Add Policy", "List Policy", "Find Policy",
-            "Edit Policy", "Edit Premium", "Profile"
+            "Edit Policy", "Delete Policy", "Edit Premium", "Profile"
         };
 
         String[] formats = {
@@ -94,6 +94,8 @@ public class HelpWindow extends UiPart<Stage> {
                     + "                  followed by one or more top-level domains (e.g., '.com', '.org').\n"
                     + "                  You can also include a path (starting with '/')\n"
                     + "e.g., editpolicy 1 n/Life Shield pl/https://www.lifeshield.com",
+            "deletepolicy INDEX\n"
+                    + "e.g., deletepolicy 3",
             "editpr INDEX pr/ PREMIUM_NAME, PREMIUM_AMOUNT\n"
                     + "e.g., editpr 1 pr/LifeShield, $300",
             "profile [n/USER_NAME] [e/USER_EMAIL] [p/USER_PHONE]\n"
