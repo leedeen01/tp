@@ -79,4 +79,40 @@ public class TaskManagerTest {
         assertTrue(response.contains("Submit report"));
         assertTrue(response.contains("Team meeting"));
     }
+
+    @Test
+    void getResponse_emptyInput_returnsErrorMessage() {
+        String response = taskManager.getResponse("");
+        assertTrue(response.contains("Input cannot be empty!"));
+    }
+
+    @Test
+    void getResponse_unknownCommand_returnsErrorMessage() {
+        String response = taskManager.getResponse("hi");
+        assertTrue(response.contains("Unknown command"));
+    }
+
+    @Test
+    void getResponse_markCommandMissingArg_returnsError() {
+        String response = taskManager.getResponse("mark");
+        assertTrue(response.contains("requires exactly one argument"));
+    }
+
+    @Test
+    void getResponse_todoCommandMissingDescription_returnsError() {
+        String response = taskManager.getResponse("todo   ");
+        assertTrue(response.contains("must include a task description"));
+    }
+
+    @Test
+    void getResponse_deadlineCommandMissingBy_returnsError() {
+        String response = taskManager.getResponse("deadline Finish homework");
+        assertTrue(response.contains("DEADLINE format"));
+    }
+
+    @Test
+    void getResponse_eventCommandMissingFromOrTo_returnsError() {
+        String response = taskManager.getResponse("event Team sync /from 2pm");
+        assertTrue(response.contains("EVENT format"));
+    }
 }
