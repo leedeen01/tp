@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -7,9 +8,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Can organise everything with coordinates in AnchorPane, all elements are inside this -->
+<?import javafx.scene.layout.Region?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="seedu.address.tasklist.taskui.TaskListWindow"
             prefWidth="400.0" prefHeight="600.0"
-            style="-fx-background-color: #13181F;">
+            styleClass="placeholder">
+
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
 
     <!-- ScrollPane to display conversation -->
     <ScrollPane fx:id="scrollPane"
@@ -21,7 +28,7 @@
                 AnchorPane.leftAnchor="0.0"
                 AnchorPane.rightAnchor="0.0"
                 AnchorPane.bottomAnchor="50.0"
-                style="-fx-background: #13181F; -fx-background-color: #13181F;">
+                styleClass="tasklist-scrollpane">
 
         <VBox fx:id="dialogContainer"
               spacing="10.0"
@@ -38,10 +45,10 @@
 
     <AnchorPane prefHeight="50.0">
         <!-- TextField - where user types input -->
-        <TextField fx:id="userInput" layoutX="10.0" layoutY="520.0" prefWidth="300.0" promptText="Enter your task here..." />
+        <TextField fx:id="userInput" layoutX="10.0" layoutY="520.0" prefWidth="300.0" promptText="Enter your task here..." styleClass="command-box-text" />
         <!-- Send Button -->
         <Button fx:id="sendButton" text="Send" layoutX="320.0" layoutY="520.0" prefWidth="70.0" onAction="#handleUserInput"
-                style="-fx-background-color: #D04FE6; -fx-text-fill: white;" />
+                styleClass="tasklist-button" />
 
         <AnchorPane.leftAnchor>10.0</AnchorPane.leftAnchor>
         <AnchorPane.rightAnchor>10.0</AnchorPane.rightAnchor>
