@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
- * DialogBox represents a message bubble for the user and TaskList.
+ * DialogBox represents a message bubble for the user and TaskManager.
  * It extends HBox and allows messages to be displayed with an image.
  */
 public class DialogBox extends HBox {
@@ -63,7 +63,7 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(messageWithTimestamp, displayPicture); // Add message, image and timestamp
     }
     /**
-     * Flips the dialog box alignment to the left, for TaskList responses.
+     * Flips the dialog box alignment to the left, for TaskManager responses.
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
@@ -91,14 +91,14 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox for TaskList responses, with flipped alignment.
+     * Creates a DialogBox for TaskManager responses, with flipped alignment.
      *
-     * @param message The TaskList’s message.
-     * @param piggyImage The TaskList’s profile image.
+     * @param message The TaskManager’s message.
+     * @param chatImage The TaskManager’s profile image.
      * @return A DialogBox aligned to the left.
      */
-    public static DialogBox getTaskListDialog(String message, Image piggyImage) {
-        DialogBox dialogBox = new DialogBox(message, piggyImage);
+    public static DialogBox getTaskManagerDialog(String message, Image chatImage) {
+        DialogBox dialogBox = new DialogBox(message, chatImage);
         dialogBox.flip();
         dialogBox.text.setStyle("-fx-background-color: #684BFE; -fx-text-fill: #EEEEEE; -fx-padding: 10;"
                 + " -fx-border-radius: 10; -fx-background-radius: 10;");

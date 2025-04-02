@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Can organise everything with coordinates in AnchorPane, all elements are inside this -->
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="seedu.address.tasklist.taskui.TaskListWindow"
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="seedu.address.tasklist.taskui.TaskManagerWindow"
             prefWidth="400.0" prefHeight="600.0"
             style="-fx-background-color: #13181F;">
 

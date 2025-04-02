@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.tasklist.taskui.TaskManagerWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -83,13 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleOpenTaskList() {
-        seedu.address.tasklist.taskui.TaskListWindow taskManager = new seedu.address.tasklist.taskui.TaskListWindow();
-        try {
-            Stage taskStage = new Stage();
-            taskManager.start(taskStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        TaskManagerWindow.launchTaskManagerWindow();
     }
 
     public Stage getPrimaryStage() {
