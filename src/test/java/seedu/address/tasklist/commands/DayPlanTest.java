@@ -45,4 +45,51 @@ public class DayPlanTest {
         String result = DayPlan.execute("agenda for 10/2/2025", taskList);
         assertEquals(expectedOutput, result);
     }
+
+    @Test
+    void missingDate_throwsException() {
+        try {
+            DayPlan.execute("agenda for", taskList);
+        } catch (TaskManagerException e) {
+            assertEquals("Missing date. Please provide a valid date "
+                    + "in the format d/M/yyyy (e.g., 2/12/2023).", e.getMessage());
+        }
+    }
+
+    @Test
+    void wrongFormatKeyword_throwsException() {
+        try {
+            DayPlan.execute("agenda 2/12/2023", taskList);
+        } catch (TaskManagerException e) {
+            assertEquals("Wrong command format. Try:\n "
+                    + "agenda for d/M/yyyy (e.g., agenda for 2/12/2023)", e.getMessage());
+        }
+    }
+
+    @Test
+    void invalidDateFormat_throwsException() {
+        try {
+            DayPlan.execute("agenda for 12-25-2023", taskList);
+        } catch (TaskManagerException e) {
+            assertEquals("Invalid date. \nPlease check the day, month, "
+                    + "and format (d/M/yyyy, e.g., 2/12/2023).", e.getMessage());
+        }
+    }
+
+    @Test
+    void multipleDeadlinesAndEvents_correctlySummarized() throws TaskManagerException {
+        taskList.add(new Deadline("Submit 1", LocalDateTime.parse("11/2/2025 1200", INPUT_FORMATTER)));
+        taskList.add(new Deadline("Submit 2", LocalDateTime.parse("11/2/2025 1700", INPUT_FORMATTER)));
+        taskList.add(new Event("Hackathon",
+                LocalDateTime.parse("10/2/2025 2300", INPUT_FORMATTER),
+                LocalDateTime.parse("11/2/2025 0500", INPUT_FORMATTER)));
+        taskList.add(new Event("Seminar",
+                LocalDateTime.parse("11/2/2025 0800", INPUT_FORMATTER),
+                LocalDateTime.parse("11/2/2025 1000", INPUT_FORMATTER)));
+
+        String result = DayPlan.execute("agenda for 11/2/2025", taskList);
+
+        assert result.contains("You have 2 deadlines on this day.");
+        assert result.contains("You have 2 events on this day.");
+    }
 }
