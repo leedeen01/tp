@@ -13,6 +13,7 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Deletes specific premiums identified by name from a person identified by the index number
@@ -68,6 +69,7 @@ public class DeletePremiumCommand extends Command {
         Person premiumDeletedPerson = deletePremium(premiumToDelete);
 
         model.setPerson(premiumToDelete, premiumDeletedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_DELETE_PREMIUM_SUCCESS, Messages.formatPremium(premiumDeletedPerson)));
     }
