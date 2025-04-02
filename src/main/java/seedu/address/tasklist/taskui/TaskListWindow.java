@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.tasklist.exception.TaskListException;
-import seedu.address.tasklist.main.TaskList;
+import seedu.address.tasklist.main.TaskManager;
 
 /**
  * MainWindow initializes and manages the graphical user interface (GUI) for TaskList.
@@ -36,7 +36,7 @@ public class TaskListWindow extends Application {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image chatImage = new Image(this.getClass().getResourceAsStream("/images/chat.png"));
 
-    private TaskList taskList;
+    private TaskManager taskManager;
 
     /**
      * Starts the JavaFX application, setting up the primary stage and loading the UI components.
@@ -47,7 +47,7 @@ public class TaskListWindow extends Application {
     @Override
     //overriding start method from Application
     public void start(Stage stage) throws TaskListException { //main method JavaFX calls to set up + display GUI window
-        this.taskList = new TaskList();
+        this.taskManager = new TaskManager();
 
         try {
             // Load FXML file for UI layout - read by fxmlloader
@@ -55,11 +55,11 @@ public class TaskListWindow extends Application {
             //attach anchor pane to window (Stage) using Scene.
             AnchorPane ap = fxmlLoader.load(); //Load UI components into AnchorPane
             TaskListWindow controller = fxmlLoader.getController();
-            controller.setTaskList(this.taskList); // Pass initialized taskList to controller
+            controller.setTaskManager(this.taskManager); // Pass initialized taskList to controller
             Scene scene = new Scene(ap); //scene = window content
 
             // Set up the stage (window)
-            stage.setTitle("ClientNest - Task List");
+            stage.setTitle("ClientNest - Task Manager");
             stage.setScene(scene);
 
             //Set  initial window size
@@ -112,7 +112,7 @@ public class TaskListWindow extends Application {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText(); // Get user's input from text field
-        String response = taskList.getResponse(input); // Get response from TaskList logic
+        String response = taskManager.getResponse(input); // Get response from TaskList logic
 
         // Display user input and TaskList's response in the dialogContainer
         dialogContainer.getChildren().addAll(
@@ -132,9 +132,9 @@ public class TaskListWindow extends Application {
     /**
      * Sets the TaskList instance for the UI.
      *
-     * @param taskList The TaskList instance.
+     * @param TaskManager The TaskManager instance.
      */
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
+    public void setTaskManager(TaskManager taskManager) {
+        this.taskManager = taskManager;
     }
 }

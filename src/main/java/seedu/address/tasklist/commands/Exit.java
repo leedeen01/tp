@@ -19,6 +19,6 @@ public class Exit {
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
 
-        return "Exiting Task List...";
+        return "Exiting Task Manager...";
     }
 }

@@ -45,7 +45,7 @@ public class AddTask {
     }
 
     /**
-     * Adds a Deadline type task to the task list.
+     * Adds a Deadline type task to the task manager.
      *
      * @param userInput The full user command containing the task and due date.
      * @param taskList The list where the new task will be added.
@@ -81,7 +81,7 @@ public class AddTask {
     }
 
     /**
-     * Adds an Event type task to the task list.
+     * Adds an Event type task to the task manager.
      *
      * @param userInput The full user command containing the task, start time, and end time.
      * @param taskList The list where the new task will be added.

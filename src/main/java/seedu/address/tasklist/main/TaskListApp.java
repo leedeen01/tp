@@ -23,7 +23,7 @@ import seedu.address.tasklist.taskui.Ui;
  * The main class for the TaskList application.
  * This class validates and processes commands.
  */
-public class TaskList {
+public class TaskManager {
     private final ArrayList<Task> taskList;
     private final Scanner reader;
 

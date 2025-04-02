@@ -8,14 +8,14 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public static String showWelcomeMessage() {
-        return "Welcome to the ClientNest Task List.\n\nEnter some tasks to get started.";
+        return "Welcome to the ClientNest Task Manager.\n\nEnter some tasks to get started.";
     }
 
     /**
      * Displays the exit message when the application is terminated.
      */
     public static String showExitMessage() {
-        return "Exiting Task List ...";
+        return "Exiting Task Manager ...";
     }
 
     /**
