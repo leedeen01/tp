@@ -62,7 +62,7 @@ public class AddPremiumCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        PremiumList premiumToAdd = new PremiumListBuilder().withPremium(VALID_PREMIUM_BOB).build();
+        PremiumList premiumToAdd = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
 
         AddPremiumCommand addPremiumCommand = new AddPremiumCommand(INDEX_FIRST_PERSON, premiumToAdd);
 
@@ -150,7 +150,7 @@ public class AddPremiumCommandTest {
         Index index = Index.fromOneBased(1);
         PremiumList premiumList = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
         AddPremiumCommand addPremiumCommand = new AddPremiumCommand(index, premiumList);
-        String expected = AddPremiumCommand.class.getCanonicalName() + "{index=" + index + ", premiumList="
+        String expected = AddPremiumCommand.class.getCanonicalName() + "{premiumList="
                 + premiumList + "}";
         assertEquals(expected, addPremiumCommand.toString());
     }

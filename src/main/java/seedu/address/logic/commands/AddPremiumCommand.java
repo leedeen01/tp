@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -80,6 +81,21 @@ public class AddPremiumCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ADD_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddPremiumCommand)) {
+            return false;
+        }
+
+        AddPremiumCommand otherAddPremiumCommand = (AddPremiumCommand) other;
+        return premiumList.equals(otherAddPremiumCommand.premiumList) && index.equals(otherAddPremiumCommand.index);
+    }
+
     /**
      * Creates and returns a {@code Person} with the premium added to the original person.
      * All other attributes of the person remain unchanged.
@@ -99,5 +115,12 @@ public class AddPremiumCommand extends Command {
         Set<Tag> tagList = personToEdit.getTags();
 
         return new Person(name, phone, email, address, birthday, premiumList, tagList);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("premiumList", premiumList)
+                .toString();
     }
 }
