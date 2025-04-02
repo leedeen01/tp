@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Deadline;
 import seedu.address.tasklist.tasks.Event;
 import seedu.address.tasklist.tasks.Task;
@@ -25,13 +25,13 @@ public class DayPlanTest {
     }
 
     @Test
-    void noTasks() throws TaskListException {
+    void noTasks() throws TaskManagerException {
         String result = DayPlan.execute("agenda for 10/2/2025", taskList);
         assertEquals("You have no tasks at the moment. Free all day!", result);
     }
 
     @Test
-    void variousTasksInDay() throws TaskListException {
+    void variousTasksInDay() throws TaskManagerException {
         taskList.add(new Deadline("Submit proposal", LocalDateTime.parse("10/2/2025 2359", INPUT_FORMATTER)));
         taskList.add(new Event("Conference",
                 LocalDateTime.parse("10/2/2025 0900", INPUT_FORMATTER),

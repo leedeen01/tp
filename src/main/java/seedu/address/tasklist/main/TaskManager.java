@@ -13,7 +13,7 @@ import seedu.address.tasklist.commands.Help;
 import seedu.address.tasklist.commands.ListCommand;
 import seedu.address.tasklist.commands.Mark;
 import seedu.address.tasklist.commands.Unmark;
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.storage.TaskStorage;
 import seedu.address.tasklist.tasks.Task;
 import seedu.address.tasklist.taskui.Ui;
@@ -31,9 +31,9 @@ public class TaskManager {
      * Constructs a new TaskList instance.
      * Initializes the task list by loading stored tasks and sets up a scanner for user input.
      *
-     * @throws TaskListException if there is an error loading the stored tasks.
+     * @throws TaskManagerException if there is an error loading the stored tasks.
      */
-    public TaskList() throws TaskListException {
+    public TaskManager() throws TaskManagerException {
         this.taskList = TaskStorage.loadList();
         this.reader = new Scanner(System.in);
     }
@@ -43,18 +43,18 @@ public class TaskManager {
      *
      * @param userInput The input command string from the user.
      * @return The result message after executing the command.
-     * @throws TaskListException If an invalid command or incorrect arguments are provided.
+     * @throws TaskManagerException If an invalid command or incorrect arguments are provided.
      */
-    private String processCommand(String userInput) throws TaskListException {
+    private String processCommand(String userInput) throws TaskManagerException {
         if (userInput == null || userInput.trim().isEmpty()) {
-            throw new TaskListException("Input cannot be empty!");
+            throw new TaskManagerException("Input cannot be empty!");
         }
 
         String[] inputParts = userInput.trim().split(" ", 2);
         CommandType command = CommandType.fromString(inputParts[0]);
 
         if (command == CommandType.UNKNOWN) {
-            throw new TaskListException("Unknown command.\nType \"help\" to see available commands.");
+            throw new TaskManagerException("Unknown command.\nType \"help\" to see available commands.");
         }
 
         validateArguments(command, inputParts);
@@ -107,7 +107,7 @@ public class TaskManager {
             return Exit.execute();
 
         default:
-            throw new TaskListException("Unknown command.");
+            throw new TaskManagerException("Unknown command.");
         }
     }
 
@@ -120,7 +120,7 @@ public class TaskManager {
     public String getResponse(String input) {
         try {
             return processCommand(input);
-        } catch (TaskListException e) {
+        } catch (TaskManagerException e) {
             return e.getMessage(); // Return error messages to GUI
         }
     }
@@ -143,7 +143,7 @@ public class TaskManager {
                     return;
                 }
 
-            } catch (TaskListException e) {
+            } catch (TaskManagerException e) {
                 Ui.showMessage(e.getMessage());
             }
         }
@@ -155,9 +155,9 @@ public class TaskManager {
      *
      * @param command The command type provided by the user.
      * @param inputParts The split user input containing command and arguments.
-     * @throws TaskListException if the provided arguments are incorrect or missing.
+     * @throws TaskManagerException if the provided arguments are incorrect or missing.
      */
-    private void validateArguments(CommandType command, String[] inputParts) throws TaskListException {
+    private void validateArguments(CommandType command, String[] inputParts) throws TaskManagerException {
         int argLength = inputParts.length;
 
         switch (command) {
@@ -165,7 +165,7 @@ public class TaskManager {
         case HELP:
         case EXIT:
             if (argLength != 1) {
-                throw new TaskListException(command + " command should not have any arguments.");
+                throw new TaskManagerException(command + " command should not have any arguments.");
             }
             break;
 
@@ -174,36 +174,36 @@ public class TaskManager {
         case DELETE:
         case DAYPLAN:
             if (argLength != 2) {
-                throw new TaskListException(command + " command requires exactly one argument.");
+                throw new TaskManagerException(command + " command requires exactly one argument.");
             }
             break;
 
         case FIND:
             if (argLength < 2 || inputParts[1].trim().isEmpty()) {
-                throw new TaskListException("FIND command must include a keyword.");
+                throw new TaskManagerException("FIND command must include a keyword.");
             }
             break;
 
         case TODO:
             if (argLength != 2 || inputParts[1].trim().isEmpty()) {
-                throw new TaskListException("TODO command must include a task description.");
+                throw new TaskManagerException("TODO command must include a task description.");
             }
             break;
 
         case DEADLINE:
             if (argLength < 2 || !inputParts[1].contains("/by")) {
-                throw new TaskListException("DEADLINE format: deadline <task> /by <date>");
+                throw new TaskManagerException("DEADLINE format: deadline <task> /by <date>");
             }
             break;
 
         case EVENT:
             if (argLength < 2 || !inputParts[1].contains("/from") || !inputParts[1].contains("/to")) {
-                throw new TaskListException("EVENT format: event <task> /from <start> /to <end>");
+                throw new TaskManagerException("EVENT format: event <task> /from <start> /to <end>");
             }
             break;
 
         default:
-            throw new TaskListException("Invalid command or format.");
+            throw new TaskManagerException("Invalid command or format.");
         }
     }
 
@@ -215,8 +215,8 @@ public class TaskManager {
      */
     public static void main(String[] args) {
         try {
-            new TaskList().run();
-        } catch (TaskListException e) {
+            new TaskManager().run();
+        } catch (TaskManagerException e) {
             System.out.println("An error occurred while starting the program: " + e.getMessage());
         }
     }

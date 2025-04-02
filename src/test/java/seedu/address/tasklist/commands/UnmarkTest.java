@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Task;
 import seedu.address.tasklist.tasks.ToDo;
 
@@ -24,36 +24,35 @@ public class UnmarkTest {
     @Test
     void execute_nonIntegerIndex() {
         taskList.add(new ToDo("Buy groceries"));
-        TaskListException e = assertThrows(TaskListException.class, () -> Unmark.execute("unmark one", taskList));
-        assertEquals("You need to pick an index number to unmark in the list. You can try again.", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Unmark.execute("unmark one", taskList));
+        assertEquals("You need to pick an integer (e.g. 1) from the existing task list.", e.getMessage());
     }
 
     @Test
     void execute_outOfBoundsIndex() {
         taskList.add(new ToDo("Buy groceries"));
-        TaskListException e = assertThrows(TaskListException.class, () -> Unmark.execute("unmark 2", taskList));
-        assertEquals("You need to unmark something actually in the list, silly", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Unmark.execute("unmark 2", taskList));
+        assertEquals("You need to pick an index from the existing task list.", e.getMessage());
     }
 
     @Test
     void execute_unmarkInEmptyList() {
-        TaskListException e = assertThrows(TaskListException.class, () -> Unmark.execute("unmark 1", taskList));
-        assertEquals("You need to unmark something actually in the list, silly", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Unmark.execute("unmark 1", taskList));
+        assertEquals("You need to pick an index from the existing task list.", e.getMessage());
     }
 
     @Test
-    void execute_unmarkAlrUnmarked() throws TaskListException {
+    void execute_unmarkAlrUnmarked() throws TaskManagerException {
         taskList.add(new ToDo("Buy pen"));
         assertEquals("The task is already unmarked.", Unmark.execute("unmark 1", taskList));
     }
     //correct test
 
     @Test
-    void execute_unmarkSuccess() throws TaskListException {
+    void execute_unmarkSuccess() throws TaskManagerException {
         taskList.add(new ToDo("Buy pen"));
         Mark.execute("mark 1", taskList);
-        assertEquals("Oops, no problem."
-                        + "\nI've unmarked the task:\n  [T][ ] Buy pen",
+        assertEquals("Task unmarked:\n  [T][ ] Buy pen",
                 Unmark.execute("unmark 1", taskList));
     }
 }

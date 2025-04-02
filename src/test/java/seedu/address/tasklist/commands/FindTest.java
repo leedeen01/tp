@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Deadline;
 import seedu.address.tasklist.tasks.Event;
 import seedu.address.tasklist.tasks.Task;
@@ -22,7 +22,7 @@ public class FindTest {
     private ArrayList<Task> taskList;
 
     @BeforeEach
-    void setUp() throws TaskListException {
+    void setUp() throws TaskManagerException {
         taskList = new ArrayList<>();
         taskList.add(new ToDo("Buy milk"));
         taskList.add(new ToDo("Call John"));

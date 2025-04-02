@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 
 public class EventTest {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -20,13 +20,13 @@ public class EventTest {
                     LocalDateTime.parse("12/3/2025 1800", INPUT_FORMATTER),
                     LocalDateTime.parse("10/3/2025 1000", INPUT_FORMATTER));
             assertEquals(1, 0); // Constructor should not be able to reach this line -> else: fail
-        } catch (TaskListException e) {
+        } catch (TaskManagerException e) {
             assertEquals("Event start time must be before end time.", e.getMessage());
         }
     }
 
     @Test
-    public void includesDate_withinEventPeriod_returnsTrue() throws TaskListException {
+    public void includesDate_withinEventPeriod_returnsTrue() throws TaskManagerException {
         Event event = new Event("Conference",
                 LocalDateTime.parse("10/3/2025 1000", INPUT_FORMATTER),
                 LocalDateTime.parse("12/3/2025 1800", INPUT_FORMATTER));
@@ -36,7 +36,7 @@ public class EventTest {
     }
 
     @Test
-    public void includesDate_withinEventPeriod_returnsFalse() throws TaskListException {
+    public void includesDate_withinEventPeriod_returnsFalse() throws TaskManagerException {
         Event event = new Event("Conference",
                 LocalDateTime.parse("10/3/2025 1000", INPUT_FORMATTER),
                 LocalDateTime.parse("12/3/2025 1800", INPUT_FORMATTER));
@@ -46,7 +46,7 @@ public class EventTest {
     }
 
     @Test
-    public void getDates_correctlyFormatsDates() throws TaskListException {
+    public void getDates_correctlyFormatsDates() throws TaskManagerException {
         Event event = new Event("Conference",
                 LocalDateTime.parse("10/3/2025 1000", INPUT_FORMATTER),
                 LocalDateTime.parse("12/3/2025 1800", INPUT_FORMATTER));

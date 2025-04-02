@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 
 public class TaskListTest {
     private TaskList taskList;
@@ -45,7 +45,7 @@ public class TaskListTest {
     }
 
     @Test
-    void isDuplicateTask_duplicateEvent() throws TaskListException {
+    void isDuplicateTask_duplicateEvent() throws TaskManagerException {
         Event event = new Event("Team meeting", LocalDateTime.of(2025, 2, 19, 10, 0),
                 LocalDateTime.of(2025, 2, 19, 12, 0));
         taskList.getAllTasks().add(event);
@@ -55,7 +55,7 @@ public class TaskListTest {
     }
 
     @Test
-    void isDuplicateTask_nonDuplicateEvent() throws TaskListException {
+    void isDuplicateTask_nonDuplicateEvent() throws TaskManagerException {
         taskList.getAllTasks().add(new Event("Team meeting", LocalDateTime.of(2025, 2, 19, 10, 0),
                 LocalDateTime.of(2025, 2, 19, 12, 0)));
 

@@ -83,10 +83,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleOpenTaskList() {
-        seedu.address.tasklist.taskui.TaskListWindow TaskManager = new seedu.address.tasklist.taskui.TaskListWindow();
+        seedu.address.tasklist.taskui.TaskListWindow taskManager = new seedu.address.tasklist.taskui.TaskListWindow();
         try {
             Stage taskStage = new Stage();
-            TaskManager.start(taskStage);
+            taskManager.start(taskStage);
         } catch (Exception e) {
             e.printStackTrace();
         }

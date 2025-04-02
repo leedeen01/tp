@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Task;
 import seedu.address.tasklist.tasks.ToDo;
 
@@ -26,25 +26,25 @@ public class MarkTest {
     @Test
     void execute_nonIntegerIndex() {
         taskList.add(new ToDo("Buy groceries"));
-        TaskListException e = assertThrows(TaskListException.class, () -> Mark.execute("mark one", taskList));
-        assertEquals("You need to pick an index number to mark in the list. You can try again.", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Mark.execute("mark one", taskList));
+        assertEquals("You need to pick an index number to mark in the list.", e.getMessage());
     }
 
     @Test
     void execute_outOfBoundsIndex() {
         taskList.add(new ToDo("Buy groceries"));
-        TaskListException e = assertThrows(TaskListException.class, () -> Mark.execute("mark 2", taskList));
-        assertEquals("You need to mark something actually in the list, silly", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Mark.execute("mark 2", taskList));
+        assertEquals("You need to pick an index from the existing task list.", e.getMessage());
     }
 
     @Test
     void execute_markInEmptyList() {
-        TaskListException e = assertThrows(TaskListException.class, () -> Mark.execute("mark 1", taskList));
-        assertEquals("You need to mark something actually in the list, silly", e.getMessage());
+        TaskManagerException e = assertThrows(TaskManagerException.class, () -> Mark.execute("mark 1", taskList));
+        assertEquals("You need to pick an index from the existing task list.", e.getMessage());
     }
 
     @Test
-    void execute_markAlrMarked() throws TaskListException {
+    void execute_markAlrMarked() throws TaskManagerException {
         taskList.add(new ToDo("Buy pen"));
         Mark.execute("mark 1", taskList);
         assertEquals("The task is already marked.", Mark.execute("mark 1", taskList));
@@ -52,10 +52,9 @@ public class MarkTest {
     //correct test
 
     @Test
-    void execute_markSuccess() throws TaskListException {
+    void execute_markSuccess() throws TaskManagerException {
         taskList.add(new ToDo("Buy pen"));
-        assertEquals("Good work! Let's keep going."
-                        + "\nI've marked this task as done:\n  [T][X] Buy pen",
+        assertEquals("Task marked as done:\n  [T][X] Buy pen",
                 Mark.execute("mark 1", taskList));
     }
 }

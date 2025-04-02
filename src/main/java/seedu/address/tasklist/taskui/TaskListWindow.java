@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.main.TaskManager;
 
 /**
@@ -42,11 +42,11 @@ public class TaskListWindow extends Application {
      * Starts the JavaFX application, setting up the primary stage and loading the UI components.
      *
      * @param stage The primary stage for the application.
-     * @throws TaskListException If there is an error initializing TaskList.
+     * @throws TaskManagerException If there is an error initializing TaskList.
      */
     @Override
     //overriding start method from Application
-    public void start(Stage stage) throws TaskListException { //main method JavaFX calls to set up + display GUI window
+    public void start(Stage stage) throws TaskManagerException {
         this.taskManager = new TaskManager();
 
         try {
@@ -132,7 +132,7 @@ public class TaskListWindow extends Application {
     /**
      * Sets the TaskList instance for the UI.
      *
-     * @param TaskManager The TaskManager instance.
+     * @param taskManager The TaskManager instance.
      */
     public void setTaskManager(TaskManager taskManager) {
         this.taskManager = taskManager;
