@@ -26,9 +26,9 @@ public class UserProfileTest {
 
     @Test
     public void constructor_defaultProfile_initializesWithDefaultValues() {
-        assertEquals("Guest Name", defaultProfile.getName().fullName);
-        assertEquals("guest@gmail.com", defaultProfile.getEmail().value);
-        assertEquals("91234567", defaultProfile.getPhone().value);
+        assertEquals("Guest", defaultProfile.getName().fullName);
+        assertEquals("guest@example.com", defaultProfile.getEmail().value);
+        assertEquals("00000000", defaultProfile.getPhone().value);
     }
 
     @Test
