@@ -266,6 +266,30 @@
     -fx-text-fill: #5A5F67;
 }
 
+/* TASK LIST ------------------------------- */
+.tasklist-scrollpane {
+    -fx-background-color: #13181F;
+    -fx-background: #13181F;
+}
+
+.tasklist-button {
+    -fx-background-color: #D04FE6;
+    -fx-text-fill: #EEEEEE;
+    -fx-background-radius: 999px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18px;
+    -fx-padding: 5;
+}
+
+.tasklist-button:hover {
+    -fx-background-color: derive(#D04FE6, 30%);
+    -fx-cursor: hand;
+}
+
+.tasklist-button:armed {
+    -fx-background-color: derive(#D04FE6, 10%);
+}
+
 /* ORIGINAL CODE (FOR BACKUP) ------------------------------- */
 
 /*.background {*/

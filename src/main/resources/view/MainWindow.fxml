@@ -73,14 +73,14 @@
               </VBox>
           </SplitPane>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="placeholder">
+          <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="placeholder"
+                     minHeight="100" prefHeight="100" maxHeight="100">
               <padding>
                   <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
           </StackPane>
 
-          <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="placeholder"
-                     minHeight="100" prefHeight="100" maxHeight="100">
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="placeholder">
               <padding>
                   <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
