@@ -158,13 +158,39 @@ If your changes to the data file makes its format invalid, ClientNest will disca
 Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Upcoming Birthdays View `[coming in v2.0]`
 
-_Details coming soon ..._
+### Upcoming Birthdays Panel
 
-### Automated Messages via Email and WhatsApp `[coming in v2.0]`
+The **Upcoming Birthdays** panel displays a list of clients whose birthdays fall within the next 30 days.
 
-_Details coming soon ..._
+This panel appears to the right of the client list and updates automatically whenever a birthday is added or edited. You can scroll through the list to see upcoming birthdays and easily identify clients you may want to reach out to.
+
+No commands are required — just ensure each contact has a valid birthday entered, and ClientNest will handle the rest.
+
+
+### Viewing and Managing Tasks: `TaskManager`
+
+ClientNest includes a built-in **TaskManager** to help you stay on top of your personal tasks, deadlines, and events — all within the same application.
+<p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
+
+
+You can access the TaskManager panel from the top menu bar . A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
+<p align="center"> <img src="images/findTaskManager.png" alt="Accessing Task Manager" width="200"/> </p>
+
+In TaskManager, you can:
+
+* Add To-Do, Deadline, and Event tasks
+* Mark and unmark tasks as done
+* Delete tasks
+* Search for tasks by keyword
+
+All commands are typed into the input box, similar to the main ClientNest window.
+
+> 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands and formats.
+
+More details will be available in a dedicated TaskManager section soon.
+
+For more information about the ClientNest TaskManager, refer to the [ _Task Manager Developer Guide_ ] (TaskManagerDevGuide.md)
 
 --------------------------------------------------------------------------------------------------------------------
 
