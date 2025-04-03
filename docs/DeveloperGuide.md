@@ -84,7 +84,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/logic)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -116,7 +116,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/model)
 
 <img src="images/diagrams/ModelClassDiagram.png" width="450" />
 
@@ -144,7 +144,7 @@ The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of v
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/storage)
 
 <img src="images/diagrams/StorageClassDiagram.png" width="700px">
 
@@ -152,6 +152,27 @@ The `Storage` component,
 * can save both address book data, policy book data, user profile data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage`, `PolicyBookStorage`, `UserProileStorage` and `UserPrefStorage`, which means it can be treated as any one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+
+### Task Manager 
+
+**API** : [`TaskManager.java`] (https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/tasklist)
+
+<img src="images/diagrams/TaskManagerClassDiagram.png" width="550"/>
+
+The `TaskManager` component,
+* is a self-contained feature within the application.
+* allows users to manage personal tasks like to-dos, deadlines, and events.
+* is invoked via the UI, and operates independently of the main application logic.
+* is launched via the `TaskManager` button along the top file panel.
+
+The `TaskManager` feature consists of:
+
+* A `TaskManager` class responsible for processing user commands.
+* A set of command classes (`AddTask`, `DeleteTask`, `Mark`, etc.) to modfy the list of tasks.
+* A storage class (`TaskStorage`) that handles task persistence via a local file.
+* A set of task types (`ToDo`, `Deadline`, `Event`).
+
+For more information about the ClientNest TaskManager, refer to the [ _Task Manager Developer Guide_ ] (TaskManagerDevGuide.md)
 
 ### Common classes
 
