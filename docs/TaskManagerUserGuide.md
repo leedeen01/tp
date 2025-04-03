@@ -151,20 +151,20 @@ TaskManager data is saved automatically to the hard disk after any command that 
 
 Action       | Format
 -------------|---------------------------------------------------------------
-Add To-Do    | `todo TASK_DESCRIPTION`  
-| e.g. `todo Update CRM tags for Delta Group`  
-Add Deadline | `deadline TASK_DESCRIPTION /by d/M/yyyy HHmm`  
-| e.g. `deadline Prepare monthly client report /by 20/4/2025 1700`  
-Add Event    | `event TASK_DESCRIPTION /from d/M/yyyy HHmm /to d/M/yyyy HHmm`  
-| e.g. `event Product demo for Zeta Inc /from 18/4/2025 1400 /to 18/4/2025 1500`  
-Mark Done    | `mark TASK_NUMBER`  
-Unmark       | `unmark TASK_NUMBER`  
-Delete       | `delete TASK_NUMBER`  
-Find         | `find KEYWORD [MORE_KEYWORDS]`  
-| e.g. `find delta onboarding`  
-Agenda       | `agenda for d/M/yyyy`  
-| e.g. `agenda for 18/4/2025`  
-List         | `list`  
-Help         | `help`  
+Add To-Do    | `todo TASK_DESCRIPTION`
+| e.g. `todo Update CRM tags for Delta Group`
+Add Deadline | `deadline TASK_DESCRIPTION /by d/M/yyyy HHmm`
+| e.g. `deadline Prepare monthly client report /by 20/4/2025 1700`
+Add Event    | `event TASK_DESCRIPTION /from d/M/yyyy HHmm /to d/M/yyyy HHmm`
+| e.g. `event Product demo for Zeta Inc /from 18/4/2025 1400 /to 18/4/2025 1500`
+Mark Done    | `mark TASK_NUMBER`
+Unmark       | `unmark TASK_NUMBER`
+Delete       | `delete TASK_NUMBER`
+Find         | `find KEYWORD [MORE_KEYWORDS]`
+| e.g. `find delta onboarding`
+Agenda       | `agenda for d/M/yyyy`
+| e.g. `agenda for 18/4/2025`
+List         | `list`
+Help         | `help`
 Exit         | `exit`
 
