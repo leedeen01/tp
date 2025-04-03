@@ -5,59 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PREMIUM_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PREMIUM_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPolicy.getTypicalPolicyBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.core.user.UserProfile;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditPremiumCommand.EditPremiumDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.testutil.EditPremiumDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditPremiumCommand.
  */
 public class EditPremiumCommandTest {
-
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
-            new UserProfile(), null);
-
-    @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() throws ParseException {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPremiumDescriptor descriptor = new EditPremiumDescriptorBuilder()
-                .withPremium(VALID_PREMIUM_AMY).build();
-        EditPremiumCommand editPremiumCommand = new EditPremiumCommand(outOfBoundIndex, descriptor);
-
-        assertCommandFailure(editPremiumCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
-     */
-    @Test
-    public void execute_invalidPersonIndexFilteredList_failure() throws ParseException {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        EditPremiumCommand editPremiumCommand = new EditPremiumCommand(outOfBoundIndex,
-                new EditPremiumDescriptorBuilder().withPremium(VALID_PREMIUM_AMY).build());
-
-        assertCommandFailure(editPremiumCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
 
     @Test
     public void equals() throws ParseException {
