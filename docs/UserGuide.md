@@ -366,5 +366,6 @@ Action     | Format, Examples
 **Delete Policy** | `deletepolicy INDEX` <br> e.g., `deletepolicy 1`
 **Edit Policy** | `edit INDEX [pn/POLICY_NUMBER] [n/PREMIUM_NAME] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]` <br> e.g., `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com`
 **Find Policy** | `findpolicy KEYWORD [MORE_KEYWORDS]` <br> e.g., `findpolicy Life Health`
+**Profile** | `profile [n/USER_NAME] [p/PHONE_NUMBER] [e/EMAIL]`
 **List**   | `list`
 **Help**   | `help`
