@@ -60,7 +60,7 @@ public class HelpWindow extends UiPart<Stage> {
     private void populateCommandSummary() {
         String[] actions = {
             "Add", "Clear", "Delete", "Edit", "Find", "List", "Help", "Add Policy", "List Policy", "Find Policy",
-            "Edit Policy", "Delete Policy", "Edit Premium", "Profile"
+            "Edit Policy", "Delete Policy", "Add Premium", "Edit Premium", "Delete Premium", "Profile"
         };
 
         String[] formats = {
@@ -87,8 +87,12 @@ public class HelpWindow extends UiPart<Stage> {
                     + "e.g., editpolicy 1 n/Life Shield pl/https://www.lifeshield.com",
             "deletepolicy INDEX\n"
                     + "e.g., deletepolicy 3",
-            "editpr INDEX pr/ PREMIUM_NAME, PREMIUM_AMOUNT\n"
-                    + "e.g., editpr 1 pr/LifeShield, $300",
+            "addpr INDEX pr/ PREMIUM_NAME PREMIUM_AMOUNT\n"
+                    + "e.g., addpr 1 pr/FamilyPlus 500",
+            "editpr INDEX pr/ PREMIUM_NAME PREMIUM_AMOUNT\n"
+                    + "e.g., editpr 1 pr/LifeShield 300",
+            "deletepr INDEX pr/PREMIUM_NAME\n"
+                    + "e.g., deletepr 3 pr/LifeShield",
             "profile [n/USER_NAME] [e/USER_EMAIL] [p/USER_PHONE]\n"
                     + "e.g., profile n/James Ho e/jamesho@example.com p/22224444",
         };
