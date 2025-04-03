@@ -16,7 +16,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.PolicyBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PremiumList;
 import seedu.address.storage.Storage;
@@ -133,7 +137,8 @@ public class DeletePremiumCommandTest {
     @Test
     public void execute_personWithNoPremiums_success() {
         // First create a person with no premiums
-        Person personWithNoPremiums = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
+        Person personWithNoPremiums = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON
+                .getZeroBased()))
                 .withPremiumList(new PremiumList())
                 .build();
 
@@ -166,12 +171,14 @@ public class DeletePremiumCommandTest {
                 .withPremium("RetirePlan $300")
                 .build();
 
-        Person personWithMultiplePremiums = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
+        Person personWithMultiplePremiums = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON
+                .getZeroBased()))
                 .withPremiumList(fullPremiumList)
                 .build();
 
         // Update the model with this person
-        model.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), personWithMultiplePremiums);
+        model.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()),
+                personWithMultiplePremiums);
 
         // Create premium list to delete (only the second premium)
         PremiumList premiumsToDelete = new PremiumListBuilder()
@@ -212,7 +219,8 @@ public class DeletePremiumCommandTest {
 
         DeletePremiumCommand deleteFirstCommand = new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumList1);
         DeletePremiumCommand deleteSecondCommand = new DeletePremiumCommand(INDEX_SECOND_PERSON, premiumList1);
-        DeletePremiumCommand deleteFirstDifferentPremiumCommand = new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumList2);
+        DeletePremiumCommand deleteFirstDifferentPremiumCommand = new DeletePremiumCommand(INDEX_FIRST_PERSON,
+                premiumList2);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));

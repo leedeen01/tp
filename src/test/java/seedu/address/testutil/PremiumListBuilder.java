@@ -60,6 +60,17 @@ public class PremiumListBuilder {
     }
 
     /**
+     * Adds a premiumList directly to the {@code PremiumList} that we are building.
+     *
+     * @param premiumList The Premium object to add
+     * @return The updated PremiumListBuilder
+     */
+    public PremiumListBuilder withPremiumList(PremiumList premiumList) {
+        this.premiumList.addAll(premiumList);
+        return this;
+    }
+
+    /**
      * Builds and returns the {@code PremiumList}.
      */
     public PremiumList build() {

@@ -5,7 +5,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.AddPremiumCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPremiumCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -42,6 +41,14 @@ public class AddPremiumCommandParser implements Parser<AddPremiumCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PREMIUM);
 
         PremiumList premiumList = null;
+
+        if (!argMultimap.getValue(PREFIX_PREMIUM).isPresent()) {
+            throw new ParseException(AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
+        }
+
+        if (argMultimap.getValue(PREFIX_PREMIUM).get().isBlank()) {
+            throw new ParseException(AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
+        }
 
         if (argMultimap.getValue(PREFIX_PREMIUM).isPresent()) {
             premiumList = ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get());

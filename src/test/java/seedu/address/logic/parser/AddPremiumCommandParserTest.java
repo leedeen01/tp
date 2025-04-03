@@ -37,7 +37,7 @@ public class AddPremiumCommandParserTest {
         assertParseFailure(parser, VALID_PREMIUM_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", AddPremiumCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -114,6 +114,6 @@ public class AddPremiumCommandParserTest {
         assertParseFailure(parser, "1 pr/", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
 
         // Empty premium list
-        assertParseFailure(parser, "1 pr/ ", AddPremiumCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1 pr/ ", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
     }
 }

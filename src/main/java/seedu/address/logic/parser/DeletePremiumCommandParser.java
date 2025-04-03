@@ -1,14 +1,14 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeletePremiumCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.DeletePremiumCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeletePremiumCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new DeletePremiumCommand object.
@@ -42,7 +42,8 @@ public class DeletePremiumCommandParser implements Parser<DeletePremiumCommand> 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PREMIUM);
 
         if (argMultimap.getValue(PREFIX_PREMIUM).isPresent() && !argMultimap.getValue(PREFIX_PREMIUM).get().isEmpty()) {
-            return new DeletePremiumCommand(index, ParserUtil.parsePremium(argMultimap.getValue(PREFIX_PREMIUM).get()));
+            return new DeletePremiumCommand(index, ParserUtil.parseDeletePremium(argMultimap.getValue(PREFIX_PREMIUM)
+                    .get()));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }

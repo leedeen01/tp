@@ -87,9 +87,16 @@ public class Person {
                 && otherPerson.getName().equals(getName());
     }
 
+    /**
+     * Checks if this object contains any premium from the provided premium list.
+     *
+     * @param premiumlist The premium list to check against this object's premium list
+     * @return true if at least one premium from the provided list is found in this object's premium list,
+     *         false otherwise
+     */
     public boolean hasPremium(PremiumList premiumlist) {
         for (Premium p : premiumlist.premiumList) {
-            if(this.premiumList.contains(p)) {
+            if (this.premiumList.contains(p)) {
                 return true;
             }
         }

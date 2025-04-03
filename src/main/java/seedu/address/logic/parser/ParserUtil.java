@@ -188,6 +188,38 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String string} into a {@code PremiumList}.
+     * The string is expected to contain premium identifiers separated by spaces.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param string Premium identifiers separated by spaces.
+     * @return A PremiumList containing all valid Premium objects.
+     * @throws ParseException if the given {@code string} contains invalid premium identifiers.
+     */
+    public static PremiumList parseDeletePremium(String string) throws ParseException {
+        requireNonNull(string);
+        PremiumList premiumList = new PremiumList();
+        String trimmedString = string.trim();
+
+        // Return empty list if string is empty
+        if (trimmedString.isEmpty()) {
+            return premiumList;
+        }
+
+        String[] split = trimmedString.split("\\s+");
+        for (int i = 0; i < split.length; i++) {
+            if (!Premium.isValidPremium(split[i], 0)) {
+                throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
+            }
+
+            Premium premium = new Premium(split[i], 0);
+            premiumList.add(premium);
+        }
+        return premiumList;
+    }
+
+
+    /**
      * Parses a {@code String policyNumber} into a {@code PolicyNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *

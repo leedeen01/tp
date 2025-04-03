@@ -18,6 +18,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Premium;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.policy.PolicyLink;
 import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.PolicyNumber;
@@ -37,6 +39,11 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    //Constants for Premium
+    private static final String VALID_PREMIUM_1 = "P001";
+    private static final String VALID_PREMIUM_2 = "P002";
+    private static final String INVALID_PREMIUM = "!@#$";
 
     // Constants for policy fields
     private static final String VALID_POLICY_NUMBER = "PN12345678";
@@ -301,5 +308,46 @@ public class ParserUtilTest {
         String policyLinkWithWhitespace = WHITESPACE + VALID_POLICY_LINK + WHITESPACE;
         PolicyLink expectedPolicyLink = new PolicyLink(VALID_POLICY_LINK);
         assertEquals(expectedPolicyLink, ParserUtil.parsePolicyLink(policyLinkWithWhitespace));
+    }
+
+    @Test
+    public void parseDeletePremium_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDeletePremium(null));
+    }
+
+    @Test
+    public void parseDeletePremium_emptyString_returnsEmptyPremiumList() throws Exception {
+        PremiumList expectedList = new PremiumList();
+        assertEquals(expectedList, ParserUtil.parseDeletePremium(""));
+    }
+
+    @Test
+    public void parseDeletePremium_singleValidValue_returnsPremiumList() throws Exception {
+        PremiumList expectedList = new PremiumList();
+        expectedList.add(new Premium(VALID_PREMIUM_1, 0));
+
+        assertEquals(expectedList, ParserUtil.parseDeletePremium(VALID_PREMIUM_1));
+    }
+
+    @Test
+    public void parseDeletePremium_multipleValidValues_returnsPremiumList() throws Exception {
+        PremiumList expectedList = new PremiumList();
+        expectedList.add(new Premium(VALID_PREMIUM_1, 0));
+        expectedList.add(new Premium(VALID_PREMIUM_2, 0));
+
+        assertEquals(expectedList,
+                ParserUtil.parseDeletePremium(VALID_PREMIUM_1 + " " + VALID_PREMIUM_2));
+    }
+
+    @Test
+    public void parseDeletePremium_validValueWithWhitespace_returnsTrimmedPremiumList() throws Exception {
+        String premiumsWithWhitespace = WHITESPACE + VALID_PREMIUM_1 + " "
+                + VALID_PREMIUM_2 + WHITESPACE;
+
+        PremiumList expectedList = new PremiumList();
+        expectedList.add(new Premium(VALID_PREMIUM_1, 0));
+        expectedList.add(new Premium(VALID_PREMIUM_2, 0));
+
+        assertEquals(expectedList, ParserUtil.parseDeletePremium(premiumsWithWhitespace));
     }
 }

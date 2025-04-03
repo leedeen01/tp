@@ -1,19 +1,25 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.PremiumList;
 import seedu.address.model.tag.Tag;
-
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Adds a premium to a person identified by the index number in the displayed person list.
@@ -70,7 +76,7 @@ public class AddPremiumCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if(personToEdit.hasPremium(premiumList)) {
+        if (personToEdit.hasPremium(premiumList)) {
             throw new CommandException(MESSAGE_DUPLICATE_PREMIUM);
         }
 
@@ -78,6 +84,7 @@ public class AddPremiumCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(String.format(MESSAGE_ADD_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
     }
 
@@ -101,10 +108,10 @@ public class AddPremiumCommand extends Command {
      * All other attributes of the person remain unchanged.
      *
      * @param personToEdit the person to add premium to
-     * @param premiumList the premium list to be added
+     * @param premiumListToAdd the premium list to be added
      * @return a new Person with the premium added
      */
-    public Person createAddedPerson(Person personToEdit, PremiumList premiumList) {
+    public Person createAddedPerson(Person personToEdit, PremiumList premiumListToAdd) {
         assert personToEdit != null;
         assert premiumList != null;
         Name name = personToEdit.getName();
@@ -113,6 +120,8 @@ public class AddPremiumCommand extends Command {
         Address address = personToEdit.getAddress();
         Birthday birthday = personToEdit.getBirthday();
         Set<Tag> tagList = personToEdit.getTags();
+        PremiumList premiumList = personToEdit.getPremiumList();
+        premiumList.addAll(premiumListToAdd);
 
         return new Person(name, phone, email, address, birthday, premiumList, tagList);
     }

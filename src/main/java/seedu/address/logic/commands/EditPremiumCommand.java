@@ -87,7 +87,7 @@ public class EditPremiumCommand extends Command {
             throws CommandException {
         assert personToEdit != null;
 
-        if(!validPremium(personToEdit, editPremiumDescriptor.getPremium().orElse(personToEdit.getPremiumList()))) {
+        if (!validPremium(personToEdit, editPremiumDescriptor.getPremium().orElse(personToEdit.getPremiumList()))) {
             throw new CommandException(MESSAGE_INVALID_PPREMIUM);
         }
 
@@ -130,7 +130,7 @@ public class EditPremiumCommand extends Command {
      */
     private static PremiumList editPremium(Person personToEdit, PremiumList premiumList) {
         for (Premium premium : premiumList.premiumList) {
-                personToEdit.getPremiumList().replace(premium);
+            personToEdit.getPremiumList().replace(premium);
         }
 
         return personToEdit.getPremiumList();
@@ -138,7 +138,7 @@ public class EditPremiumCommand extends Command {
 
     private static boolean validPremium(Person personToEdit, PremiumList premiumList) {
         for (Premium premium : premiumList.premiumList) {
-            if(!personToEdit.getPremiumList().contains(premium)) {
+            if (!personToEdit.getPremiumList().contains(premium)) {
                 return false;
             }
         }

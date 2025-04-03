@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.DeletePremiumCommand.MESSAGE_USAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.logic.commands.DeletePremiumCommand.MESSAGE_USAGE;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,13 +28,13 @@ public class DeletePremiumCommandParserTest {
     public void parse_validArgs_returnsDeletePremiumCommand() {
         // Create a premium list with one premium for testing
         PremiumList premiumList = new PremiumListBuilder()
-                .withPremium("LifeShield $200")
+                .withPremium("LifeShield 0")
                 .build();
 
         // Test with a single premium
         assertParseSuccess(
                 parser,
-                "1 " + PREFIX_PREMIUM + "LifeShield $200",
+                "1 " + PREFIX_PREMIUM + "LifeShield",
                 new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumList)
         );
     }

@@ -1,5 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -9,12 +15,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 /**
  * Deletes specific premiums identified by name from a person identified by the index number
  * in the displayed person list.
@@ -23,7 +23,8 @@ public class DeletePremiumCommand extends Command {
     public static final String COMMAND_WORD = "deletepr";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the premiums identified by name for the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the premiums identified by name for the person identified by the index number used in the "
+            + "displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_PREMIUM
             + "PREMIUM NAME\n"
@@ -71,7 +72,8 @@ public class DeletePremiumCommand extends Command {
         model.setPerson(premiumToDelete, premiumDeletedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PREMIUM_SUCCESS, Messages.formatPremium(premiumDeletedPerson)));
+        return new CommandResult(String.format(MESSAGE_DELETE_PREMIUM_SUCCESS,
+                Messages.formatPremium(premiumDeletedPerson)));
     }
 
     /**

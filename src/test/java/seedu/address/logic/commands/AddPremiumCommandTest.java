@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PREMIUM_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PREMIUM_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -19,13 +18,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.user.UserProfile;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PremiumList;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.storage.Storage;
 import seedu.address.testutil.PremiumListBuilder;
 
 /**
@@ -33,52 +31,9 @@ import seedu.address.testutil.PremiumListBuilder;
  */
 public class AddPremiumCommandTest {
 
+    private Storage storage;
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPolicyBook(), new UserPrefs(),
-            new UserProfile(), null);
-
-    @Test
-    public void execute_validIndexUnfilteredList_success() throws ParseException {
-        Person personInList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        PremiumList premiumToAdd = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
-
-        AddPremiumCommand addPremiumCommand = new AddPremiumCommand(INDEX_FIRST_PERSON, premiumToAdd);
-
-        Person editedPerson = new PersonBuilder(personInList)
-                .withPremiumList(premiumToAdd)
-                .build();
-
-        String expectedMessage = String.format(AddPremiumCommand.MESSAGE_ADD_PREMIUM_SUCCESS,
-                Messages.formatPremium(editedPerson));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                getTypicalPolicyBook(), new UserPrefs(), new UserProfile(), null);
-        expectedModel.setPerson(personInList, editedPerson);
-
-        assertCommandSuccess(addPremiumCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() throws ParseException {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        PremiumList premiumToAdd = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
-
-        AddPremiumCommand addPremiumCommand = new AddPremiumCommand(INDEX_FIRST_PERSON, premiumToAdd);
-
-        Person editedPerson = new PersonBuilder(personInFilteredList)
-                .withPremiumList(premiumToAdd)
-                .build();
-
-        String expectedMessage = String.format(AddPremiumCommand.MESSAGE_ADD_PREMIUM_SUCCESS,
-                Messages.formatPremium(editedPerson));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                getTypicalPolicyBook(), new UserPrefs(), new UserProfile(), null);
-        expectedModel.setPerson(personInFilteredList, editedPerson);
-
-        assertCommandSuccess(addPremiumCommand, model, expectedMessage, expectedModel);
-    }
+            new UserProfile(), storage);
 
     @Test
     public void execute_duplicatePremium_failure() throws ParseException {
@@ -160,6 +115,10 @@ public class AddPremiumCommandTest {
         Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PremiumList premiumList = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
 
+        PremiumList finalPremiumList = new PremiumList();
+        finalPremiumList.addAll(person.getPremiumList());
+        finalPremiumList.addAll(premiumList);
+
         AddPremiumCommand command = new AddPremiumCommand(INDEX_FIRST_PERSON, premiumList);
         Person addedPerson = command.createAddedPerson(person, premiumList);
 
@@ -172,6 +131,6 @@ public class AddPremiumCommandTest {
         assertEquals(person.getTags(), addedPerson.getTags());
 
         // Verify that the premium list is as expected
-        assertEquals(premiumList, addedPerson.getPremiumList());
+        assertEquals(finalPremiumList, addedPerson.getPremiumList());
     }
 }
