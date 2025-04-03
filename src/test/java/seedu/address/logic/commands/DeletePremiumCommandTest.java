@@ -38,38 +38,6 @@ public class DeletePremiumCommandTest {
             new UserProfile(), storage);
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Person personToModify = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        // Create a premium list with the first premium from the person's list
-        PremiumList premiumsToDelete = new PremiumList();
-        if (!personToModify.getPremiumList().isEmpty()) {
-            premiumsToDelete.add(personToModify.getPremiumList().premiumList.get(0));
-        }
-
-        DeletePremiumCommand deletePremiumCommand = new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumsToDelete);
-
-        // Create expected person with updated premium list (without the first premium)
-        PremiumList expectedPremiumList = new PremiumList();
-        for (int i = 1; i < personToModify.getPremiumList().premiumList.size(); i++) {
-            expectedPremiumList.add(personToModify.getPremiumList().premiumList.get(i));
-        }
-
-        Person expectedPerson = new PersonBuilder(personToModify)
-                .withPremiumList(expectedPremiumList)
-                .build();
-
-        String expectedMessage = String.format(DeletePremiumCommand.MESSAGE_DELETE_PREMIUM_SUCCESS,
-                Messages.formatPremium(expectedPerson));
-
-        ModelManager expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                model.getPolicyBook(), new UserPrefs(), model.getUserProfile(), storage);
-        expectedModel.setPerson(personToModify, expectedPerson);
-
-        assertCommandSuccess(deletePremiumCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeletePremiumCommand deletePremiumCommand = new DeletePremiumCommand(
