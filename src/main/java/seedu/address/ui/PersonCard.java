@@ -3,8 +3,13 @@ package seedu.address.ui;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -45,7 +50,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label birthday;
     @FXML
-    private Label premiumList;
+    private TableView<Premium> premiumList;
+    @FXML
+    private TableColumn<Premium, String> premiumNameColumn;
+    @FXML
+    private TableColumn<Premium, String> premiumAmountColumn;
     @FXML
     private FlowPane tags;
 
@@ -64,9 +73,31 @@ public class PersonCard extends UiPart<Region> {
         birthday.setText(person.getBirthday().toString());
         String premiums = person.getPremiumList().premiumList.stream().sorted(Comparator.reverseOrder())
                 .map(Premium:: displayPremium).collect(Collectors.joining(", "));
-        premiumList.setText(premiums);
+
+        premiumNameColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getPremiumName()));
+        premiumAmountColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty("$" + cellData.getValue().getPremiumAmount()));
+        premiumList.setItems(FXCollections.observableArrayList(
+                person.getPremiumList().premiumList.stream()
+                        .filter(premium -> premium.getPremiumName() != null
+                                && !premium.getPremiumName().isEmpty())
+                        .collect(Collectors.toList())
+        ));
+        premiumList.setFixedCellSize(25);
+        premiumList.prefHeightProperty().bind(Bindings.size(premiumList.getItems()).multiply(25).add(30));
+        premiumList.widthProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    premiumNameColumn.setPrefWidth(newValue.doubleValue() / 2.03);
+                    premiumAmountColumn.setPrefWidth(newValue.doubleValue() / 2.03);
+                });
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.setMaxWidth(80);
+                    tags.getChildren().add(tagLabel);
+                });
     }
 }
