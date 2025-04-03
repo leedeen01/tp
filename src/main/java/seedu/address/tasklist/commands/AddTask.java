@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Deadline;
 import seedu.address.tasklist.tasks.Event;
 import seedu.address.tasklist.tasks.Task;
@@ -23,20 +23,20 @@ public class AddTask {
      * @param userInput The full user command containing the task description.
      * @param taskList The list where the new task will be added.
      * @return A success message confirming the addition.
-     * @throws TaskListException If the task description is missing.
+     * @throws TaskManagerException If the task description is missing.
      */
-    public static String todo(String userInput, ArrayList<Task> taskList) throws TaskListException {
+    public static String todo(String userInput, ArrayList<Task> taskList) throws TaskManagerException {
         assert userInput != null : "User input should never be null in AddTask.todo()";
         assert taskList != null : "Task list should never be null in AddTask.todo()";
 
         if (userInput.length() <= 5) {
-            throw new TaskListException("No task entered.");
+            throw new TaskManagerException("No task entered.");
         }
         String taskName = userInput.substring(5).trim();
         validateNonEmpty(taskName, "No task entered.");
         Task newTask = new ToDo(taskName);
         if (isDuplicate(newTask, taskList)) {
-            throw new TaskListException("This task already exists in your list.");
+            throw new TaskManagerException("This task already exists in your list.");
         }
         taskList.add(newTask);
 
@@ -45,82 +45,87 @@ public class AddTask {
     }
 
     /**
-     * Adds a Deadline type task to the task list.
+     * Adds a Deadline type task to the task manager.
      *
      * @param userInput The full user command containing the task and due date.
      * @param taskList The list where the new task will be added.
      * @return A success message confirming the addition.
-     * @throws TaskListException If the task description or deadline is missing or incorrectly formatted.
+     * @throws TaskManagerException If the task description or deadline is missing or incorrectly formatted.
      */
-    public static String deadline(String userInput, ArrayList<Task> taskList) throws TaskListException {
+    public static String deadline(String userInput, ArrayList<Task> taskList) throws TaskManagerException {
         assert userInput != null : "User input should never be null in AddTask.deadline()";
         assert taskList != null : "Task list should never be null in AddTask.deadline()";
         if (!userInput.contains("/by")) {
-            throw new TaskListException("No due-date entered.");
+            throw new TaskManagerException("No due-date entered.");
         }
         int dueDateIndex = userInput.indexOf("/by");
         String taskName = userInput.substring(9, dueDateIndex).trim();
-        String dueDateStr = userInput.substring(dueDateIndex + 3).trim();
+        String dueDateStr = userInput.substring(dueDateIndex + 4).trim();
         validateNonEmpty(taskName, "No task entered.");
         validateNonEmpty(dueDateStr, "No due-date entered.");
 
+        LocalDateTime dueDate;
         try {
-            LocalDateTime dueDate = LocalDateTime.parse(dueDateStr, INPUT_FORMATTER);
-            assert dueDate != null : "Parsed dueDate should not be null";
-            Task newTask = new Deadline(taskName, dueDate);
-            if (isDuplicate(newTask, taskList)) {
-                throw new TaskListException("This deadline already exists in your list.");
-            }
-            taskList.add(newTask);
-            assert taskList.contains(newTask) : "Task should be successfully added to taskList in AddTask.deadline()";
-            return taskAddedMsg(newTask, taskList.size());
+            dueDate = LocalDateTime.parse(dueDateStr, INPUT_FORMATTER);
         } catch (Exception e) {
-            throw new TaskListException("Invalid date format. Try again and use: "
-                    + "d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+            throw new TaskManagerException("Invalid date format. Try again and use:"
+                    + " d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
         }
+
+        Task newTask = new Deadline(taskName, dueDate);
+        if (isDuplicate(newTask, taskList)) {
+            throw new TaskManagerException("This deadline already exists in your list.");
+        }
+        taskList.add(newTask);
+        assert taskList.contains(newTask) : "Task should be successfully added to taskList in AddTask.deadline()";
+        return taskAddedMsg(newTask, taskList.size());
     }
 
     /**
-     * Adds an Event type task to the task list.
+     * Adds an Event type task to the task manager.
      *
      * @param userInput The full user command containing the task, start time, and end time.
      * @param taskList The list where the new task will be added.
      * @return A success message confirming the addition.
-     * @throws TaskListException If the task description, start time, or end time is missing or incorrectly formatted.
+     * @throws TaskManagerException If the task description, start or enf time, is missing or wrong format.
      */
-    public static String event(String userInput, ArrayList<Task> taskList) throws TaskListException {
+    public static String event(String userInput, ArrayList<Task> taskList) throws TaskManagerException {
         assert userInput != null : "User input should never be null in AddTask.event()";
         assert taskList != null : "Task list should never be null in AddTask.event()";
         if (!userInput.contains("/from") || !userInput.contains("/to")) {
-            throw new TaskListException("Event start/end not entered.");
+            throw new TaskManagerException("Event start/end not entered.");
         }
         int fromIndex = userInput.indexOf("/from");
         int toIndex = userInput.indexOf("/to");
         String taskName = userInput.substring(6, fromIndex).trim();
-        String startTimeStr = userInput.substring(fromIndex + 5, toIndex).trim();
-        String endTimeStr = userInput.substring(toIndex + 3).trim();
+        String startTimeStr = userInput.substring(fromIndex + 6, toIndex).trim();
+        String endTimeStr = userInput.substring(toIndex + 4).trim();
         validateNonEmpty(taskName, "No event entered.");
         validateNonEmpty(startTimeStr, "Event start not entered.");
         validateNonEmpty(endTimeStr, "Event end not entered.");
 
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         try {
-            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, INPUT_FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, INPUT_FORMATTER);
-            if (!startTime.isBefore(endTime)) {
-                throw new TaskListException("Event start time must be before end time.");
-            }
-            Task newTask = new Event(taskName, startTime, endTime);
-            if (isDuplicate(newTask, taskList)) {
-                throw new TaskListException("This event already exists in your list.");
-            }
-            taskList.add(newTask);
-            assert taskList.contains(newTask) : "Task should be successfully added to taskList in AddTask.event()";
-            return taskAddedMsg(newTask, taskList.size());
+            startTime = LocalDateTime.parse(startTimeStr, INPUT_FORMATTER);
+            endTime = LocalDateTime.parse(endTimeStr, INPUT_FORMATTER);
         } catch (Exception e) {
-            throw new TaskListException("Invalid date format. Try again and use: "
-                    + "d/M/yyyy HHmm (e.g., 2/12/2019 1800).\n"
-                    + "Or check that the start time is before the end time.");
+            throw new TaskManagerException("Invalid date format. Try again and use:"
+                    + " d/M/yyyy HHmm (e.g., 2/12/2019 1800)."
+                    + "\nOr check that the start time is before the end time.");
         }
+
+        if (!startTime.isBefore(endTime)) {
+            throw new TaskManagerException("Event start time must be before end time.");
+        }
+
+        Task newTask = new Event(taskName, startTime, endTime);
+        if (isDuplicate(newTask, taskList)) {
+            throw new TaskManagerException("This event already exists in your list.");
+        }
+        taskList.add(newTask);
+        assert taskList.contains(newTask) : "Task should be successfully added to taskList in AddTask.event()";
+        return taskAddedMsg(newTask, taskList.size());
     }
 
     /**
@@ -128,11 +133,11 @@ public class AddTask {
      *
      * @param input The input string to validate.
      * @param errorMessage The error message to display if validation fails.
-     * @throws TaskListException If the input is empty or null.
+     * @throws TaskManagerException If the input is empty or null.
      */
-    private static void validateNonEmpty(String input, String errorMessage) throws TaskListException {
+    private static void validateNonEmpty(String input, String errorMessage) throws TaskManagerException {
         if (input == null || input.trim().isEmpty()) {
-            throw new TaskListException(errorMessage);
+            throw new TaskManagerException(errorMessage);
         }
     }
 

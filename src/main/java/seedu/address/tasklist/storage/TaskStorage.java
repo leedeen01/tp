@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Deadline;
 import seedu.address.tasklist.tasks.Event;
 import seedu.address.tasklist.tasks.Task;
@@ -48,9 +48,9 @@ public class TaskStorage {
      * Parses each line and reconstructs corresponding Task objects.
      *
      * @return An ArrayList of Task objects representing the saved tasks.
-     * @throws TaskListException If an error occurs while loading tasks from the file.
+     * @throws TaskManagerException If an error occurs while loading tasks from the file.
      */
-    public static ArrayList<Task> loadList() throws TaskListException {
+    public static ArrayList<Task> loadList() throws TaskManagerException {
         ensureFileExists();
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class TaskStorage {
                 }
             }
         } catch (Exception e) {
-            throw new TaskListException("An error occurred while loading tasks: " + e.getMessage());
+            throw new TaskManagerException("An error occurred while loading tasks: " + e.getMessage());
         }
 
         assert taskList != null : "Task list should never be null after loading";
@@ -129,16 +129,16 @@ public class TaskStorage {
                 System.out.println("Warning: Unknown task type in file: " + type);
                 return null;
             }
-        } catch (TaskListException e) {
+        } catch (TaskManagerException e) {
             System.out.println("Warning: Skipping invalid entry - " + line);
             return null;
         }
     }
 
     private static Task createDeadline(String description, String timeInfo, boolean isDone, String line)
-            throws TaskListException {
+            throws TaskManagerException {
         if (!timeInfo.startsWith("by: ")) {
-            throw new TaskListException("Invalid time format for deadline - " + line);
+            throw new TaskManagerException("Invalid time format for deadline - " + line);
         }
         String dateStr = timeInfo.substring(4).trim();
         LocalDateTime by = LocalDateTime.parse(dateStr, INPUT_FORMATTER);
@@ -146,9 +146,9 @@ public class TaskStorage {
     }
 
     private static Task createEvent(String description, String timeInfo, boolean isDone, String line)
-            throws TaskListException {
+            throws TaskManagerException {
         if (!timeInfo.startsWith("from: ") || !timeInfo.contains(", to: ")) {
-            throw new TaskListException("Invalid time format for event - " + line);
+            throw new TaskManagerException("Invalid time format for event - " + line);
         }
         String[] eventParts = timeInfo.split(", to: ");
         LocalDateTime from = LocalDateTime.parse(eventParts[0].substring(6).trim(), INPUT_FORMATTER);
@@ -161,9 +161,9 @@ public class TaskStorage {
      * Creates a backup before writing and restores it if an error occurs.
      *
      * @param taskList The list of tasks to be saved.
-     * @throws TaskListException If an error occurs while updating the file.
+     * @throws TaskManagerException If an error occurs while updating the file.
      */
-    public static void updateList(ArrayList<Task> taskList) throws TaskListException {
+    public static void updateList(ArrayList<Task> taskList) throws TaskManagerException {
         ensureFileExists();
         File originalFile = new File(FILE_PATH);
         File backupFile = new File(FILE_PATH + ".bak");
@@ -182,7 +182,7 @@ public class TaskStorage {
             if (backupFile.exists()) {
                 backupFile.renameTo(originalFile);
             }
-            throw new TaskListException("An error occurred while updating the task list: " + e.getMessage());
+            throw new TaskManagerException("An error occurred while updating the task list: " + e.getMessage());
         } finally {
             if (backupFile.exists()) {
                 backupFile.delete();
