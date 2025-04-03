@@ -153,7 +153,7 @@ The `Storage` component,
 * inherits from both `AddressBookStorage`, `PolicyBookStorage`, `UserProileStorage` and `UserPrefStorage`, which means it can be treated as any one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
-### Task Manager 
+### Task Manager
 
 **API** : [`TaskManager.java`] (https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/tasklist)
 
@@ -533,4 +533,4 @@ testers are expected to do more *exploratory* testing.
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+1. _{ more test cases …​ }

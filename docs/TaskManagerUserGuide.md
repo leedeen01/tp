@@ -19,13 +19,13 @@ Users may type commands directly into the input box provided in the TaskManager 
 
 <box type="info" seamless>
 
-* Words in `UPPER_CASE` are placeholders for user-supplied input.  
+* Words in `UPPER_CASE` are placeholders for user-supplied input.
   Example: `todo TASK_DESCRIPTION` may be used as `todo Follow up with client`.
 
-* Items in square brackets are optional.  
+* Items in square brackets are optional.
   Example: `find KEYWORD [MORE_KEYWORDS]` allows `find onboarding`, or `find onboarding review`.
 
-* Date and time inputs must follow the format: `d/M/yyyy HHmm`  
+* Date and time inputs must follow the format: `d/M/yyyy HHmm`
   Example: `5/4/2025 1600` refers to 5 April 2025 at 4:00 PM.
 
 </box>
