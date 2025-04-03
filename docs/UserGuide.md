@@ -1,5 +1,3 @@
-
-
 # ClientNest User Guide
 
 ClientNest is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
@@ -46,8 +44,11 @@ ClientNest is a **desktop app for managing contacts, optimized for use via a  Li
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands such as `help`, `exit` and `clear` will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Extraneous parameters for listing commands such as `list` and `listpolicy` will result in denied command.<br>
+  e.g. if the command specifies `list 123`, the result display will notify user of the extraneous parameters and the command will be ignored.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
@@ -131,9 +132,75 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
+### Adding a policy: `addpolicy`
 
-Clears all entries from you ClientNest.
+Adds a new policy to your ClientNest.
+
+Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_LINK​`
+
+* No 2 policy share the same policy number.
+* The policy name is used in the `findpolicy` command.
+
+</box>
+
+Examples:
+* `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123 `
+
+### Listing all policies : `listpolicy`
+
+Displays all policies details stored in ClientNest..
+
+Format: `listpolicy`
+
+### Editing a policy : `editpolicy`
+
+Edits details of an existing policy details.
+
+Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]​`
+
+* Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed policy list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the fields must be provided.
+* Existing values will be updated to the input values.
+* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')\n"
+
+Examples:
+*  `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com` Edits the policy name and policy link of the 1st policy to be `Life Shield` and `https://www.lifeshield.com` respectively.
+
+### Locating policy by name: `findpolicy`
+
+Finds policies whose names contain any of the given keywords.
+
+Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `life` will match `Life`
+* The order of the keywords does not matter. e.g. `Life Health` will match `Health Life`
+* Only the name is searched.
+* Full words and partial will be matched e.g. `Li` will match `Lifeshield`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Life Health` will return `LifeShield`, `HealthPlus`
+
+Examples:
+* `find John` returns `john` and `John Doe`
+* `find Alice Hoe` returns `John Doe`, `Alice Pauline`<br>
+  ![result for 'find alice doe'](images/findAliceDoeResult.png)
+
+### Deleting a policy : `deletepolicy`
+
+Deletes the specified policy from the policy list.
+
+Format: `deletepolicy INDEX`
+
+* Deletes the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policy list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Clearing all person : `clear`
+
+Clears all person from your ClientNest.
 
 Format: `clear`
 
@@ -158,9 +225,6 @@ If your changes to the data file makes its format invalid, ClientNest will disca
 Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Upcoming Birthdays View `[coming in v2.0]`
-
-_Details coming soon ..._
 
 ### Editing User Profile : `profile`
 
@@ -221,5 +285,9 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Add Policy** | `addpolicy pn/POLICY_NUMBER n/PREMIUM_NAME pc/PROVIDER_COMPANY pl/POLICY_LINK` <br> e.g., `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123`
+**Delete Policy** | `deletepolicy INDEX` <br> e.g., `deletepolicy 1`
+**Edit Policy** | `edit INDEX [pn/POLICY_NUMBER] [n/PREMIUM_NAME] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]` <br> e.g., `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com`
+**Find Policy** | `findpolicy KEYWORD [MORE_KEYWORDS]` <br> e.g., `findpolicy Life Health`
 **List**   | `list`
 **Help**   | `help`

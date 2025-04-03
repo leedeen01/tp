@@ -12,7 +12,7 @@ public class PolicyLink {
     public static final String MESSAGE_CONSTRAINTS =
         "Please enter a valid website.\n"
             + "Examples: 'example.com', 'http://example.net/page#section'\n"
-            + "Please refer to help menu through the command 'help' for more information";
+            + "Please refer to UserGuide or help menu for more information";
 
     public static final String VALIDATION_REGEX =
         "^((ftp|http|https):\\/\\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]"

@@ -42,7 +42,7 @@ public class EditPolicyCommand extends Command {
 
     public static final String MESSAGE_EDIT_POLICY_SUCCESS = "Edited Policy: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided for editing.";
-    public static final String MESSAGE_DUPLICATE_POLICY = "This policy already exists in the system.";
+    public static final String MESSAGE_DUPLICATE_POLICY = "This policy number already exists in the system.";
 
     private final Index index;
     private final EditPolicyDescriptor editPolicyDescriptor;
