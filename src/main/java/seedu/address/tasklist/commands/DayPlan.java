@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 import seedu.address.tasklist.tasks.Deadline;
 import seedu.address.tasklist.tasks.Event;
 import seedu.address.tasklist.tasks.Task;
@@ -24,9 +24,9 @@ public class DayPlan {
      * @param userInput The user's input string containing the date
      * @param taskList  The list of tasks to check against the specified date.
      * @return A formatted string of deadlines and events occurring on the specified date.
-     * @throws TaskListException If the user input is invalid or contains an incorrect date format.
+     * @throws TaskManagerException If the user input is invalid or contains an incorrect date format.
      */
-    public static String execute(String userInput, ArrayList<Task> taskList) throws TaskListException {
+    public static String execute(String userInput, ArrayList<Task> taskList) throws TaskManagerException {
         assert userInput != null : "User input should never be null in DayPlan.execute()";
         assert taskList != null : "Task list should never be null in DayPlan.execute()";
 
@@ -54,26 +54,26 @@ public class DayPlan {
      *
      * @param userInput The user's input string.
      * @return The extracted LocalDate.
-     * @throws TaskListException If the input format is invalid.
+     * @throws TaskManagerException If the input format is invalid.
      */
-    private static LocalDate extractDate(String userInput) throws TaskListException {
+    private static LocalDate extractDate(String userInput) throws TaskManagerException {
         String[] inputParts = userInput.split(" ");
 
         if (inputParts.length < 3 || !inputParts[1].equals("for")) {
-            throw new TaskListException("Wrong command format. Try:\n "
+            throw new TaskManagerException("Wrong command format. Try:\n "
                     + "agenda for d/M/yyyy (e.g., agenda for 2/12/2023)");
         }
 
         String dateStr = inputParts[2].trim();
         if (dateStr.isEmpty()) {
-            throw new TaskListException("Missing date. Please provide a valid date "
+            throw new TaskManagerException("Missing date. Please provide a valid date "
                     + "in the format d/M/yyyy (e.g., 2/12/2023).");
         }
 
         try {
             return LocalDate.parse(dateStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new TaskListException("Invalid date. \nPlease check the day, month, "
+            throw new TaskManagerException("Invalid date. \nPlease check the day, month, "
                     + "and format (d/M/yyyy, e.g., 2/12/2023).");
         }
     }

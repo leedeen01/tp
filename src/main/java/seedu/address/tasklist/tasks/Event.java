@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.tasklist.exception.TaskListException;
+import seedu.address.tasklist.exception.TaskManagerException;
 
 
 /**
@@ -21,12 +21,12 @@ public class Event extends Task {
      * @param name The description of the event.
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
-     * @throws TaskListException If the start time is after the end time.
+     * @throws TaskManagerException If the start time is after the end time.
      */
-    public Event(String name, LocalDateTime start, LocalDateTime end) throws TaskListException {
+    public Event(String name, LocalDateTime start, LocalDateTime end) throws TaskManagerException {
         super(name);
         if (start.isAfter(end)) {
-            throw new TaskListException("Event start time must be before end time.");
+            throw new TaskManagerException("Event start time must be before end time.");
         }
         this.start = start;
         this.end = end;
@@ -39,12 +39,12 @@ public class Event extends Task {
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
      * @param isDone The completion status of the event.
-     * @throws TaskListException If the start time is after the end time.
+     * @throws TaskManagerException If the start time is after the end time.
      */
-    public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) throws TaskListException {
+    public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) throws TaskManagerException {
         super(name);
         if (start.isAfter(end)) {
-            throw new TaskListException("Event start time must be before end time.");
+            throw new TaskManagerException("Event start time must be before end time.");
         }
         this.start = start;
         this.end = end;
