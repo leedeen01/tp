@@ -172,8 +172,6 @@ The `TaskManager` feature consists of:
 * A storage class (`TaskStorage`) that handles task persistence via a local file.
 * A set of task types (`ToDo`, `Deadline`, `Event`).
 
-For more information about the ClientNest TaskManager, refer to the [ _Task Manager Developer Guide_ ] (TaskManagerDevGuide.md)
-
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.

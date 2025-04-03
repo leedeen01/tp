@@ -174,8 +174,7 @@ ClientNest includes a built-in **TaskManager** to help you stay on top of your p
 <p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
 
 
-You can access the TaskManager panel from the top menu bar . A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
-<p align="center"> <img src="images/findTaskManager.png" alt="Accessing Task Manager" width="200"/> </p>
+You can access the TaskManager panel from the top menu bar. A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
 
 In TaskManager, you can:
 
@@ -186,11 +185,9 @@ In TaskManager, you can:
 
 All commands are typed into the input box, similar to the main ClientNest window.
 
-> 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands and formats.
+> 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands.
 
-More details will be available in a dedicated TaskManager section soon.
-
-For more information about the ClientNest TaskManager, refer to the [ _Task Manager Developer Guide_ ] (TaskManagerDevGuide.md)
+For more in-depth information about TaskManager commands and their formats, refer to the [ _Task Manager User Guide_ ](TaskManagerUserGuide.md)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -208,7 +205,7 @@ For more information about the ClientNest TaskManager, refer to the [ _Task Mana
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command summary for ClientNest
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
