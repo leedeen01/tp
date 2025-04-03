@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.exceptions;
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PREMIUM;
@@ -14,8 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
@@ -38,16 +37,15 @@ public class EditPremiumCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Edits the premium details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Identifies premium policy by name and edits it if it exits. "
-            + "Else it will add a new premium policy.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_PREMIUM
             + "PREMIUM NAME,PREMIUM AMOUNT\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PREMIUM
-            + "LifeShield, $300";
+            + "LifeShield $300";
 
     public static final String MESSAGE_EDIT_PREMIUM_SUCCESS = "Edited Premium for Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_INVALID_PPREMIUM = "Premium name given does not exist.";
 
     private final Index index;
     private final EditPremiumDescriptor editPremiumDescriptor;
@@ -76,10 +74,6 @@ public class EditPremiumCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPremiumDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PREMIUM_SUCCESS, Messages.formatPremium(editedPerson)));
@@ -89,10 +83,15 @@ public class EditPremiumCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPremiumDescriptor}.
      */
-    public static Person createEditedPerson(Person personToEdit, EditPremiumDescriptor editPremiumDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPremiumDescriptor editPremiumDescriptor)
+            throws CommandException {
         assert personToEdit != null;
 
-        PremiumList updatedPremiumList = addPremium(personToEdit, editPremiumDescriptor.getPremium()
+        if (!validPremium(personToEdit, editPremiumDescriptor.getPremium().orElse(personToEdit.getPremiumList()))) {
+            throw new CommandException(MESSAGE_INVALID_PPREMIUM);
+        }
+
+        PremiumList updatedPremiumList = editPremium(personToEdit, editPremiumDescriptor.getPremium()
                 .orElse(personToEdit.getPremiumList()));
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
@@ -129,16 +128,22 @@ public class EditPremiumCommand extends Command {
      *
      * @param premiumList The premiums to replace with
      */
-    public static PremiumList addPremium(Person personToEdit, PremiumList premiumList) {
+    private static PremiumList editPremium(Person personToEdit, PremiumList premiumList) {
         for (Premium premium : premiumList.premiumList) {
-            if (personToEdit.getPremiumList().contains(premium)) {
-                personToEdit.getPremiumList().replace(premium);
-            } else {
-                personToEdit.getPremiumList().add(premium);
-            }
+            personToEdit.getPremiumList().replace(premium);
         }
 
         return personToEdit.getPremiumList();
+    }
+
+    private static boolean validPremium(Person personToEdit, PremiumList premiumList) {
+        for (Premium premium : premiumList.premiumList) {
+            if (!personToEdit.getPremiumList().contains(premium)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

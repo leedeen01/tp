@@ -10,12 +10,15 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AddPremiumCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePolicyCommand;
+import seedu.address.logic.commands.DeletePremiumCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.EditPremiumCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
@@ -23,7 +26,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.ProfileCommand;
-import seedu.address.logic.commands.exceptions.EditPremiumCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -94,8 +96,14 @@ public class ClientNestParser {
             }
 
         /* Premium */
+        case AddPremiumCommand.COMMAND_WORD:
+            return new AddPremiumCommandParser().parse(arguments);
+
         case EditPremiumCommand.COMMAND_WORD:
             return new EditPremiumCommandParser().parse(arguments);
+
+        case DeletePremiumCommand.COMMAND_WORD:
+            return new DeletePremiumCommandParser().parse(arguments);
 
         /* Policy */
         case AddPolicyCommand.COMMAND_WORD:

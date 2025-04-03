@@ -16,18 +16,20 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditPremiumCommand;
-import seedu.address.logic.commands.EditPremiumCommand.EditPremiumDescriptor;
+import seedu.address.logic.commands.AddPremiumCommand;
 import seedu.address.model.person.Premium;
-import seedu.address.testutil.EditPremiumDescriptorBuilder;
+import seedu.address.model.person.PremiumList;
+import seedu.address.testutil.PremiumListBuilder;
 
-public class EditPremiumCommandParserTest {
+/**
+ * Tests for the AddPremiumCommandParser
+ */
+public class AddPremiumCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPremiumCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPremiumCommand.MESSAGE_USAGE);
 
-    private EditPremiumCommandParser parser = new EditPremiumCommandParser();
+    private AddPremiumCommandParser parser = new AddPremiumCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -35,7 +37,7 @@ public class EditPremiumCommandParserTest {
         assertParseFailure(parser, VALID_PREMIUM_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -67,8 +69,8 @@ public class EditPremiumCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PREMIUM_DESC_AMY;
 
-        EditPremiumDescriptor descriptor = new EditPremiumDescriptorBuilder().withPremium(VALID_PREMIUM_AMY).build();
-        EditPremiumCommand expectedCommand = new EditPremiumCommand(targetIndex, descriptor);
+        PremiumList premiumList = new PremiumListBuilder().withPremium(VALID_PREMIUM_AMY).build();
+        AddPremiumCommand expectedCommand = new AddPremiumCommand(targetIndex, premiumList);
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -76,8 +78,8 @@ public class EditPremiumCommandParserTest {
         targetIndex = INDEX_SECOND_PERSON;
         userInput = targetIndex.getOneBased() + PREMIUM_DESC_BOB;
 
-        descriptor = new EditPremiumDescriptorBuilder().withPremium(VALID_PREMIUM_BOB).build();
-        expectedCommand = new EditPremiumCommand(targetIndex, descriptor);
+        premiumList = new PremiumListBuilder().withPremium(VALID_PREMIUM_BOB).build();
+        expectedCommand = new AddPremiumCommand(targetIndex, premiumList);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -104,5 +106,14 @@ public class EditPremiumCommandParserTest {
         userInput = targetIndex.getOneBased() + INVALID_PREMIUM_DESC + INVALID_PREMIUM_DESC;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PREMIUM));
+    }
+
+    @Test
+    public void parse_invalidPremium_failure() {
+        // No premium value (i.e., just the prefix)
+        assertParseFailure(parser, "1 pr/", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
+
+        // Empty premium list
+        assertParseFailure(parser, "1 pr/ ", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
     }
 }
