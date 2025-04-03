@@ -39,7 +39,7 @@ ClientNest is a **desktop app for managing contacts, optimized for use via a  Li
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -93,12 +93,58 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [pr/PR
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* You can remove all the person's tags by typing `t/` without
   specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+### Adding a premium to a person: `addpr`
+
+Adds a premium to a person identified by the index number in the displayed person list. A premium represents an insurance policy or product assigned to a person in the address book.
+
+Format: `addpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT`
+
+* Adds the specified premium to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The same premium cannot be added twice to the same person.
+
+Examples:
+* `list` followed by `addpr 1 pr/LifeShield $300` adds a premium named "LifeShield" with amount "$300" to the 1st person in the address book.
+* `find John` followed by `addpr 1 pr/HealthPlus $500` adds a premium named "HealthPlus" with amount "$500" to the 1st person in the results of the `find` command.
+
+### Editing a premium for a person: `editpr`
+
+Edits the premium details of a person identified by the index number in the displayed person list.
+
+Format: `editpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT`
+
+* Edits the specified premium for the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The premium name specified must already exist for that person.
+* Only the premium amount will be updated.
+
+Examples:
+* `list` followed by `editpr 1 pr/LifeShield $350` changes the amount of the "LifeShield" premium to "$350" for the 1st person in the address book.
+* `find John` followed by `editpr 1 pr/HealthPlus $600` changes the amount of the "HealthPlus" premium to "$600" for the 1st person in the results of the `find` command.
+
+### Deleting a premium from a person: `deletepr`
+
+Deletes a specific premium from a person identified by the index number in the displayed person list.
+
+Format: `deletepr INDEX pr/PREMIUM_NAME`
+
+* Deletes the specified premium from the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Only the premium name is required to identify which premium to delete.
+
+Examples:
+* `list` followed by `deletepr 1 pr/LifeShield` deletes the "LifeShield" premium from the 1st person in the address book.
+* `find John` followed by `deletepr 1 pr/HealthPlus` deletes the "HealthPlus" premium from the 1st person in the results of the `find` command.
 
 ### Locating persons by name: `find`
 
@@ -313,6 +359,9 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Add Premium** | `addpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT` <br> e.g., `addpr 1 pr/LifeShield $300`
+**Edit Premium** | `editpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT` <br> e.g., `editpr 1 pr/LifeShield $350`
+**Delete Premium** | `deletepr INDEX pr/PREMIUM_NAME` <br> e.g., `deletepr 1 pr/LifeShield`
 **Add Policy** | `addpolicy pn/POLICY_NUMBER n/PREMIUM_NAME pc/PROVIDER_COMPANY pl/POLICY_LINK` <br> e.g., `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123`
 **Delete Policy** | `deletepolicy INDEX` <br> e.g., `deletepolicy 1`
 **Edit Policy** | `edit INDEX [pn/POLICY_NUMBER] [n/PREMIUM_NAME] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]` <br> e.g., `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com`

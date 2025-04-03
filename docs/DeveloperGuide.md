@@ -1,7 +1,7 @@
 ---
   layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+    title: "Developer Guide"
+    pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -125,7 +125,7 @@ The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
@@ -182,15 +182,91 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Premium Management Feature
+
+The premium management feature allows users to add, edit, and delete premiums for persons in the address book. This section details the implementation of the three premium commands: `addpr`, `editpr`, and `deletepr`.
+
+#### Premium Data Structure
+
+Premiums are stored as part of the Person model:
+
+- Each `Person` contains a `PremiumList` object that stores a collection of `Premium` objects.
+- Each `Premium` object represents an insurance policy assigned to a person and contains a name and an amount.
+
+<img src="images/diagrams/PremiumClassDiagram.png" width="250"/>
+
+#### Add Premium Command Implementation
+
+The `addpr` command adds a new premium to a person. The implementation follows these steps:
+
+1. The `AddPremiumCommandParser` parses the input to extract the person index and premium details.
+2. It creates an `AddPremiumCommand` object with the parsed information.
+3. When executed, the command:
+    - Retrieves the person at the specified index
+    - Validates that the premium doesn't already exist for the person
+    - Creates a new person with the same attributes but with the new premium added
+    - Updates the model with the modified person
+
+The sequence diagram below illustrates the `addpr` command execution:
+
+<img src="images/diagrams/AddPremiumSequenceDiagram.png" width="600"/>
+
+#### Edit Premium Command Implementation
+
+The `editpr` command modifies an existing premium for a person. The implementation follows these steps:
+
+1. The `EditPremiumCommandParser` parses the input to extract the person index and premium details.
+2. It creates an `EditPremiumCommand` object with the parsed information.
+3. When executed, the command:
+    - Retrieves the person at the specified index
+    - Validates that the premium to be edited exists
+    - Creates a new person with the same attributes but with the updated premium
+    - Updates the model with the modified person
+
+The `EditPremiumCommand` uses an inner `EditPremiumDescriptor` class to encapsulate the changes to be made to the premium.
+
+#### Delete Premium Command Implementation
+
+The `deletepr` command removes specific premiums from a person. The implementation follows these steps:
+
+1. The `DeletePremiumCommandParser` parses the input to extract the person index and premium names to delete.
+2. It creates a `DeletePremiumCommand` object with the parsed information.
+3. When executed, the command:
+    - Retrieves the person at the specified index
+    - Creates a new person with the same attributes but with the specified premiums removed
+    - Updates the model with the modified person
+
+#### Design Considerations
+
+**Aspect: Premium Storage Implementation**
+
+* **Alternative 1 (current choice):** Store premiums as part of the Person model.
+    * Pros: Simpler implementation, direct association between persons and their premiums.
+    * Cons: Changes to premium structure require changes to the Person model.
+
+* **Alternative 2:** Store premiums in a separate model with references to persons.
+    * Pros: More flexible for future extensions, better separation of concerns.
+    * Cons: More complex implementation, requires additional relationship management.
+
+**Aspect: Premium Modification Approach**
+
+* **Alternative 1 (current choice):** Create a new Person object with modified premiums.
+    * Pros: Maintains immutability of the Person object, consistent with other commands.
+    * Cons: Less efficient for large numbers of persons/premiums.
+
+* **Alternative 2:** Modify the premium list in-place.
+    * Pros: More efficient for frequent premium operations.
+    * Cons: Compromises on immutability, potential for inconsistent state.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -240,7 +316,7 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <img src="images/diagrams/UndoSequenceDiagram-Model.png" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 <box type="info" seamless>
 
@@ -265,13 +341,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -339,7 +415,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | intermediate financial advisor  | create client engagement plans (e.g., weekly check-ins, monthly newsletters)                        | structure my interactions effectively                                             |
 | `* * *`  | intermediate financial advisor  | assign tasks related to clients (e.g., send documents, schedule meetings)                           | stay organized and accountable                                                    |
 | `* *`    | intermediate financial advisor  | search my client base by name, date of last contact, or milestone                                   | quickly find relevant information and stay on top of important interactions       |
-| `* *`    | intermediate financial advisor  | store client preferences (e.g., communication method, preferred times)                              | tailor my outreach to each client’s needs                                         |
+| `* *`    | intermediate financial advisor  | store client preferences (e.g., communication method, preferred times)                              | tailor my outreach to each client's needs                                         |
 | `* *`    | intermediate financial advisor  | keep track of client milestones (e.g., policy anniversaries, life events)                           | celebrate and engage with them at meaningful times                                |
 | `* *`    | intermediate financial advisor  | have a history of client interactions available in the system                                       | review past conversations and provide better service                              |
 | `* * *`  | intermediate financial advisor  | easily track client satisfaction and feedback                                                       | improve my service and relationships with clients                                 |
@@ -440,6 +516,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+---
+
+**Use case: Add a Premium to a Client**
+
+**MSS**
+
+1. User requests to add a premium to a specific client by index.
+2. ClientNest validates the client index and premium details.
+3. ClientNest adds the premium to the client.
+4. ClientNest confirms the addition.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The client index is invalid.
+    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.
+
+* 2b. The premium name is invalid or empty.
+    * 2b1. ClientNest shows an error message: "Premium name must be provided."
+    * 2b2. Use case resumes at step 1.
+
+* 3a. The premium to delete does not exist for the client.
+    * 3a1. ClientNest modifies the client without affecting other premiums.
+    * 3a2. Use case continues at step 4.
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -479,6 +582,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **User Experience (UX)**: The overall experience of a person using the system, especially in terms of how easy and pleasant it is to use.
 * **System Crash**: An unexpected failure of a computer program or operating system, leading to its abrupt termination.
 * **Server Overload**: A state where a server is unable to handle incoming requests due to excessive load, leading to slow response times or failures.
+* **Premium**: An insurance policy or product assigned to a client, typically containing a name and an amount.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -497,15 +601,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
@@ -514,23 +618,125 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Adding a premium to a person
+
+1. Adding a premium to a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `addpr 1 pr/LifeShield $300`<br>
+       Expected: A premium named "LifeShield" with amount "$300" is added to the first person in the list. Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `addpr 0 pr/LifeShield $300`<br>
+       Expected: No premium is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Test case: `addpr 1 pr/LifeShield $300` (when the premium already exists)<br>
+       Expected: No premium is added. Error message indicating duplicate premium is shown. Status bar remains the same.
+
+    1. Other incorrect commands to try: `addpr`, `addpr 1`, `addpr 1 pr/`, `addpr x pr/LifeShield $300` (where x is larger than the list size)<br>
+       Expected: Similar to previous error cases.
+
+### Editing a premium for a person
+
+1. Editing a premium for a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person has a premium named "LifeShield".
+
+    1. Test case: `editpr 1 pr/LifeShield $350`<br>
+       Expected: The premium named "LifeShield" for the first person is updated to have amount "$350". Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `editpr 1 pr/NonExistentPremium $350`<br>
+       Expected: No premium is edited. Error message indicating the premium doesn't exist is shown. Status bar remains the same.
+
+    1. Other incorrect commands to try: `editpr`, `editpr 1`, `editpr 1 pr/`, `editpr x pr/LifeShield $350` (where x is larger than the list size)<br>
+       Expected: Similar to previous error cases.
+
+### Deleting a premium from a person
+
+1. Deleting a premium from a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person has a premium named "LifeShield".
+
+    1. Test case: `deletepr 1 pr/LifeShield`<br>
+       Expected: The premium named "LifeShield" is removed from the first person. Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `deletepr 1 pr/NonExistentPremium`<br>
+       Expected: No change to the person's premiums. Status message indicates successful execution even though no premium was found to delete. Timestamp in the status bar is updated.
+
+    1. Other incorrect commands to try: `deletepr`, `deletepr 1`, `deletepr 1 pr/`, `deletepr x pr/LifeShield` (where x is larger than the list size)<br>
+       Expected: Similar to previous error cases.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }
+1. _{ more test cases …​ }2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.
+
+* 2b. The premium format is invalid.
+    * 2b1. ClientNest shows an error message: "At least one Premium to add must be provided."
+    * 2b2. Use case resumes at step 1.
+
+* 3a. The premium already exists for the client.
+    * 3a1. ClientNest shows an error message: "This premium already exists in the address book."
+    * 3a2. Use case ends.
+
+---
+
+**Use case: Edit a Premium for a Client**
+
+**MSS**
+
+1. User requests to edit a premium for a specific client by index.
+2. ClientNest validates the client index and premium details.
+3. ClientNest updates the premium for the client.
+4. ClientNest confirms the edit.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The client index is invalid.
+    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.
+
+* 2b. The premium format is invalid.
+    * 2b1. ClientNest shows an error message: "At least one field to edit must be provided."
+    * 2b2. Use case resumes at step 1.
+
+* 3a. The premium to edit does not exist for the client.
+    * 3a1. ClientNest shows an error message: "Premium name given does not exist."
+    * 3a2. Use case ends.
+
+---
+
+**Use case: Delete a Premium from a Client**
+
+**MSS**
+
+1. User requests to delete a premium from a specific client by index.
+2. ClientNest validates the client index and premium name.
+3. ClientNest removes the premium from the client.
+4. ClientNest confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The client index is invalid.
+    *
