@@ -14,9 +14,9 @@ import seedu.address.model.person.Phone;
  */
 public class UserProfile implements Serializable {
 
-    private static final Name DEFAULT_NAME = new Name("Guest Name");
-    private static final Email DEFAULT_EMAIL = new Email("guest@gmail.com");
-    private static final Phone DEFAULT_PHONE = new Phone("91234567");
+    private static final Name DEFAULT_NAME = new Name("Guest");
+    private static final Email DEFAULT_EMAIL = new Email("guest@example.com");
+    private static final Phone DEFAULT_PHONE = new Phone("00000000");
 
     private Name name;
     private Email email;

@@ -159,6 +159,42 @@ Furthermore, certain edits can cause the ClientNest to behave in unexpected ways
 </box>
 
 
+### Editing User Profile : `profile`
+
+Edits details of the current user's profile.
+
+Format: `profile [n/NAME] [p/PHONE] [e/EMAIL]`
+
+* Edits the current user's profile.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Edited values will be updated on the Hero Section of the main window.
+
+Examples:
+*  `edit n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
+
+### Saving the data
+
+ClientNest user profile data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+ClientNest user profile data are saved automatically as a JSON file `[JAR file location]/data/userprofile.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, ClientNest will discard all data and start with the default values for a user profile. Hence, it is recommended to take a backup of the file before editing it.<br><br>
+The default values of a user profile is:<br>
+Name: `Guest`<br>
+Phone: `00000000`<br>
+Email: `guest@example.com`<br>
+<br>
+Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
+ClientNest includes a built-in **TaskManager** to help you stay on top of your personal tasks, deadlines, and events — all within the same application.
+
+
 ### Upcoming Birthdays Panel
 
 The **Upcoming Birthdays** panel displays a list of clients whose birthdays fall within the next 30 days.
@@ -167,12 +203,8 @@ This panel appears to the right of the client list and updates automatically whe
 
 No commands are required — just ensure each contact has a valid birthday entered, and ClientNest will handle the rest.
 
-
 ### Viewing and Managing Tasks: `TaskManager`
-
-ClientNest includes a built-in **TaskManager** to help you stay on top of your personal tasks, deadlines, and events — all within the same application.
 <p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
-
 
 You can access the TaskManager panel from the top menu bar. A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
 
