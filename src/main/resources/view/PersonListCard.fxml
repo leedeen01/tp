@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER">
@@ -20,7 +22,7 @@
         </padding>
 
         <VBox alignment="CENTER_LEFT" HBox.hgrow="NEVER" spacing="5">
-            <FlowPane fx:id="tags" />
+            <FlowPane fx:id="tags" prefWrapLength="700" />
             <HBox spacing="0.5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
@@ -28,18 +30,27 @@
                       <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label" maxWidth="700"/>
             </HBox>
-            <Label fx:id="premiumList" styleClass="cell_small_label, client-premium" text="\$premium" />
+            <HBox alignment="CENTER_LEFT" spacing="7">
+                <Label fx:id="phone" styleClass="cell_small_label, client-phone" text="\$phone" maxWidth="200" />
+                <Label fx:id="address" styleClass="cell_small_label, client-address" text="\$address" maxWidth="350" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="7">
+                <Label fx:id="birthday" styleClass="cell_small_label, client-birthday" text="\$birthday" maxWidth="150" />
+                <Label fx:id="email" styleClass="cell_small_label, client-email" text="\$email" maxWidth="325" />
+            </HBox>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
 
-        <HBox alignment="CENTER_LEFT" spacing="7" prefWidth="600" minWidth="250">
-            <Label fx:id="phone" styleClass="cell_small_label, client-phone" text="\$phone" />
-            <Label fx:id="address" styleClass="cell_small_label, client-address" text="\$address" />
-            <Label fx:id="email" styleClass="cell_small_label, client-email" text="\$email" />
-            <Label fx:id="birthday" styleClass="cell_small_label, client-birthday" text="\$birthday" />
+        <HBox alignment="CENTER_RIGHT" prefWidth="800" minWidth="400">
+            <TableView fx:id="premiumList" styleClass="client-premium-table" prefWidth="550">
+                <columns>
+                    <TableColumn fx:id="premiumNameColumn" text="Premium Name"/>
+                    <TableColumn fx:id="premiumAmountColumn" text="Amount"/>
+                </columns>
+            </TableView>
         </HBox>
     </HBox>
   </GridPane>
