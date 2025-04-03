@@ -318,8 +318,8 @@ public class ModelManagerTest {
 
     @Test
     public void setUserProfile_validProfile_updatesProfile() {
-        UserProfile newProfile = new UserProfile(new Name("Guest Name"), new Email("guest@gmail.com"),
-                new Phone("91234567"));
+        UserProfile newProfile = new UserProfile(new Name("Guest"), new Email("guest@example.com"),
+                new Phone("00000000"));
         modelManager.setUserProfile(modelManager.getUserProfile(), newProfile);
         assertEquals(newProfile, modelManager.getUserProfile());
     }
