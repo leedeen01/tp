@@ -18,7 +18,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int HISTORY_LIMIT = 5;
+    private static final int HISTORY_LIMIT = 13;
 
     private final CommandExecutor commandExecutor;
 
@@ -55,13 +55,17 @@ public class CommandBox extends UiPart<Region> {
     private void navigateHistory(int direction) {
         historyPointer += direction;
 
-        if (historyPointer < 0) {
-            historyPointer = 0;
-        } else if (historyPointer >= commandHistory.size()) {
-            historyPointer = commandHistory.size() - 1;
+        if (historyPointer > commandHistory.size()) {
+            historyPointer = commandHistory.size();
         }
 
-        if (!commandHistory.isEmpty() && historyPointer >= 0 && historyPointer < commandHistory.size()) {
+        if (historyPointer < 0) {
+            historyPointer = 0;
+        }
+
+        if (historyPointer == commandHistory.size() || commandHistory.isEmpty()) {
+            commandTextField.setText("");
+        } else {
             commandTextField.setText(commandHistory.get(historyPointer));
             commandTextField.positionCaret(commandTextField.getText().length());
         }
