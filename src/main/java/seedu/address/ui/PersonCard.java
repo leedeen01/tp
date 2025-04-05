@@ -89,7 +89,9 @@ public class PersonCard extends UiPart<Region> {
         premiumList.widthProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     premiumNameColumn.setPrefWidth(newValue.doubleValue() / 2.03);
+                    premiumNameColumn.setResizable(false);
                     premiumAmountColumn.setPrefWidth(newValue.doubleValue() / 2.03);
+                    premiumAmountColumn.setResizable(false);
                 });
 
         person.getTags().stream()
