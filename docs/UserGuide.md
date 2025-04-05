@@ -284,7 +284,7 @@ Format: `profile [n/NAME] [p/PHONE] [e/EMAIL]`
 * Edited values will be updated on the Hero Section of the main window.
 
 Examples:
-*  `edit n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
+*  `profile n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
 
 ### Saving the data
 

@@ -18,17 +18,22 @@ public class Email {
             + "2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
             + "separated by periods.\n"
             + "The domain name must:\n"
-            + "    - end with a domain label at least 2 characters long\n"
-            + "    - have each domain label start and end with alphanumeric characters\n"
-            + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.";
-    // alphanumeric and special characters
-    private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+"; // alphanumeric characters except underscore
-    private static final String LOCAL_PART_REGEX = "^" + ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]"
-            + ALPHANUMERIC_NO_UNDERSCORE + ")*";
-    private static final String DOMAIN_PART_REGEX = ALPHANUMERIC_NO_UNDERSCORE
-            + "(-" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
-    private static final String DOMAIN_LAST_PART_REGEX = "(" + DOMAIN_PART_REGEX + "){2,}$"; // At least two chars
-    private static final String DOMAIN_REGEX = "(" + DOMAIN_PART_REGEX + "\\.)*" + DOMAIN_LAST_PART_REGEX;
+            + "    - end with a domain label at least 2 characters long.\n"
+            + "    - have each domain label start and end with alphanumeric characters.\n"
+            + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.\n"
+            + "3. Total length should not exceed 70 characters long.";
+
+    // Local-part: 2–35 characters, alphanumeric + [ +_.- ], but not starting/ending with special chars
+    private static final String LOCAL_PART_REGEX = "(?=.{2,35}$)[A-Za-z0-9](?:[A-Za-z0-9+_.-]*[A-Za-z0-9])?";
+
+    // Domain label: starts/ends with alphanumeric, hyphens allowed in between
+    private static final String DOMAIN_LABEL = "[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?";
+
+    // Full domain: multiple domain labels ending in a final label of 2–70 chars
+    private static final String DOMAIN_REGEX = "(?:(?:" + DOMAIN_LABEL + ")\\.)*"
+            + "(?:" + DOMAIN_LABEL + "){2,70}";
+
+    // Final regex
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
 
     public final String value;

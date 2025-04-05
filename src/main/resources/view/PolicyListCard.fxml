@@ -34,9 +34,9 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <HBox alignment="CENTER_LEFT" spacing="7" prefWidth="250" minWidth="100">
-                <Label fx:id="policyNumber" styleClass="cell_small_label, policy-number" text="\$policyNumber" />
-                <Label fx:id="providerCompany" styleClass="cell_small_label, policy-company" text="\$providerCompany" />
+            <HBox alignment="CENTER_LEFT" spacing="7" prefWidth="250" minWidth="300">
+                <Label fx:id="policyNumber" styleClass="cell_small_label, policy-number" text="\$policyNumber" maxWidth="150" />
+                <Label fx:id="providerCompany" styleClass="cell_small_label, policy-company" text="\$providerCompany" maxWidth="150" />
             </HBox>
 
         </HBox>
