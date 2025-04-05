@@ -560,29 +560,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Financial Advisor (FA)**: A professional who provides financial services and advice to clients, including investment management, tax planning, and estate planning.
-* **Touchpoint**: Any interaction between a financial advisor and a client, such as meetings, phone calls, emails, or events, aimed at building and maintaining the relationship.
 * **Client**: An individual or organization for whom financial advisory services are provided, whose details are stored within the system.
-* **Followup**: An actions taken by a financial advisor to reconnect with potential or existing clients after an initial interaction
 * **CLI Interface**: A text-based user interface that allows users to interact with software by typing commands.
-* **Retention Rate**:
-* **Server Downtime**:
-* **mainstream OS**:
-* **Response Time**: The time taken by the system to respond to a user's action or request
 * **Commands**: Instructions given by a user to perform specific operations within the system.
 * **User Interface (UI)**: The means through which a user interacts with the system, encompassing design, layout, and interactive elements
-* **Search Functionality**: Features that allow users to query and retrieve specific data from the system
-* **Export**: The process of saving data in a specific format for use outside the system
 * **CSV (Comma-Separated Values)**: A file format that uses commas to separate values, commonly used for data exchange between applications
 * **Excel**: A spreadsheet program developed by Microsoft, used for data organization and analysis.
 * **JSON (JavaScript Object Notation)**: A lightweight data interchange format that is easy for humans to read and write, and for machines to parse and generate.
-* **Encryption**: The process of converting data into a coded form to prevent unauthorized access.
-* **Data Integrity**: The accuracy and consistency of data over its lifecycle.
-* **Data Recovery**: The process of restoring data that has been lost, accidentally deleted, corrupted, or made inaccessible.
-* **Error Handling**: The process of anticipating, detecting, and resolving errors in the system
-* **User Experience (UX)**: The overall experience of a person using the system, especially in terms of how easy and pleasant it is to use.
-* **System Crash**: An unexpected failure of a computer program or operating system, leading to its abrupt termination.
-* **Server Overload**: A state where a server is unable to handle incoming requests due to excessive load, leading to slow response times or failures.
 * **Premium**: An insurance policy or product assigned to a client, typically containing a name and an amount.
+* **Policy**: A formal agreement or contract between a client and an insurer, detailing the terms of coverage, rights, and responsibilities.
+* **Help Center**: A section of the application that provides assistance through FAQs, articles, or troubleshooting tips for users.
+* **Non-Functional Requirements**: System characteristics that are not related to specific functionalities, such as performance, security, scalability, and usability
 
 --------------------------------------------------------------------------------------------------------------------
 
