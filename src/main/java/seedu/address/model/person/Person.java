@@ -84,10 +84,10 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
+                && otherPerson.getName().fullName.equalsIgnoreCase(getName().fullName)
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getEmail().value.equalsIgnoreCase(getEmail().value)
+                && otherPerson.getAddress().value.equalsIgnoreCase(getAddress().value)
                 && otherPerson.getBirthday().equals(getBirthday());
     }
 
