@@ -68,10 +68,34 @@ Adds a new contact to your ClientNest.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…​`
 
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
+* n/Name
+  * Names should only contain alphanumeric characters and spaces, and it should not be blank
+* p/PHONE_NUMBER 
+  * Phone numbers should only contain numbers, and it should be at least 3 digits long;
+* e/EMAIL
+  * Emails should be of the format local-part@domain and adhere to the following constraints:
+    * The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, special characters(+_.-). The local-part may not start or end with any special characters.
+    * This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.\n"
+    * The domain name must:
+      * end with a domain label at least 2 characters long
+      * have each domain label start and end with alphanumeric characters
+      * have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+  * Emails inputs here are designed to be flexible, thus you may expect unconventional email format such as dotless email being accepted.
+* a/ADDRESS 
+  * Addresses can take any values, and it should not be blank
+* b/BIRTHDAY
+  * Birthdays should be in the format YYYY-MM-DD and not be a future date
+* pr/PREMIUM_NAME PREMIUM_AMOUNT 
+  * Premium should be a valid name followed by a positive integer
+* a/ADDRESS
+  * Addresses can take any values, and it should not be blank
+* b/BIRTHDAY
+  * Birthdays should be in the format YYYY-MM-DD and not be a future date.
+* pr/PREMIUM_NAME PREMIUM_AMOUNT
+  * Premium should be a valid name followed by a positive integer
+* [t/TAG]…
+  * Optional field
+  * Tags names should be alphanumeric
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/2002-11-24 pr/Gold 99999 t/friends t/owesMoney`

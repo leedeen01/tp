@@ -1,0 +1,165 @@
+.placeholder {
+    -fx-background-color: #13181F;
+}
+
+.scroll-bar {
+    -fx-background-color: #13181F;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #5A5F67;
+    -fx-background-insets: 3;
+    -fx-background-radius: 999px;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 6 1 6;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 6 1 6 1;
+}
+
+.help-message {
+    -fx-text-fill: #5A5F67;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-padding: 5 50 5 50;
+    -fx-alignment: center-left;
+}
+
+.copy-button {
+    -fx-background-color: #684BFE;
+    -fx-text-fill: #EEEEEE;
+    -fx-background-radius: 10px;
+}
+
+.copy-button:hover {
+    -fx-background-color: derive(#684BFE, 30%);
+    -fx-cursor: hand;
+}
+
+.copy-button:armed {
+    -fx-background-color: derive(#684BFE, 10%);
+}
+
+.command-table {
+    -fx-background-color: derive(#151A24, 10%);
+    -fx-table-cell-border-color: gray;
+    -fx-control-inner-background: derive(#151A24, 10%);
+    -fx-text-fill: #EEEEEE;
+    -fx-font-size: 16px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.table-view {
+    -fx-border-radius: 10px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #684BFE;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #EEEEEE;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+}
+
+.table-column {
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-fill: #EEEEEE;
+    -fx-font-weight: bold;
+}
+
+.table-cell {
+    -fx-border-color: #5A5F67;
+}
+
+.table-row-cell {
+    -fx-background-color: derive(#151A24, 10%);
+    -fx-border-color: #5A5F67;
+}
+
+.table-row-cell:filled:selected, .table-cell:filled:selected {
+    -fx-background-color: derive(#684BFE, -30%);
+}
+
+/* .table-cell {
+    -fx-padding: 10 5 10 5;
+    -fx-wrap-text: true;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.table-cell .text {
+    -fx-wrap-text: true;
+    -fx-text-overrun: clip;
+} */
+
+/*#copyButton, #helpMessage {*/
+/*    -fx-text-fill: white;*/
+/*}*/
+
+/*#copyButton {*/
+/*    -fx-background-color: dimgray;*/
+/*}*/
+
+/*#copyButton:hover {*/
+/*    -fx-background-color: gray;*/
+/*}*/
+
+/*#copyButton:armed {*/
+/*    -fx-background-color: darkgray;*/
+/*}*/
+
+/*#helpHBox {*/
+/*    -fx-spacing: 10px;*/
+/*    -fx-alignment: center-left;*/
+/*}*/
+
+/*#helpMessageContainer {*/
+/*    -fx-background-color: derive(#1d1d1d, 20%);*/
+/*}*/
+
+/*#commandTable {*/
+/*    -fx-background-color: #2e2e2e;*/
+/*    -fx-table-cell-border-color: gray;*/
+/*    -fx-control-inner-background: #2e2e2e;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-font-size: 16px;*/
+/*}*/
+
+/*.table-column {*/
+/*    -fx-alignment: CENTER-LEFT;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+/*.table-row-cell {*/
+/*    -fx-background-color: #3a3a3a;*/
+/*}*/
+
+/*.table-row-cell:filled:selected, .table-cell:filled:selected {*/
+/*    -fx-background-color: #555555;*/
+/*}*/
+
+/*.table-cell {*/
+/*    -fx-padding: 10 5 10 5;*/
+/*    -fx-wrap-text: true;*/
+/*    -fx-alignment: CENTER-LEFT;*/
+/*}*/
+
+/*.table-cell .text {*/
+/*    -fx-wrap-text: true;*/
+/*    -fx-text-overrun: clip;*/
+/*}*/

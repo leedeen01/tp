@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         title="ClientNest" minWidth="860" minHeight="810" onCloseRequest="#handleExit">
+  <icons>
+    <Image url="@/images/ClientNest_32.png" />
+  </icons>
+  <scene>
+    <Scene>
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+      </stylesheets>
+
+      <VBox>
+          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" styleClass="placeholder">
+              <Menu text="File" styleClass="menu">
+                  <MenuItem text="Exit" onAction="#handleExit" styleClass="menu-item" />
+              </Menu>
+              <Menu text="Help" styleClass="menu">
+                  <MenuItem fx:id="helpMenuItem" text="Help" onAction="#handleHelp" styleClass="menu-item" />
+              </Menu>
+              <Menu text="Task Manager" styleClass="menu">
+                  <MenuItem fx:id="taskManagerButton" text="Open Task Manager" onAction="#handleOpenTaskList" styleClass="menu-item"/>
+              </Menu>
+          </MenuBar>
+
+
+          <StackPane VBox.vgrow="NEVER" fx:id="userProfilePanelPlaceholder" styleClass="placeholder">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
+
+          <StackPane styleClass="placeholder">
+              <!-- Person List Pane -->
+              <VBox fx:id="personList" styleClass="pane-with-border" minWidth="200" prefWidth="200" minHeight="300" prefHeight="600">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+          </StackPane>
+
+          <SplitPane fx:id="splitPane" orientation="HORIZONTAL" VBox.vgrow="ALWAYS" styleClass="placeholder" minHeight="200" prefHeight="200">
+              <!-- Policy List Pane -->
+              <VBox fx:id="policyList" styleClass="pane-with-border" minWidth="500" prefWidth="250">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="5" />
+                  </padding>
+                  <StackPane fx:id="policyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+
+              <!-- Birthday Panel -->
+              <VBox fx:id="birthdayList" styleClass="pane-with-border" minWidth="350" prefWidth="350">
+                  <padding>
+                      <Insets top="10" right="5" bottom="10" left="5" />
+                  </padding>
+                  <StackPane fx:id="birthdayPanelPlaceholder"/>
+              </VBox>
+          </SplitPane>
+
+          <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="placeholder"
+                     minHeight="100" prefHeight="100" maxHeight="100">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
+
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="placeholder">
+              <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+          </StackPane>
+
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="placeholder" />
+      </VBox>
+    </Scene>
+  </scene>
+</fx:root>
