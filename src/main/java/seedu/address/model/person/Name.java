@@ -11,13 +11,14 @@ public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Names should only contain alphanumeric characters and spaces,"
+            + " not be longer than 70 characters,"
             + " and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,69}";
 
     public final String fullName;
 
