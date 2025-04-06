@@ -1,9 +1,3 @@
----
-  layout: default.md
-  title: "Testing guide"
-  pageNav: 3
----
-
 # Testing guide
 
 <!-- * Table of Contents -->
