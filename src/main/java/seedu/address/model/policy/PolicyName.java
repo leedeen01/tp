@@ -11,14 +11,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PolicyName {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Policy names should only contain alphanumeric characters and spaces,"
+        "Policy Name should only contain alphanumeric characters and spaces,"
+        + " not be longer than 50 characters,"
         + " and it should not be blank";
 
     /*
      * The first character of the policy name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,49}";
 
     public final String policyName;
 

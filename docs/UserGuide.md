@@ -63,13 +63,14 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-
 ### Adding a person: `add`
 
 Adds a new contact to your ClientNest.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…​`
 
+* Please note that the double quote (") and apostrophe (') are treated as special characters in the input. When used within the input, such as in " " (with a space inside the quotes), they do not represent a space. Instead, they are treated literally as the quote or apostrophe characters themselves.
+* All inputs to the fields will be automatically trimmed. This means that any extra spaces at the beginning or end of the input will be removed. For example, if the address entered is ` Block 581 `, it will be trimmed to `Block 581`.
 * n/Name
   * Names should only contain alphanumeric characters and spaces, and it should not be blank
 * p/PHONE_NUMBER 
@@ -88,9 +89,9 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME 
       * The final label must be at least 2 characters long.
     * The full email must not exceed 70 characters.
 * a/ADDRESS 
-  * Addresses can take any values, and it should not be blank or begin with a whitespace character.
-* b/BIRTHDAY
-  * Birthdays should be in the format YYYY-MM-DD and not be a future date or a date earlier than the year 1900.
+    * Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank";* 
+  * b/BIRTHDAY
+    * Birthdays should be in the format YYYY-MM-DD and not be a future date or a date earlier than the year 1900.
   * NOTE: If an invalid date is provided (e.g. `2001-02-29` or `2024-04-31`), the system will automatically adjust it to the closest valid date (e.g. `2001-02-28`, `2024-04-30`). As this behavior does not raise an error, please double-check inputs when using dates like the 29th, 30th, or 31st to ensure accuracy.
 * pr/PREMIUM_NAME PREMIUM_AMOUNT 
   * Premium should be a valid name followed by a non-negative integer.
@@ -238,22 +239,32 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Clearing all person : `clear`
+
+Clears all person from your ClientNest.
+
+Format: `clear`
+
 ### Adding a policy: `addpolicy`
 
 Adds a new policy to your ClientNest.
 
 Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_LINK​`
 
+* Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+* Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
+* Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
+* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
+* No 2 policy share the same policy number.
 * No two policies can share the same policy number.
 * The policy name is used in the `findpolicy` command.
-
-</box>
 
 Examples:
 * `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123 `
 
 ### Listing all policies : `listpolicy`
 
+Displays all policies details stored in ClientNest.
 Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
@@ -268,7 +279,7 @@ Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPAN
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed policy list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
-* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')\n"
+* Please refer to the restriction of inputs for each field at the addpolicy command 
 
 Examples:
 *  `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com` Edits the policy name and policy link of the 1st policy to be `Life Shield` and `https://www.lifeshield.com` respectively.
@@ -283,7 +294,7 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Life Health` will match `Health Life`
 * Only the name is searched.
 * Full words and partial will be matched e.g. `Li` will match `Lifeshield`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Policies matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Life Health` will return `LifeShield`, `HealthPlus`
 
 Examples:
@@ -301,14 +312,8 @@ Format: `deletepolicy INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Clearing all person : `clear`
-
-Clears all contacts from your ClientNest.
-
-Format: `clear`
+* `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the policy book.
+* `findpolicy Health` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
 ### Exiting the program : `exit`
 
