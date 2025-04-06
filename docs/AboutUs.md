@@ -1,5 +1,3 @@
-<div style="text-align: center;">
-
 # About Us
 
 We are a dedicated team of developers from the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg), united by our passion for creating innovative and user-centric software solutions. You can reach us at:  
@@ -14,12 +12,8 @@ We are a dedicated team of developers from the [School of Computing, National Un
 
 [GitHub](http://github.com/FabianHeng) | [Portfolio](team/fabianheng.md)
 
-<div style="text-align: left; width: fit-content; margin: 0 auto;">
-
 - **Role**: Developer
 - **Responsibilities**: User Interface (UI)
-
-</div>
 
 ---
 
@@ -28,12 +22,8 @@ We are a dedicated team of developers from the [School of Computing, National Un
 
 [GitHub](http://github.com/leedeen01) | [Portfolio](team/leedeen01.md)
 
-<div style="text-align: left; width: fit-content; margin: 0 auto;">
-
 - **Role**: Developer
 - **Responsibilities**: Data Management
-
-</div>
 
 ---
 
@@ -42,12 +32,8 @@ We are a dedicated team of developers from the [School of Computing, National Un
 
 [GitHub](http://github.com/teesha902) | [Portfolio](team/teesha902.md)
 
-<div style="text-align: left; width: fit-content; margin: 0 auto;">
-
 - **Role**: Developer
 - **Responsibilities**: Documentation
-
-</div>
 
 ---
 
@@ -56,12 +42,8 @@ We are a dedicated team of developers from the [School of Computing, National Un
 
 [GitHub](http://github.com/nightlyaffair) | [Portfolio](team/nightlyaffair.md)
 
-<div style="text-align: left; width: fit-content; margin: 0 auto;">
-
 - **Role**: Developer
 - **Responsibilities**: Scheduling and Tracking
-
-</div>
 
 ---
 
@@ -77,4 +59,3 @@ For inquiries, collaborations, or feedback, feel free to reach out to us at the 
 
 ---
 
-</div>
