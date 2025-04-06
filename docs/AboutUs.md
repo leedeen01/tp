@@ -47,13 +47,13 @@ We are a dedicated team of developers from the [School of Computing, National Un
 
 ---
 
-### 🌍 Our Vision
+## 🌍 Our Vision
 
 At **ClientNest**, we aim to build a seamless platform for client relationship management, focusing on simplicity, efficiency, and scalability. Our goal is to provide businesses with the tools to effectively track and manage their client interactions in a way that is intuitive and reliable.
 
 ---
 
-### 💬 Get In Touch
+## 💬 Get In Touch
 
 For inquiries, collaborations, or feedback, feel free to reach out to us at the email mentioned above. We'd love to hear from you!
 
