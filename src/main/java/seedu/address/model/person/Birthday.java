@@ -14,9 +14,12 @@ import java.time.format.DateTimeParseException;
 public class Birthday {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Birthdays should be in the format YYYY-MM-DD and not be a future date.";
+            "Please enter a valid birthday in the format YYYY-MM-DD. "
+                    + "It must be a past date and not earlier than the year 1900.";
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private static final int MIN_YEAR = 1900;
 
     public final LocalDate value;
 
@@ -46,7 +49,8 @@ public class Birthday {
     public static boolean isValidBirthday(String test) {
         try {
             LocalDate date = LocalDate.parse(test, FORMATTER);
-            return !date.isAfter(LocalDate.now()); // Birthdays cannot be in the future
+            int year = date.getYear();
+            return year >= MIN_YEAR && !date.isAfter(LocalDate.now());
         } catch (DateTimeParseException e) {
             return false;
         }
