@@ -27,6 +27,53 @@ public class JsonPolicyBookStorageTest {
     public Path testFolder;
 
     @Test
+    public void createDefaultAddressBook_fileDoesNotExist_createsFileWithDefaultData() throws Exception {
+        Path filePath = testFolder.resolve("defaultPolicyBook.json");
+        JsonPolicyBookStorage storage = new JsonPolicyBookStorage(filePath);
+
+        // Sanity check: File should not exist before
+        assertTrue(Files.notExists(filePath));
+
+        try {
+            // Trigger creation of default address book
+            storage.readPolicyBook(filePath);
+
+            // File should now exist
+            assertTrue(Files.exists(filePath), "Default policy book file should have been created");
+
+            // Read content and verify some expected content
+            String content = Files.readString(filePath);
+            assertTrue(content.contains("LifeShield"));
+            assertTrue(content.contains("HealthPlus"));
+            assertTrue(content.contains("SecureFuture"));
+            assertTrue(content.contains("HomeSafe"));
+            assertTrue(content.contains("AutoCare"));
+            assertTrue(content.contains("TravelAssure"));
+        } catch (DataLoadingException e) {
+            fail("DataLoadingException should not be thrown for default file creation");
+        }
+    }
+
+    @Test
+    public void createDefaultAddressBook_createsExpectedFileStructure() throws IOException {
+        Path filePath = testFolder.resolve("createdByMethod.json");
+        JsonPolicyBookStorage storage = new JsonPolicyBookStorage(filePath);
+
+        // Create the default address book
+        storage.createDefaultPolicyBook(filePath);
+
+        // Confirm file is created
+        assertTrue(Files.exists(filePath), "File should be created");
+
+        // Check content includes required fields
+        String content = Files.readString(filePath);
+        assertTrue(content.contains("\"policyLink\" : \"https://www.shieldcorp.com/policy123\""));
+        assertTrue(content.contains("\"policyNumber\" : \"POL123\""));
+        assertTrue(content.contains("\"policyName\" : \"LifeShield\""));
+        assertTrue(content.contains("\"providerCompany\" : \"ShieldCorp\""));
+    }
+
+    @Test
     public void readPolicyBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readPolicyBook(null));
     }
