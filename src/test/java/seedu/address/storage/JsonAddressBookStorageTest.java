@@ -28,6 +28,51 @@ public class JsonAddressBookStorageTest {
     public Path testFolder;
 
     @Test
+    public void createDefaultAddressBook_fileDoesNotExist_createsFileWithDefaultData() throws Exception {
+        Path filePath = testFolder.resolve("defaultAddressBook.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        // Sanity check: File should not exist before
+        assertTrue(Files.notExists(filePath));
+
+        try {
+            // Trigger creation of default address book
+            storage.readAddressBook(filePath);
+
+            // File should now exist
+            assertTrue(Files.exists(filePath), "Default address book file should have been created");
+
+            // Read content and verify some expected content
+            String content = Files.readString(filePath);
+            assertTrue(content.contains("Alice Tan"));
+            assertTrue(content.contains("Bryan Lim"));
+            assertTrue(content.contains("Catherine Wong"));
+            assertTrue(content.contains("David Koh"));
+            assertTrue(content.contains("Elaine Ng"));
+        } catch (DataLoadingException e) {
+            fail("DataLoadingException should not be thrown for default file creation");
+        }
+    }
+
+    @Test
+    public void createDefaultAddressBook_createsExpectedFileStructure() throws IOException {
+        Path filePath = testFolder.resolve("createdByMethod.json");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        // Create the default address book
+        storage.createDefaultAddressBook(filePath);
+
+        // Confirm file is created
+        assertTrue(Files.exists(filePath), "File should be created");
+
+        // Check content includes required fields
+        String content = Files.readString(filePath);
+        assertTrue(content.contains("\"name\" : \"Alice Tan\""));
+        assertTrue(content.contains("\"phone\" : \"91234567\""));
+        assertTrue(content.contains("\"email\" : \"alice.tan@example.com\""));
+    }
+
+    @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
     }
@@ -44,7 +89,7 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void read_missingFile_defaultResult() throws Exception {
-        assertTrue(readAddressBook("NonExistentFile.json").isPresent());
+        assertTrue(readAddressBook("nonExistentFile.json").isPresent());
     }
 
     @Test
