@@ -165,7 +165,8 @@ public class TaskManager {
         case HELP:
         case EXIT:
             if (argLength != 1) {
-                throw new TaskManagerException(command + " command should not have any arguments.");
+                throw new TaskManagerException(String.format("`%s` command should not have any arguments.",
+                        command.getKeyword()));
             }
             break;
 
@@ -174,31 +175,36 @@ public class TaskManager {
         case DELETE:
         case DAYPLAN:
             if (argLength != 2) {
-                throw new TaskManagerException(command + " command requires exactly one argument.");
+                throw new TaskManagerException(String.format("`%s` command requires exactly one argument.",
+                        command.getKeyword()));
             }
             break;
 
         case FIND:
             if (argLength < 2 || inputParts[1].trim().isEmpty()) {
-                throw new TaskManagerException("FIND command must include a keyword.");
+                throw new TaskManagerException(String.format("`%s` command must include a keyword.",
+                        command.getKeyword()));
             }
             break;
 
         case TODO:
             if (argLength != 2 || inputParts[1].trim().isEmpty()) {
-                throw new TaskManagerException("TODO command must include a task description.");
+                throw new TaskManagerException(String.format("`%s` command must include a task description.",
+                        command.getKeyword()));
             }
             break;
 
         case DEADLINE:
             if (argLength < 2 || !inputParts[1].contains("/by")) {
-                throw new TaskManagerException("DEADLINE format: deadline <task> /by <date>");
+                throw new TaskManagerException(String.format("`%s` command format: deadline <task> /by <date>",
+                        command.getKeyword()));
             }
             break;
 
         case EVENT:
             if (argLength < 2 || !inputParts[1].contains("/from") || !inputParts[1].contains("/to")) {
-                throw new TaskManagerException("EVENT format: event <task> /from <start> /to <end>");
+                throw new TaskManagerException(String.format(
+                        "`%s` command format: event <task> /from <start> /to <end>", command.getKeyword()));
             }
             break;
 
