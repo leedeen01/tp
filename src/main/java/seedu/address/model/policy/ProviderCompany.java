@@ -10,13 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ProviderCompany {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Provider company names should not be blank";
+        "Provider Company should only contain alphanumeric characters and spaces,"
+        + " not be longer than 70 characters,"
+        + " and it should not be blank";
 
     /*
      * The first character of the provider company name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,69}";
 
     public final String value;
 

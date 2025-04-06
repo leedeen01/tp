@@ -11,8 +11,9 @@ public class PolicyNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Policy numbers should only contain alphanumeric characters,"
-        + " and should be at least 1 character long";
-    public static final String VALIDATION_REGEX = "[a-zA-Z0-9]+";
+            + " not be longer than 20 characters,"
+            + " and it should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,20}";
     public final String value;
 
     /**

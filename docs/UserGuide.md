@@ -61,13 +61,13 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
 ### Adding a person: `add`
 
 Adds a new contact to your ClientNest.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…​`
 
+* Please note that the double quote (") and apostrophe (') are treated as special characters in the input. When used within the input, such as in " " (with a space inside the quotes), they do not represent a space. Instead, they are treated literally as the quote or apostrophe characters themselves.
 * n/Name
   * Names should only contain alphanumeric characters and spaces, and it should not be blank
 * p/PHONE_NUMBER 
@@ -103,7 +103,7 @@ Examples:
 
 ### Listing all persons : `list`
 
-Displays all contacts stored in ClientNest..
+Displays all contacts stored in ClientNest.
 
 Format: `list`
 
@@ -202,23 +202,31 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Clearing all person : `clear`
+
+Clears all person from your ClientNest.
+
+Format: `clear`
+
 ### Adding a policy: `addpolicy`
 
 Adds a new policy to your ClientNest.
 
 Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_LINK​`
 
+* Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+* Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
+* Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
+* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 * No 2 policy share the same policy number.
 * The policy name is used in the `findpolicy` command.
-
-</box>
 
 Examples:
 * `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123 `
 
 ### Listing all policies : `listpolicy`
 
-Displays all policies details stored in ClientNest..
+Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
 
@@ -231,7 +239,7 @@ Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPAN
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed policy list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the fields must be provided.
 * Existing values will be updated to the input values.
-* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')\n"
+* Please refer to the restriction of inputs for each field at the addpolicy command 
 
 Examples:
 *  `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com` Edits the policy name and policy link of the 1st policy to be `Life Shield` and `https://www.lifeshield.com` respectively.
@@ -246,13 +254,11 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Life Health` will match `Health Life`
 * Only the name is searched.
 * Full words and partial will be matched e.g. `Li` will match `Lifeshield`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Policies matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Life Health` will return `LifeShield`, `HealthPlus`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find Alice Hoe` returns `John Doe`, `Alice Pauline`<br>
-  ![result for 'find alice doe'](images/findAliceDoeResult.png)
+* `findpolicy Health` returns `LifeHealth` and `Health Smart`
 
 ### Deleting a policy : `deletepolicy`
 
@@ -265,14 +271,8 @@ Format: `deletepolicy INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Clearing all person : `clear`
-
-Clears all person from your ClientNest.
-
-Format: `clear`
+* `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the policy book.
+* `findpolicy Health` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
 ### Exiting the program : `exit`
 
@@ -294,7 +294,6 @@ ClientNest data are saved automatically as a JSON file `[JAR file location]/data
 If your changes to the data file makes its format invalid, ClientNest will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
 
 ### Editing User Profile : `profile`
 
