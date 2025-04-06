@@ -42,16 +42,16 @@ public class UserProfilePanel extends UiPart<Region> {
      */
     private void initializeUserProfile() {
         nameLabel.setText("Welcome, " + userProfile.getName().fullName);
-        nameLabel.setMaxWidth(500);
+        nameLabel.setMinWidth(500);
         nameLabel.setWrapText(false);
-        nameLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
+        nameLabel.setTextOverrun(OverrunStyle.CENTER_ELLIPSIS);
         phoneLabel.setText("Phone: " + userProfile.getPhone().value);
-        phoneLabel.setMaxWidth(250);
+        phoneLabel.setMinWidth(250);
         phoneLabel.setWrapText(false);
-        phoneLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
+        phoneLabel.setTextOverrun(OverrunStyle.CENTER_ELLIPSIS);
         emailLabel.setText("Email: " + userProfile.getEmail().value);
-        emailLabel.setMaxWidth(250);
+        emailLabel.setMinWidth(250);
         emailLabel.setWrapText(false);
-        emailLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
+        emailLabel.setTextOverrun(OverrunStyle.CENTER_ELLIPSIS);
     }
 }
