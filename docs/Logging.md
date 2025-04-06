@@ -1,8 +1,3 @@
----
-  layout: default.md
-  title: "Logging guide"
----
-
 # Logging guide
 
 * We are using `java.util.logging` package for logging.

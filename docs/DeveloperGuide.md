@@ -1,9 +1,3 @@
----
-layout: "default.md"
-title: "Developer Guide"
-pageNav: 3
----
-
 # ClientNest Developer Guide
 
 <!-- * Table of Contents -->
@@ -727,4 +721,5 @@ testers are expected to do more *exploratory* testing.
 **Extensions**
 
 * 2a. The client index is invalid.
-    *
+    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.

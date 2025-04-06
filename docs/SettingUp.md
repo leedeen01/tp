@@ -1,9 +1,3 @@
----
-  layout: default.md
-  title: "Setting up and getting started"
-  pageNav: 3
----
-
 # Setting up and getting started
 
 <!-- * Table of Contents -->
