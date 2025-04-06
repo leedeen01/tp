@@ -26,6 +26,9 @@ public interface Storage extends AddressBookStorage, PolicyBookStorage, UserPref
     Path getAddressBookFilePath();
 
     @Override
+    void createDefaultAddressBook(Path filepath) throws IOException;
+
+    @Override
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException;
 
     @Override
@@ -33,6 +36,9 @@ public interface Storage extends AddressBookStorage, PolicyBookStorage, UserPref
 
     @Override
     Path getPolicyBookFilePath();
+
+    @Override
+    void createDefaultPolicyBook(Path filepath) throws IOException;
 
     @Override
     Optional<ReadOnlyPolicyBook> readPolicyBook() throws DataLoadingException;

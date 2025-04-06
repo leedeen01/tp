@@ -3,6 +3,8 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -32,6 +34,47 @@ public class JsonPolicyBookStorage implements PolicyBookStorage {
     }
 
     @Override
+    public void createDefaultPolicyBook(Path filePath) throws IOException {
+        String defaultJson = """
+            {
+              "policies" : [ {
+                "policyLink" : "https://www.shieldcorp.com/policy123",
+                "policyNumber" : "POL123",
+                "policyName" : "LifeShield",
+                "providerCompany" : "ShieldCorp"
+              }, {
+                "policyLink" : "https://www.healthcorp.com/policy456",
+                "policyNumber" : "POL456",
+                "policyName" : "HealthPlus",
+                "providerCompany" : "HealthCorp"
+              }, {
+                "policyLink" : "https://www.safeinsure.com/policy789",
+                "policyNumber" : "POL789",
+                "policyName" : "SecureFuture",
+                "providerCompany" : "SafeInsure"
+              }, {
+                "policyLink" : "https://www.homeguard.com/policy101",
+                "policyNumber" : "POL101",
+                "policyName" : "HomeSafe",
+                "providerCompany" : "HomeGuard"
+              }, {
+                "policyLink" : "https://www.carprotect.com/policy202",
+                "policyNumber" : "POL202",
+                "policyName" : "AutoCare",
+                "providerCompany" : "CarProtect"
+              }, {
+                "policyLink" : "https://www.travelsafe.com/policy303",
+                "policyNumber" : "POL303",
+                "policyName" : "TravelAssure",
+                "providerCompany" : "TravelSafe"
+              } ]
+            }
+            """;
+        Files.createDirectories(filePath.getParent());
+        Files.writeString(filePath, defaultJson, StandardCharsets.UTF_8);
+    }
+
+    @Override
     public Optional<ReadOnlyPolicyBook> readPolicyBook() throws DataLoadingException {
         return readPolicyBook(filePath);
     }
@@ -44,6 +87,15 @@ public class JsonPolicyBookStorage implements PolicyBookStorage {
      */
     public Optional<ReadOnlyPolicyBook> readPolicyBook(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            try {
+                createDefaultPolicyBook(filePath);
+            } catch (IOException e) {
+                logger.warning("Failed to create default policy book file: " + e.getMessage());
+                throw new DataLoadingException(e);
+            }
+        }
 
         Optional<JsonSerializablePolicyBook> jsonPolicyBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializablePolicyBook.class);
