@@ -101,6 +101,18 @@ public class HelpWindow extends UiPart<Stage> {
         actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[0]));
         formatColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[1]));
 
+        commandTable.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double totalWidth = newValue.doubleValue();
+            double actionWidth = totalWidth * 0.11;
+            double formatWidth = totalWidth * 0.87;
+
+            actionColumn.setPrefWidth(actionWidth);
+            actionColumn.setResizable(false);
+
+            formatColumn.setPrefWidth(formatWidth);
+            formatColumn.setResizable(false);
+        });
+
         // Populate the table with the action and format pairs
         for (int i = 0; i < actions.length; i++) {
             commandTable.getItems().add(new String[]{actions[i], formats[i]});

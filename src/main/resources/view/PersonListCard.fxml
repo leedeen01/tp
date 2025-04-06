@@ -30,15 +30,15 @@
                       <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" maxWidth="700"/>
+                <Label fx:id="name" wrapText="true" text="\$first" styleClass="cell_big_label" maxWidth="700"/>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="7">
-                <Label fx:id="phone" styleClass="cell_small_label, client-phone" text="\$phone" maxWidth="200" />
-                <Label fx:id="address" styleClass="cell_small_label, client-address" text="\$address" maxWidth="350" />
+                <Label fx:id="phone" wrapText="true" styleClass="cell_small_label, client-phone" text="\$phone" maxWidth="200" />
+                <Label fx:id="address" wrapText="true" styleClass="cell_small_label, client-address" text="\$address" maxWidth="350" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="7">
-                <Label fx:id="birthday" styleClass="cell_small_label, client-birthday" text="\$birthday" maxWidth="150" />
-                <Label fx:id="email" styleClass="cell_small_label, client-email" text="\$email" maxWidth="325" />
+                <Label fx:id="birthday" wrapText="true" styleClass="cell_small_label, client-birthday" text="\$birthday" maxWidth="150" />
+                <Label fx:id="email" wrapText="true" styleClass="cell_small_label, client-email" text="\$email" maxWidth="325" />
             </HBox>
         </VBox>
 

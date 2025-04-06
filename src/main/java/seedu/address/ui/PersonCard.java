@@ -71,8 +71,6 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         birthday.setText(person.getBirthday().toString());
-        String premiums = person.getPremiumList().premiumList.stream().sorted(Comparator.reverseOrder())
-                .map(Premium:: displayPremium).collect(Collectors.joining(", "));
 
         premiumNameColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getPremiumName()));

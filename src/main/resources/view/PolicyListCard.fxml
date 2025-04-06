@@ -27,16 +27,16 @@
                             <Region fx:constant="USE_PREF_SIZE" />
                         </minWidth>
                     </Label>
-                    <Label fx:id="policyName" text="\$policyName" styleClass="cell_big_label, policy-name" />
+                    <Label fx:id="policyName" wrapText="true" text="\$policyName" styleClass="cell_big_label, policy-name" />
                 </HBox>
-                <Hyperlink fx:id="policyLink" styleClass="cell_small_label" text="$policyLink" />
+                <Hyperlink fx:id="policyLink" wrapText="true" styleClass="cell_small_label" text="$policyLink" />
             </VBox>
 
             <Region HBox.hgrow="ALWAYS" />
 
             <HBox alignment="CENTER_LEFT" spacing="7" prefWidth="250" minWidth="300">
-                <Label fx:id="policyNumber" styleClass="cell_small_label, policy-number" text="\$policyNumber" maxWidth="150" />
-                <Label fx:id="providerCompany" styleClass="cell_small_label, policy-company" text="\$providerCompany" maxWidth="150" />
+                <Label fx:id="policyNumber" wrapText="true" styleClass="cell_small_label, policy-number" text="\$policyNumber" maxWidth="150" />
+                <Label fx:id="providerCompany" wrapText="true" styleClass="cell_small_label, policy-company" text="\$providerCompany" maxWidth="150" />
             </HBox>
 
         </HBox>

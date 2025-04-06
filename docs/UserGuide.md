@@ -72,14 +72,14 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME 
 * Please note that the double quote (") and apostrophe (') are treated as special characters in the input. When used within the input, such as in " " (with a space inside the quotes), they do not represent a space. Instead, they are treated literally as the quote or apostrophe characters themselves.
 * All inputs to the fields will be automatically trimmed. This means that any extra spaces at the beginning or end of the input will be removed. For example, if the address entered is ` Block 581 `, it will be trimmed to `Block 581`.
 * n/Name
-  * Names should only contain alphanumeric characters and spaces, and it should not be blank
+  * Names should only contain alphanumeric characters and spaces, 70 characters or less, and it should not be blank
 * p/PHONE_NUMBER 
   * Phone numbers should only contain numbers, and it should be between 3 to 15 digits long.
   * No spaces, symbols, or country codes are allowed (e.g. `+`, `()`, `-` are not valid).
 * e/EMAIL
   * Emails must follow the format `local-part@domain` and:
     * The local-part:
-      * Must be 2 to 35 characters.
+      * Must be at least 2 characters.
       * May include letters, numbers, and special characters `+`, `_`, `.`, `-`. 
       * Cannot start or end with a special character.
     * The domain:
@@ -89,7 +89,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME 
       * The final label must be at least 2 characters long.
     * The full email must not exceed 70 characters.
 * a/ADDRESS 
-    * Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank";* 
+    * Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank";
   * b/BIRTHDAY
     * Birthdays should be in the format YYYY-MM-DD and not be a future date or a date earlier than the year 1900.
   * NOTE: If an invalid date is provided (e.g. `2001-02-29` or `2024-04-31`), the system will automatically adjust it to the closest valid date (e.g. `2001-02-28`, `2024-04-30`). As this behavior does not raise an error, please double-check inputs when using dates like the 29th, 30th, or 31st to ensure accuracy.
@@ -415,7 +415,11 @@ As with client data, it’s advisable to make a backup before editing, and only 
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **If the input string is too long**, the UI will truncate it and display an ellipsis.
+3. **Opening multiple Task Windows** will result in multiple task manager sessions to open. This will result in inconsistencies in the list of tasks. When multiple windows of task managers are opened, they will behave independently, storing and managing all tasks locally. For each task window that is closed, the task manager will update the task list in `data/taskList.txt`. The last session that closes will overwrite all previous task manager sessions.
+4. **If the input string is too long**, the UI will truncate it and display an ellipsis on some screens. This issue will persist on all screens during the following scenarios:
+   - If your user profile name and/or email is more than 50 characters;
+   - If your premium name is more than 35 characters.
+5. **Pressing the "up/down" arrow keys** will replace/erase the current command in the command box.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary for ClientNest
