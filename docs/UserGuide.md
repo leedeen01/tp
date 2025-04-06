@@ -1,6 +1,8 @@
 # ClientNest User Guide
 
-ClientNest is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+**ClientNest** is a **desktop application designed to help financial advisors manage client relationships, stay organized, and follow up effectively**. It combines the speed and precision of a **Command Line Interface (CLI)** with the accessibility of a **Graphical User Interface (GUI)**, allowing users to navigate and execute tasks efficiently through typed commands or interactive elements.
+
+Whether you're adding new clients, planning engagement tasks, or tracking important milestones like birthdays and policy renewals, ClientNest helps you maintain meaningful connections and grow your client base with confidence.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -14,7 +16,7 @@ ClientNest is a **desktop app for managing contacts, optimized for use via a  Li
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103-F10-2/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your ClientNest data.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ClientNest.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -55,7 +57,7 @@ ClientNest is a **desktop app for managing contacts, optimized for use via a  Li
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -71,35 +73,69 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME 
 * n/Name
   * Names should only contain alphanumeric characters and spaces, and it should not be blank
 * p/PHONE_NUMBER 
-  * Phone numbers should only contain numbers, and it should be at least 3 digits long;
+  * Phone numbers should only contain numbers, and it should be between 3 to 15 digits long.
+  * No spaces, symbols, or country codes are allowed (e.g. `+`, `()`, `-` are not valid).
 * e/EMAIL
-  * Emails should be of the format local-part@domain and adhere to the following constraints:
-    * The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, special characters(+_.-). The local-part may not start or end with any special characters.
-    * This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.\n"
-    * The domain name must:
-      * end with a domain label at least 2 characters long
-      * have each domain label start and end with alphanumeric characters
-      * have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
-  * Emails inputs here are designed to be flexible, thus you may expect unconventional email format such as dotless email being accepted.
+  * Emails must follow the format `local-part@domain` and:
+    * The local-part:
+      * Must be 2 to 35 characters.
+      * May include letters, numbers, and special characters `+`, `_`, `.`, `-`. 
+      * Cannot start or end with a special character.
+    * The domain:
+      * Consists of domain labels separated by periods.
+      * Each label must start and end with alphanumeric characters.
+      * Labels may include hyphens in the middle.
+      * The final label must be at least 2 characters long.
+    * The full email must not exceed 70 characters.
 * a/ADDRESS 
-  * Addresses can take any values, and it should not be blank
+  * Addresses can take any values, and it should not be blank or begin with a whitespace character.
 * b/BIRTHDAY
-  * Birthdays should be in the format YYYY-MM-DD and not be a future date
+  * Birthdays should be in the format YYYY-MM-DD and not be a future date or a date earlier than the year 1900.
+  * NOTE: If an invalid date is provided (e.g. `2001-02-29` or `2024-04-31`), the system will automatically adjust it to the closest valid date (e.g. `2001-02-28`, `2024-04-30`). As this behavior does not raise an error, please double-check inputs when using dates like the 29th, 30th, or 31st to ensure accuracy.
 * pr/PREMIUM_NAME PREMIUM_AMOUNT 
-  * Premium should be a valid name followed by a positive integer
+  * Premium should be a valid name followed by a non-negative integer.
 * a/ADDRESS
   * Addresses can take any values, and it should not be blank
 * b/BIRTHDAY
   * Birthdays should be in the format YYYY-MM-DD and not be a future date.
 * pr/PREMIUM_NAME PREMIUM_AMOUNT
-  * Premium should be a valid name followed by a positive integer
+  * Premium should be a valid name followed by a non-negative integer
+  * Each person can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.
+  * You may specify multiple premiums by separating them with semicolons (e.g. `pr/Life 500; Accident 200`).
+
 * [t/TAG]…
   * Optional field
-  * Tags names should be alphanumeric
+  * Tag names should be alphanumeric
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/2002-11-24 pr/Gold 99999 t/friends t/owesMoney`
 * `add n/Alice Pauline p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 b/1990-01-01 pr/Silver 50000`
+
+---
+
+<box type="info" seamless>
+
+**Parameter Order:**  
+You may enter parameters in any order. For example:  
+`add p/98765432 n/John Doe e/john@example.com ...` is also valid.
+
+</box>
+
+<box type="info" seamless>
+
+**Duplicate Contact Rule:**  
+ClientNest will prevent adding a contact that matches an existing one based on:
+- Name (case-insensitive)
+- Phone number
+- Email (case-insensitive)
+- Address (case-insensitive)
+- Birthday
+
+Premiums and tags are not considered when detecting duplicates.
+
+</box>
+
+---
 
 ### Listing all persons : `list`
 
@@ -178,7 +214,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The `find` command only searches the name field. It does not search by phone, email, address, tags, or other fields.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -219,6 +255,7 @@ Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_
 * Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
 * Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 * No 2 policy share the same policy number.
+* No two policies can share the same policy number.
 * The policy name is used in the `findpolicy` command.
 
 Examples:
@@ -226,6 +263,7 @@ Examples:
 
 ### Listing all policies : `listpolicy`
 
+Displays all policies details stored in ClientNest.
 Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
@@ -235,6 +273,7 @@ Format: `listpolicy`
 Edits details of an existing policy details.
 
 Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]​`
+
 
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed policy list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the fields must be provided.
@@ -258,7 +297,8 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
   e.g. `Life Health` will return `LifeShield`, `HealthPlus`
 
 Examples:
-* `findpolicy Health` returns `LifeHealth` and `Health Smart`
+* `findpolicy Life` returns `LifeShield`, `Life Protect`
+* `findpolicy Health Life` returns `HealthCare Basic`, `LifeSecure Plus`
 
 ### Deleting a policy : `deletepolicy`
 
@@ -280,21 +320,6 @@ Exits the program.
 
 Format: `exit`
 
-### Saving the data
-
-ClientNest data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-ClientNest data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, ClientNest will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-
 ### Editing User Profile : `profile`
 
 Edits details of the current user's profile.
@@ -308,27 +333,6 @@ Format: `profile [n/NAME] [p/PHONE] [e/EMAIL]`
 
 Examples:
 *  `profile n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
-
-### Saving the data
-
-ClientNest user profile data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-ClientNest user profile data are saved automatically as a JSON file `[JAR file location]/data/userprofile.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, ClientNest will discard all data and start with the default values for a user profile. Hence, it is recommended to take a backup of the file before editing it.<br><br>
-The default values of a user profile is:<br>
-Name: `Guest`<br>
-Phone: `00000000`<br>
-Email: `guest@example.com`<br>
-<br>
-Furthermore, certain edits can cause the ClientNest to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-ClientNest includes a built-in **TaskManager** to help you stay on top of your personal tasks, deadlines, and events — all within the same application.
 
 
 ### Upcoming Birthdays Panel
@@ -356,6 +360,46 @@ All commands are typed into the input box, similar to the main ClientNest window
 > 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands.
 
 For more in-depth information about TaskManager commands and their formats, refer to the [ _Task Manager User Guide_ ](TaskManagerUserGuide.md)
+
+### Saving and Editing Client Data
+
+ClientNest data is saved to your hard disk **automatically** after any command that changes the client or policy list. There is **no need to save manually**.
+
+ClientNest stores client and policy data in a JSON file located at:  
+`[JAR file location]/data/addressbook.json`
+
+Advanced users may edit this file directly.
+
+<box type="warning" seamless>
+
+> ⚠ CAUTION: If your edits make the file format invalid, ClientNest will discard all data and start with an empty address book upon the next launch.
+
+It’s **strongly recommended** to back up the file before editing.  
+
+Also, be aware that invalid or out-of-range values (e.g. future birthdays or malformed emails) can cause unexpected app behavior.
+</box>
+
+
+### Saving and Editing User Profile Data
+
+ClientNest user profile information is also saved **automatically** after any command that updates your name, phone number, or email.
+
+User profile data is stored in the JSON file:  
+`[JAR file location]/data/userprofile.json`
+
+Advanced users may edit this file directly to customize their profile.
+
+<box type="warning" seamless>
+
+> ⚠ CAUTION: If your edits make the user profile file invalid, ClientNest will revert to **default user values** on the next run.
+
+Default values are:  
+Name: `Guest`  
+Phone: `00000000`  
+Email: `guest@example.com`
+
+As with client data, it’s advisable to make a backup before editing, and only do so if you’re confident in maintaining the correct format.
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -387,7 +431,7 @@ Action     | Format, Examples
 **Delete Premium** | `deletepr INDEX pr/PREMIUM_NAME` <br> e.g., `deletepr 1 pr/LifeShield`
 **Add Policy** | `addpolicy pn/POLICY_NUMBER n/PREMIUM_NAME pc/PROVIDER_COMPANY pl/POLICY_LINK` <br> e.g., `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123`
 **Delete Policy** | `deletepolicy INDEX` <br> e.g., `deletepolicy 1`
-**Edit Policy** | `edit INDEX [pn/POLICY_NUMBER] [n/PREMIUM_NAME] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]` <br> e.g., `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com`
+**Edit Policy** | `editpolicy INDEX [pn/POLICY_NUMBER] [n/PREMIUM_NAME] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]` <br> e.g., `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com`
 **Find Policy** | `findpolicy KEYWORD [MORE_KEYWORDS]` <br> e.g., `findpolicy Life Health`
 **Profile** | `profile [n/USER_NAME] [p/PHONE_NUMBER] [e/EMAIL]` <br> e.g., `profile n/John Doe p/91112222 e/john@gmail.com`
 **List**   | `list`

@@ -107,12 +107,13 @@ public class TaskManagerTest {
     @Test
     void getResponse_deadlineCommandMissingBy_returnsError() {
         String response = taskManager.getResponse("deadline Finish homework");
-        assertTrue(response.contains("DEADLINE format"));
+        assertTrue(response.toLowerCase().contains("format: deadline"));
+
     }
 
     @Test
     void getResponse_eventCommandMissingFromOrTo_returnsError() {
         String response = taskManager.getResponse("event Team sync /from 2pm");
-        assertTrue(response.contains("EVENT format"));
+        assertTrue(response.toLowerCase().contains("format: event"));
     }
 }
