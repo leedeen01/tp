@@ -61,6 +61,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void createDefaultAddressBook(Path filepath) throws IOException {
+        addressBookStorage.createDefaultAddressBook(filepath);
+    }
+
+    @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
@@ -86,6 +91,11 @@ public class StorageManager implements Storage {
     @Override
     public Path getPolicyBookFilePath() {
         return policyBookStorage.getPolicyBookFilePath();
+    }
+
+    @Override
+    public void createDefaultPolicyBook(Path filepath) throws IOException {
+        policyBookStorage.createDefaultPolicyBook(filepath);
     }
 
     @Override

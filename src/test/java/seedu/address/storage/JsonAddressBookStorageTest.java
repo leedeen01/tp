@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -43,8 +43,8 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+    public void read_missingFile_defaultResult() throws Exception {
+        assertTrue(readAddressBook("NonExistentFile.json").isPresent());
     }
 
     @Test
