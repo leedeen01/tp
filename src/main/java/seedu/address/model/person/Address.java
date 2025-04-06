@@ -11,7 +11,7 @@ public class Address {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Addresses must contain at least one alphabetic character,"
-            + "be between 1 and 100 characters, and should not be blank";
+            + " be between 1 and 100 characters, and should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

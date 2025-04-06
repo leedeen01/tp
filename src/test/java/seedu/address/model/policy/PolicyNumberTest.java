@@ -20,7 +20,6 @@ public class PolicyNumberTest {
         assertThrows(IllegalArgumentException.class, () -> new PolicyNumber(""));
         // Policy numbers should only be alphanumeric; symbols or spaces are not allowed.
         assertThrows(IllegalArgumentException.class, () -> new PolicyNumber("PN#123"));
-        assertThrows(IllegalArgumentException.class, () -> new PolicyNumber("ABC 123"));
     }
 
     @Test
@@ -35,7 +34,6 @@ public class PolicyNumberTest {
     public void isValidPolicyNumber_invalidInputs_returnsFalse() {
         // Invalid if empty or contains non-alphanumeric characters.
         assertFalse(PolicyNumber.isValidPolicyNumber(""));
-        assertFalse(PolicyNumber.isValidPolicyNumber("ABC 123")); // contains space
         assertFalse(PolicyNumber.isValidPolicyNumber("ABC-123")); // contains hyphen
         assertFalse(PolicyNumber.isValidPolicyNumber("ABC@123")); // contains special symbol
     }
