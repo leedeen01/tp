@@ -3,7 +3,7 @@ layout: page
 title: Nithvin's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: ClientNest
 
 ClientNest is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
