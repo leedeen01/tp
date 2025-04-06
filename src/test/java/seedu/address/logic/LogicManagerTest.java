@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -220,14 +221,16 @@ public class LogicManagerTest {
 
     @Test
     public void getUpcomingBirthdays_returnsCorrectList() throws Exception {
+        LocalDate now = LocalDate.now();
+
         Person birthdaySoon = new PersonBuilder()
                 .withName("Soon")
-                .withBirthday("2000-04-11") // within 30 days from today
+                .withBirthday(now.plusDays(10).withYear(2000).toString()) // within 30 days
                 .build();
 
         Person birthdayLater = new PersonBuilder()
                 .withName("Later")
-                .withBirthday("2000-05-06") // outside 30 days
+                .withBirthday(now.plusDays(40).withYear(2000).toString()) // outside 30 days
                 .build();
 
         Person birthdayPast = new PersonBuilder()
