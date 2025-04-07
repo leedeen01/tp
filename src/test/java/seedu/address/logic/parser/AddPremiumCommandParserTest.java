@@ -59,6 +59,14 @@ public class AddPremiumCommandParserTest {
     }
 
     @Test
+    public void parse_missingPremiumPrefix_failure() {
+        // index specified but no premium prefix
+        String userInput = "1 invalidInput";
+
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
     public void parse_invalidValue_failure() {
         // invalid premium
         assertParseFailure(parser, "1" + INVALID_PREMIUM_DESC, Premium.MESSAGE_CONSTRAINTS);

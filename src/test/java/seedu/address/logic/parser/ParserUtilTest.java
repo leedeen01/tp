@@ -316,6 +316,24 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parsePremium_nonNumericValue_throwsParseException() {
+        // Test with a non-numeric value for the premium amount
+        String invalidPremiumInput = "P001 abc"; // "abc" is not a valid integer
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(invalidPremiumInput));
+
+        // Test with a decimal value that can't be parsed as an integer
+        String decimalPremiumInput = "P001 123.45"; // Decimals can't be parsed by Integer.parseInt
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(decimalPremiumInput));
+
+        // Test with special characters
+        String specialCharsPremiumInput = "P001 $###500";
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(specialCharsPremiumInput));
+    }
+
+    @Test
     public void parseDeletePremium_emptyString_returnsEmptyPremiumList() throws Exception {
         PremiumList expectedList = new PremiumList();
         assertEquals(expectedList, ParserUtil.parseDeletePremium(""));

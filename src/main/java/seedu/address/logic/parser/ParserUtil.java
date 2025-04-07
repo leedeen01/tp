@@ -166,7 +166,6 @@ public class ParserUtil {
                 if (!Premium.isValidPremium(split[i], Integer.parseInt(premiumValue))) {
                     throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
                 }
-
                 Premium premium = new Premium(split[i], Integer.parseInt(premiumValue));
                 premiumList.add(premium);
             } catch (NumberFormatException e) {
