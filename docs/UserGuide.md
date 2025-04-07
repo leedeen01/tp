@@ -2,7 +2,7 @@
 
 **ClientNest** is a **desktop application designed to help financial advisors manage client relationships, stay organized, and follow up effectively**. It combines the speed and precision of a **Command Line Interface (CLI)** with the accessibility of a **Graphical User Interface (GUI)**, allowing users to navigate and execute tasks efficiently through typed commands or interactive elements.
 
-Whether you're adding new clients, planning engagement tasks, or tracking important milestones like birthdays and policy renewals, ClientNest helps you maintain meaningful connections and grow your client base with confidence.
+Whether you're adding new clients, planning engagement tasks, or tracking important data like Premiums and Birthdays, ClientNest helps you maintain meaningful connections and grow your client base with confidence.
 
 <!-- * Table of Contents -->
 ## Table of Contents
@@ -94,14 +94,14 @@ Fields     | Requirements
 **e/EMAIL** | Emails must follow the format `local-part@domain`, and:<br>• The **local-part**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Must be at least 2 characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• May include letters, numbers, and `+`, `_`, `.`, `-`.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Cannot start or end with a special character.<br>• The **domain**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Consists of domain labels separated by periods.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Each label must start and end with alphanumeric characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Labels may include hyphens in the middle.<br>&nbsp;&nbsp;&nbsp;&nbsp;• The final label must be at least 2 characters long.<br>• The full email must not exceed 70 characters.
 **a/ADDRESS** | Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank"
 **b/BIRTHDAY** | Birthdays should be in the format `YYYY-MM-DD` and must not be a future date or earlier than 1900. <br>**Note:** If an invalid date is given (e.g., `2001-02-29`, `2024-04-31`), the system will adjust to the nearest valid date (e.g., `2001-02-28`, `2024-04-30`).
-**pr/PREMIUM_NAME PREMIUM_AMOUNT** | A premium entry must include a valid name followed by a non-negative integer. <br>• Each client can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.<br>• You can add multiple premiums using semicolons, e.g., `pr/Life 500; Accident 200` 
+**pr/PREMIUM_NAME PREMIUM_AMOUNT** | Optional field, A premium entry must include a valid name followed by a positive integer. <br>• Each client can have multiple premiums, but only one per unique name.<br>• You can add multiple premiums using spaces, e.g., `pr/Life 500 Accident 200` 
 **[t/TAG]…** | Optional field, Tag names should be alphanumeric
 
 #### <ins>Adding A Person: `add`</ins>
 
 Adds a new contact to your ClientNest.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME PREMIUM_AMOUNT [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [pr/PREMIUM_NAME PREMIUM_AMOUNT] [t/TAG]…​`
 
 * Please note that the double quote (") and apostrophe (') are treated as special characters in the input. When used within the input, such as in " " (with a space inside the quotes), they do not represent a space. Instead, they are treated literally as the quote or apostrophe characters themselves.
 * All inputs to the fields will be automatically trimmed. This means that any extra spaces at the beginning or end of the input will be removed. For example, if the address entered is ` Block 581 `, it will be trimmed to `Block 581`.
@@ -148,6 +148,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [pr/PR
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing premiums, the existing premiums of the person will be removed i.e adding of premiums is not cumulative.
 * You can remove all the person's tags by typing `t/` without
   specifying any tags after it.
 
