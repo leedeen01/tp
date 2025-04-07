@@ -5,7 +5,7 @@ title: Teesha's Project Portfolio Page
 
 ### Project: ClientNest
 
-ClientNest is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+ClientNest is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). From adding clients to tracking birthdays and policies, ClientNest supports meaningful engagement and confident client management.
 
 Given below are my contributions to the project.
 
