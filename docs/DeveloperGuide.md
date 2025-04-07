@@ -343,12 +343,29 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+--------------------------------------------------------------------------------------------------------------------
 
-### \[Proposed\] Data archiving
+## **Planned Enhancemnet**
 
-_{Explain here how the data archiving feature will be implemented}_
+### Policy-Based Premium Management
 
+#### Problem Statement:
+
+The system currently supports two separate operations: assigning premiums to individuals via the addpr command and creating policies using the addpolicy command. However, these functionalities operate in isolation—premiums and policies are managed as independent entities. This separation allows premiums to be assigned without validating the existence of a corresponding policy in the policybook. Such a design can result in premiums being linked to non-existent or invalid policies, potentially causing data inconsistencies and user confusion.
+
+#### Solution:
+
+To enforce consistency between premiums and policies, the following enhancements should be made to the addpr command:
+
+1. Add policy_id as a Required Field in addpr
+2. Validate Policy Existence Before Adding a Premium
+3. Handle Outcomes with Clear User Feedback: 
+    * If the specified policy_id does not exist:
+        * Reject the command, do not add the premium
+        * Provide a clear error message: "Policy ID POL123 not found. Please create the policy first using addpolicy."
+    * Else the specified policy_id exists:
+        * Proceed with adding the premium to the person under the given policy
+        * Provide confirmation: "Premium with Policy ID POL123 has been added"
 
 --------------------------------------------------------------------------------------------------------------------
 
