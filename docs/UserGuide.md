@@ -24,7 +24,7 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
     - [Editing a policy](#editing-a-policy-editpolicy)
     - [Locating a policy](#locating-policy-by-name-findpolicy)
     - [Deleting a policy](#deleting-a-policy-deletepolicy)
-  - [ClientNest Commands](#clientnest-commands)
+  - [Other ClientNest Commands](#other-clientnest-commands)
     - [Viewing help: `help`](#viewing-help-help)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
     - [Editing User Profile: `profile`](#editing-user-profile-profile)
@@ -97,7 +97,7 @@ Fields     | Requirements
 **pr/PREMIUM_NAME PREMIUM_AMOUNT** | A premium entry must include a valid name followed by a non-negative integer. <br>• Each client can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.<br>• You can add multiple premiums using semicolons, e.g., `pr/Life 500; Accident 200` 
 **[t/TAG]…** | Optional field, Tag names should be alphanumeric
 
-#### Adding a person: `add`
+#### **Adding a person: `add`**
 
 Adds a new contact to your ClientNest.
 
@@ -132,13 +132,13 @@ Premiums and tags are not considered when detecting duplicates.
 
 </box>
 
-#### Listing all persons: `list`
+#### **Listing all persons: `list`**
 
 Displays all contacts stored in ClientNest.
 
 Format: `list`
 
-#### Editing a person: `edit`
+#### **Editing a person: `edit`**
 
 Edits details of an existing contact.
 
@@ -155,7 +155,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-#### Adding a premium to a person: `addpr`
+#### **Adding a premium to a person: `addpr`**
 
 Adds a premium to a person identified by the index number in the displayed person list. A premium represents an insurance policy or product assigned to a person in the address book.
 
@@ -170,7 +170,7 @@ Examples:
 * `list` followed by `addpr 1 pr/LifeShield $300` adds a premium named "LifeShield" with amount "$300" to the 1st person in the address book.
 * `find John` followed by `addpr 1 pr/HealthPlus $500` adds a premium named "HealthPlus" with amount "$500" to the 1st person in the results of the `find` command.
 
-#### Editing a premium for a person: `editpr`
+#### **Editing a premium for a person: `editpr`**
 
 Edits the premium details of a person identified by the index number in the displayed person list.
 
@@ -186,7 +186,7 @@ Examples:
 * `list` followed by `editpr 1 pr/LifeShield $350` changes the amount of the "LifeShield" premium to "$350" for the 1st person in the address book.
 * `find John` followed by `editpr 1 pr/HealthPlus $600` changes the amount of the "HealthPlus" premium to "$600" for the 1st person in the results of the `find` command.
 
-#### Deleting a premium from a person: `deletepr`
+#### **Deleting a premium from a person: `deletepr`**
 
 Deletes a specific premium from a person identified by the index number in the displayed person list.
 
@@ -201,7 +201,7 @@ Examples:
 * `list` followed by `deletepr 1 pr/LifeShield` deletes the "LifeShield" premium from the 1st person in the address book.
 * `find John` followed by `deletepr 1 pr/HealthPlus` deletes the "HealthPlus" premium from the 1st person in the results of the `find` command.
 
-#### Locating persons by name: `find`
+#### **Locating persons by name: `find`**
 
 Finds persons whose names contain any of the given keywords.
 
@@ -219,7 +219,7 @@ Examples:
 * `find Alice Hoe` returns `John Doe`, `Alice Pauline`<br>
   ![result for 'find alice doe'](images/findAliceDoeResult.png)
 
-#### Deleting a person: `delete`
+#### **Deleting a person: `delete`**
 
 Deletes the specified person from the client list.
 
@@ -233,13 +233,13 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-#### Clearing all person: `clear`
+#### **Clearing all person: `clear`**
 
 Clears all person from your ClientNest.
 
 Format: `clear`
 
-### Policy Related Command
+### **Policy Related Command**
 
 Fields     | Requirements
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ Fields     | Requirements
 **pc/PROVIDER_COMPANY** | Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
 **pl/POLICY_LINK** | Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 
-#### Adding a policy: `addpolicy`
+#### **Adding a policy: `addpolicy`**
 
 Adds a new policy to your ClientNest.
 
@@ -260,13 +260,13 @@ Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_
 Examples:
 * `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123 `
 
-#### Listing all policies: `listpolicy`
+#### **Listing all policies: `listpolicy`**
 
 Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
 
-#### Editing a policy: `editpolicy`
+#### **Editing a policy: `editpolicy`**
 
 Edits details of an existing policy details.
 
@@ -280,7 +280,7 @@ Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPAN
 Examples:
 *  `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com` Edits the policy name and policy link of the 1st policy to be `Life Shield` and `https://www.lifeshield.com` respectively.
 
-#### Locating policy by name: `findpolicy`
+#### **Locating policy by name: `findpolicy`**
 
 Finds policies whose names contain any of the given keywords.
 
@@ -297,7 +297,7 @@ Examples:
 * `findpolicy Life` returns `LifeShield`, `Life Protect`
 * `findpolicy Health Life` returns `HealthCare Basic`, `LifeSecure Plus`
 
-#### Deleting a policy: `deletepolicy`
+#### **Deleting a policy: `deletepolicy`**
 
 Deletes the specified policy from the policy list.
 
@@ -311,9 +311,9 @@ Examples:
 * `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the policy book.
 * `findpolicy Health` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
-### ClientNest Commands
+### **Other ClientNest Commands**
 
-#### Viewing help: `help`
+#### **Viewing help: `help`**
 
 Shows a message explaining how to access the help page.
 
@@ -321,13 +321,13 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-#### Exiting the program: `exit`
+#### **Exiting the program: `exit`**
 
 Exits the program.
 
 Format: `exit`
 
-#### Editing User Profile: `profile`
+#### **Editing User Profile: `profile`**
 
 Edits details of the current user's profile.
 
@@ -341,7 +341,7 @@ Format: `profile [n/NAME] [p/PHONE] [e/EMAIL]`
 Examples:
 *  `profile n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
 
-#### Saving and Editing Client Data
+#### **Saving and Editing Client Data**
 
 ClientNest data is saved to your hard disk **automatically** after any command that changes the client or policy list. There is **no need to save manually**.
 
@@ -359,7 +359,7 @@ It’s **strongly recommended** to back up the file before editing.
 Also, be aware that invalid or out-of-range values (e.g. future birthdays or malformed emails) can cause unexpected app behavior.
 </box>
 
-#### Saving and Editing User Profile Data
+#### **Saving and Editing User Profile Data**
 
 ClientNest user profile information is also saved **automatically** after any command that updates your name, phone number, or email.
 
@@ -380,7 +380,7 @@ Email: `guest@example.com`
 As with client data, it’s advisable to make a backup before editing, and only do so if you’re confident in maintaining the correct format.
 </box>
 
-#### Upcoming Birthdays Panel
+#### **Upcoming Birthdays Panel**
 
 The **Upcoming Birthdays** panel displays a list of clients whose birthdays fall within the next 30 days.
 
@@ -388,7 +388,7 @@ This panel appears to the right of the client list and updates automatically whe
 
 No commands are required — just ensure each contact has a valid birthday entered, and ClientNest will handle the rest.
 
-#### Viewing and Managing Tasks: `TaskManager`
+#### **Viewing and Managing Tasks: `TaskManager`**
 <p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
 
 You can access the TaskManager panel from the top menu bar. A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
