@@ -1,9 +1,3 @@
----
-  layout: default.md
-  title: "Documentation guide"
-  pageNav: 3
----
-
 # Documentation Guide
 
 * We use [**MarkBind**](https://markbind.org/) to manage documentation.

@@ -16,21 +16,17 @@ Given below are my contributions to the project.
     * Quick retrieval for historical policy data for client inquiries.
     * Improve decision-making by having a clear view of past and present policy changes.
 
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2425s2.github.io/tp-dashboard/#/widget/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=FabianHeng&tabRepo=AY2425S2-CS2103-F10-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=9&chartIndex=2)
 
 * **Project management**:
   * Managed releases `v1.3`(1 releases) on GitHub
 
 * **Enhancements to existing features**:
-  * Improve parsing for `list` and `listpolicy` to prevent extraneous parameters (Pull requests [\#33](), [\#34]())
-
+  * Improve parsing for `list` and `listpolicy` to prevent extraneous parameters (Pull requests [\#163](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/163))
+  * Improved Address input verification by setting limits and checking regex styles (Pull request [\#236](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/236))
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` [\#178]()
-    * Added implementation details of the `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` feature.
-
-* **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+    * Added documentation for the features `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` (Pull request [\#179](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/179))
+    * Added implementation details of the `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` feature. (Pull request [\#179](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/179))
+  * DeveloperGuide:
+    * Update UML for Storage Diagram (Pull request [\#116](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/116))

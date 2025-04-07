@@ -18,6 +18,13 @@ public interface AddressBookStorage {
     Path getAddressBookFilePath();
 
     /**
+     * Creates a default address book if file does not exist.
+     * @param filepath of the address book.
+     * @throws IOException if loading the data from storage failed.
+     */
+    void createDefaultAddressBook(Path filepath) throws IOException;
+
+    /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *

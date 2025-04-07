@@ -24,14 +24,14 @@ public class Email {
             + "3. Total length should not exceed 70 characters long.";
 
     // Local-part: 2–35 characters, alphanumeric + [ +_.- ], but not starting/ending with special chars
-    private static final String LOCAL_PART_REGEX = "(?=.{2,35}$)[A-Za-z0-9](?:[A-Za-z0-9+_.-]*[A-Za-z0-9])?";
+    private static final String LOCAL_PART_REGEX = "(?=.{2,70}$)[A-Za-z0-9](?:[A-Za-z0-9+_.-]*[A-Za-z0-9])?";
 
     // Domain label: starts/ends with alphanumeric, hyphens allowed in between
     private static final String DOMAIN_LABEL = "[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?";
 
     // Full domain: multiple domain labels ending in a final label of 2–70 chars
     private static final String DOMAIN_REGEX = "(?:(?:" + DOMAIN_LABEL + ")\\.)*"
-            + "(?:" + DOMAIN_LABEL + "){2,70}";
+            + "(?:" + DOMAIN_LABEL + "){2,35}";
 
     // Final regex
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;

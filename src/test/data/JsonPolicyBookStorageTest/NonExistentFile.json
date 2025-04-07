@@ -1,0 +1,33 @@
+{
+  "policies" : [ {
+    "policyLink" : "https://www.shieldcorp.com/policy123",
+    "policyNumber" : "POL123",
+    "policyName" : "LifeShield",
+    "providerCompany" : "ShieldCorp"
+  }, {
+    "policyLink" : "https://www.healthcorp.com/policy456",
+    "policyNumber" : "POL456",
+    "policyName" : "HealthPlus",
+    "providerCompany" : "HealthCorp"
+  }, {
+    "policyLink" : "https://www.safeinsure.com/policy789",
+    "policyNumber" : "POL789",
+    "policyName" : "SecureFuture",
+    "providerCompany" : "SafeInsure"
+  }, {
+    "policyLink" : "https://www.homeguard.com/policy101",
+    "policyNumber" : "POL101",
+    "policyName" : "HomeSafe",
+    "providerCompany" : "HomeGuard"
+  }, {
+    "policyLink" : "https://www.carprotect.com/policy202",
+    "policyNumber" : "POL202",
+    "policyName" : "AutoCare",
+    "providerCompany" : "CarProtect"
+  }, {
+    "policyLink" : "https://www.travelsafe.com/policy303",
+    "policyNumber" : "POL303",
+    "policyName" : "TravelAssure",
+    "providerCompany" : "TravelSafe"
+  } ]
+}

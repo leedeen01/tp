@@ -18,6 +18,13 @@ public interface PolicyBookStorage {
     Path getPolicyBookFilePath();
 
     /**
+     * Creates a default policy book if file does not exist.
+     * @param filepath of the policy book.
+     * @throws IOException if loading the data from storage failed.
+     */
+    void createDefaultPolicyBook(Path filepath) throws IOException;
+
+    /**
      * Returns PolicyBook data as a {@link ReadOnlyPolicyBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *

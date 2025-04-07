@@ -157,14 +157,20 @@ public class ParserUtil {
         requireNonNull(string);
         PremiumList premiumList = new PremiumList();
         String[] split = string.split(" ");
+        if (split.length < 2) {
+            throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
+        }
         for (int i = 0, size = split.length; i < size; i = i + 2) {
             String premiumValue = split[i + 1].replace("$", "");
-            if (!Premium.isValidPremium(split[i], Integer.parseInt(premiumValue))) {
+            try {
+                if (!Premium.isValidPremium(split[i], Integer.parseInt(premiumValue))) {
+                    throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
+                }
+                Premium premium = new Premium(split[i], Integer.parseInt(premiumValue));
+                premiumList.add(premium);
+            } catch (NumberFormatException e) {
                 throw new ParseException(Premium.MESSAGE_CONSTRAINTS);
             }
-
-            Premium premium = new Premium(split[i], Integer.parseInt(premiumValue));
-            premiumList.add(premium);
 
         }
         return premiumList;

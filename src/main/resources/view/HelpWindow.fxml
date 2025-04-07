@@ -13,7 +13,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" minWidth="1100.0" minHeight="500.0" maxWidth="1100.0">
+<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" minWidth="1100.0" minHeight="500.0">
   <icons>
     <Image url="@/images/ClientNest_32.png" />
   </icons>
