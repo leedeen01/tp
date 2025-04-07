@@ -31,7 +31,7 @@ public class AddPremiumCommandParser implements Parser<AddPremiumCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PREMIUM);
 
-        if(!arePrefixesPresent(argMultimap, PREFIX_PREMIUM) || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PREMIUM) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 

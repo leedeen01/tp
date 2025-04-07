@@ -37,7 +37,7 @@ public class AddPremiumCommandParserTest {
         assertParseFailure(parser, VALID_PREMIUM_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
