@@ -83,7 +83,7 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
   e.g. if the command specifies `list 123`, the result display will notify user of the extraneous parameters and the command will be ignored.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
+</box>
 
 ### Person Related Command
 
