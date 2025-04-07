@@ -94,7 +94,7 @@ Fields     | Requirements
 **e/EMAIL** | Emails must follow the format `local-part@domain`, and:<br>• The **local-part**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Must be at least 2 characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• May include letters, numbers, and `+`, `_`, `.`, `-`.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Cannot start or end with a special character.<br>• The **domain**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Consists of domain labels separated by periods.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Each label must start and end with alphanumeric characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Labels may include hyphens in the middle.<br>&nbsp;&nbsp;&nbsp;&nbsp;• The final label must be at least 2 characters long.<br>• The full email must not exceed 70 characters.
 **a/ADDRESS** | Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank"
 **b/BIRTHDAY** | Birthdays should be in the format `YYYY-MM-DD` and must not be a future date or earlier than 1900. <br>**Note:** If an invalid date is given (e.g., `2001-02-29`, `2024-04-31`), the system will adjust to the nearest valid date (e.g., `2001-02-28`, `2024-04-30`).
-**pr/PREMIUM_NAME PREMIUM_AMOUNT** | Optional field, A premium entry must include a valid name followed by a positive integer. <br>• Each client can have multiple premiums, but only one per unique name.<br>• You can add multiple premiums using spaces, e.g., `pr/Life 500 Accident 200` 
+**[pr/PREMIUM_NAME PREMIUM_AMOUNT]** | Optional field, A premium entry must include a valid name followed by a positive integer. <br>• Each client can have multiple premiums, but only one per unique name.<br>• You can add multiple premiums using spaces, e.g., `pr/Life 500 Accident 200`. <br>• PREMIUM_NAME accepts special characters. <br>• PREMIUM_AMOUNT will only accept positive whole integers up to 10 digits long <br>•PREMIUM_AMOUNT will not accept special characters other than `$` preceding the amount without a space. <br>• Multiple `$` will be trimmed to one.
 **[t/TAG]…** | Optional field, Tag names should be alphanumeric
 
 #### <ins>Adding A Person: `add`</ins>
@@ -158,14 +158,15 @@ Examples:
 
 #### <ins>Adding A Premium To A Person: `addpr`</ins>
 
-Adds a premium to a person identified by the index number in the displayed person list. A premium represents an insurance policy or product assigned to a person in the address book.
+Adds a premium to a person identified by the index number in the displayed person list.
 
 Format: `addpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT`
 
 * Adds the specified premium to the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The same premium cannot be added twice to the same person.
+* The same premium by name cannot be added twice to the same person.
+* Please refer to the restriction of inputs for each field above under pr/ field under Person Related Command.
 
 Examples:
 * `list` followed by `addpr 1 pr/LifeShield $300` adds a premium named "LifeShield" with amount "$300" to the 1st person in the address book.
@@ -173,7 +174,7 @@ Examples:
 
 #### <ins>Editing A Premium To A Person: `editpr`</ins>
 
-Edits the premium details of a person identified by the index number in the displayed person list.
+Edits the premium details identified by premium name of a person identified by the index number in the displayed person list.
 
 Format: `editpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT`
 
@@ -182,6 +183,7 @@ Format: `editpr INDEX pr/PREMIUM_NAME PREMIUM_AMOUNT`
 * The index **must be a positive integer** 1, 2, 3, …​
 * The premium name specified must already exist for that person.
 * Only the premium amount will be updated.
+* Please refer to the restriction of inputs for each field above under pr/ field under Person Related Command.
 
 Examples:
 * `list` followed by `editpr 1 pr/LifeShield $350` changes the amount of the "LifeShield" premium to "$350" for the 1st person in the address book.
@@ -197,6 +199,7 @@ Format: `deletepr INDEX pr/PREMIUM_NAME`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Only the premium name is required to identify which premium to delete.
+* Please refer to the restriction of inputs for each field above under pr/ field under Person Related Command.
 
 Examples:
 * `list` followed by `deletepr 1 pr/LifeShield` deletes the "LifeShield" premium from the 1st person in the address book.

@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Premium;
@@ -32,6 +33,7 @@ public class DeletePremiumCommand extends Command {
             + "LifeShield";
 
     public static final String MESSAGE_DELETE_PREMIUM_SUCCESS = "Deleted Premium: %1$s";
+    public static final String MESSAGE_INVALID_PREMIUM_NAME = "Person at index must have given premium name";
 
     private final Index targetIndex;
     private final PremiumList premiumList;
@@ -67,8 +69,12 @@ public class DeletePremiumCommand extends Command {
 
         Person premiumToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        Person premiumDeletedPerson = deletePremium(premiumToDelete);
-
+        Person premiumDeletedPerson;
+        try {
+            premiumDeletedPerson = deletePremium(premiumToDelete);
+        } catch (ParseException pe) {
+            throw new CommandException(MESSAGE_INVALID_PREMIUM_NAME);
+        }
         model.setPerson(premiumToDelete, premiumDeletedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
@@ -84,10 +90,13 @@ public class DeletePremiumCommand extends Command {
      * @param premiumToDelete the person whose specific premiums are to be deleted
      * @return a new Person with the specified premiums removed
      */
-    private Person deletePremium(Person premiumToDelete) {
+    private Person deletePremium(Person premiumToDelete) throws ParseException {
         PremiumList premiumListToChange = premiumToDelete.getPremiumList();
 
         for (Premium p : premiumList.premiumList) {
+            if (!premiumListToChange.contains(p)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_PREMIUM_NAME, MESSAGE_USAGE));
+            }
             premiumListToChange.remove(p);
         }
 

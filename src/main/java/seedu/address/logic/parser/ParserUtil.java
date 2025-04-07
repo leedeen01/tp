@@ -186,7 +186,7 @@ public class ParserUtil {
      * @throws ParseException If the string cannot be parsed into a {@code PremiumList}.
      */
     public static PremiumList parsePremium(Optional<String> string) throws ParseException {
-        if (string.isPresent()) {
+        if (string.isPresent() && !string.get().isBlank()) {
             return parsePremium(string.get());
         } else {
             return new PremiumList();
