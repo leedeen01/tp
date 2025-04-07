@@ -43,7 +43,7 @@
               </padding>
           </StackPane>
 
-          <StackPane styleClass="placeholder">
+          <StackPane styleClass="placeholder" VBox.vgrow="NEVER">
               <!-- Person List Pane -->
               <VBox fx:id="personList" styleClass="pane-with-border" minWidth="200" prefWidth="200" minHeight="300" prefHeight="600">
                   <padding>
@@ -78,7 +78,7 @@
               </padding>
           </StackPane>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="placeholder">
+          <StackPane VBox.vgrow="ALWAYS" fx:id="commandBoxPlaceholder" styleClass="placeholder">
               <padding>
                   <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
