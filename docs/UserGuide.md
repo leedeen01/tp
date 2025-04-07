@@ -419,6 +419,7 @@ As with client data, it’s advisable to make a backup before editing, and only 
    - If your user profile name and/or email is more than 50 characters;
    - If your premium name is more than 35 characters.
 5. **Pressing the "up/down" arrow keys** will replace/erase the current command in the command box.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary for ClientNest
