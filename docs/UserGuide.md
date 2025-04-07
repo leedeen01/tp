@@ -243,7 +243,7 @@ Format: `clear`
 
 Fields     | Requirements
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**n/POLICY_NAME** | Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+**n/POLICY_NAME** | Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
 **pn/POLICY_NUMBER** | Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
 **pc/PROVIDER_COMPANY** | Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
 **pl/POLICY_LINK** | Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
