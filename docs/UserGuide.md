@@ -5,6 +5,36 @@
 Whether you're adding new clients, planning engagement tasks, or tracking important milestones like birthdays and policy renewals, ClientNest helps you maintain meaningful connections and grow your client base with confidence.
 
 <!-- * Table of Contents -->
+## Table of Contents
+- [Quick start](#quick-start)
+- [Features](#features)
+  - [Person Related Command](#person-related-command)
+    - [Adding A Person](#adding-a-person-add)
+    - [Listing All Person](#listing-all-persons-list)
+    - [Editing A Person](#editing-a-person-edit)
+    - [Adding A Premium](#adding-a-premium-to-a-person-addpr)
+    - [Editing A Premium](#editing-a-premium-for-a-person-editpr)
+    - [Deleting A Premium](#deleting-a-premium-from-a-person-deletepr)
+    - [Locating Persons](#locating-persons-by-name-find)
+    - [Deleting A Person](#deleting-a-person-delete)
+    - [Clearing All Persons](#clearing-all-person-clear)
+  - [Policy Related Command](#policy-related-command)
+    - [Adding A Policy](#adding-a-policy-addpolicy)
+    - [Listing All Policies](#listing-all-policies-listpolicy)
+    - [Editing A Policy](#editing-a-policy-editpolicy)
+    - [Locating A Policy](#locating-policy-by-name-findpolicy)
+    - [Deleting A Policy](#deleting-a-policy-deletepolicy)
+  - [ClientNest Commands](#clientnest-commands)
+    - [Viewing Help: `help`](#viewing-help-help)
+    - [Exiting The Program: `exit`](#exiting-the-program-exit)
+    - [Editing User Profile: `profile`](#editing-user-profile-profile)
+    - [Saving and Editing Client Data](#saving-and-editing-client-data)
+    - [Saving and Editing User Profile Data](#saving-and-editing-user-profile-data)
+    - [Upcoming Birthdays Panel](#upcoming-birthdays-panel)
+    - [Viewing and Managing Tasks: `TaskManager`](#viewing-and-managing-tasks-taskmanager)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
+- [Command summary for ClientNest](#command-summary-for-clientnest)
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -55,15 +85,19 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
 
-### Viewing help : `help`
+### Person Related Command
 
-Shows a message explaining how to access the help page.
+Fields     | Requirements
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**n/Name** | Names should only contain alphanumeric characters and spaces, 70 characters or less, and it should not be blank
+**p/PHONE_NUMBER** | Phone numbers should only contain numbers, and it should be between 3 to 15 digits long. <br> No spaces, symbols, or country codes are allowed (e.g. `+`, `()`, `-` are not valid).
+**e/EMAIL** | Emails must follow the format `local-part@domain`, and:<br>• The **local-part**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Must be at least 2 characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• May include letters, numbers, and `+`, `_`, `.`, `-`.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Cannot start or end with a special character.<br>• The **domain**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Consists of domain labels separated by periods.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Each label must start and end with alphanumeric characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Labels may include hyphens in the middle.<br>&nbsp;&nbsp;&nbsp;&nbsp;• The final label must be at least 2 characters long.<br>• The full email must not exceed 70 characters.
+**a/ADDRESS** | Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank"
+**b/BIRTHDAY** | Birthdays should be in the format `YYYY-MM-DD` and must not be a future date or earlier than 1900. <br>**Note:** If an invalid date is given (e.g., `2001-02-29`, `2024-04-31`), the system will adjust to the nearest valid date (e.g., `2001-02-28`, `2024-04-30`).
+**pr/PREMIUM_NAME PREMIUM_AMOUNT** | A premium entry must include a valid name followed by a non-negative integer. <br>• Each client can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.<br>• You can add multiple premiums using semicolons, e.g., `pr/Life 500; Accident 200` 
+**[t/TAG]…** | Optional field, Tag names should be alphanumeric
 
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-### Adding a person: `add`
+#### <ins>Adding A Person: `add`</ins>
 
 Adds a new contact to your ClientNest.
 
@@ -71,48 +105,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY pr/PREMIUM_NAME 
 
 * Please note that the double quote (") and apostrophe (') are treated as special characters in the input. When used within the input, such as in " " (with a space inside the quotes), they do not represent a space. Instead, they are treated literally as the quote or apostrophe characters themselves.
 * All inputs to the fields will be automatically trimmed. This means that any extra spaces at the beginning or end of the input will be removed. For example, if the address entered is ` Block 581 `, it will be trimmed to `Block 581`.
-* n/Name
-  * Names should only contain alphanumeric characters and spaces, 70 characters or less, and it should not be blank
-* p/PHONE_NUMBER 
-  * Phone numbers should only contain numbers, and it should be between 3 to 15 digits long.
-  * No spaces, symbols, or country codes are allowed (e.g. `+`, `()`, `-` are not valid).
-* e/EMAIL
-  * Emails must follow the format `local-part@domain` and:
-    * The local-part:
-      * Must be at least 2 characters.
-      * May include letters, numbers, and special characters `+`, `_`, `.`, `-`. 
-      * Cannot start or end with a special character.
-    * The domain:
-      * Consists of domain labels separated by periods.
-      * Each label must start and end with alphanumeric characters.
-      * Labels may include hyphens in the middle.
-      * The final label must be at least 2 characters long.
-    * The full email must not exceed 70 characters.
-* a/ADDRESS 
-    * Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank";
-  * b/BIRTHDAY
-    * Birthdays should be in the format YYYY-MM-DD and not be a future date or a date earlier than the year 1900.
-  * NOTE: If an invalid date is provided (e.g. `2001-02-29` or `2024-04-31`), the system will automatically adjust it to the closest valid date (e.g. `2001-02-28`, `2024-04-30`). As this behavior does not raise an error, please double-check inputs when using dates like the 29th, 30th, or 31st to ensure accuracy.
-* pr/PREMIUM_NAME PREMIUM_AMOUNT 
-  * Premium should be a valid name followed by a non-negative integer.
-* a/ADDRESS
-  * Addresses can take any values, and it should not be blank
-* b/BIRTHDAY
-  * Birthdays should be in the format YYYY-MM-DD and not be a future date.
-* pr/PREMIUM_NAME PREMIUM_AMOUNT
-  * Premium should be a valid name followed by a non-negative integer
-  * Each person can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.
-  * You may specify multiple premiums by separating them with semicolons (e.g. `pr/Life 500; Accident 200`).
-
-* [t/TAG]…
-  * Optional field
-  * Tag names should be alphanumeric
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/2002-11-24 pr/Gold 99999 t/friends t/owesMoney`
 * `add n/Alice Pauline p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 b/1990-01-01 pr/Silver 50000`
-
----
 
 <box type="info" seamless>
 
@@ -136,15 +132,13 @@ Premiums and tags are not considered when detecting duplicates.
 
 </box>
 
----
-
-### Listing all persons : `list`
+#### <ins>Listing All Persons: `list`</ins>
 
 Displays all contacts stored in ClientNest.
 
 Format: `list`
 
-### Editing a person : `edit`
+#### <ins>Editing A Person: `edit`</ins>
 
 Edits details of an existing contact.
 
@@ -161,7 +155,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Adding a premium to a person: `addpr`
+#### <ins>Adding A Premium To A Person: `addpr`</ins>
 
 Adds a premium to a person identified by the index number in the displayed person list. A premium represents an insurance policy or product assigned to a person in the address book.
 
@@ -176,7 +170,7 @@ Examples:
 * `list` followed by `addpr 1 pr/LifeShield $300` adds a premium named "LifeShield" with amount "$300" to the 1st person in the address book.
 * `find John` followed by `addpr 1 pr/HealthPlus $500` adds a premium named "HealthPlus" with amount "$500" to the 1st person in the results of the `find` command.
 
-### Editing a premium for a person: `editpr`
+#### <ins>Editing A Premium To A Person: `editpr`</ins>
 
 Edits the premium details of a person identified by the index number in the displayed person list.
 
@@ -192,7 +186,7 @@ Examples:
 * `list` followed by `editpr 1 pr/LifeShield $350` changes the amount of the "LifeShield" premium to "$350" for the 1st person in the address book.
 * `find John` followed by `editpr 1 pr/HealthPlus $600` changes the amount of the "HealthPlus" premium to "$600" for the 1st person in the results of the `find` command.
 
-### Deleting a premium from a person: `deletepr`
+#### <ins>Deleting A Premium From A Person: `deletepr`</ins>
 
 Deletes a specific premium from a person identified by the index number in the displayed person list.
 
@@ -207,7 +201,7 @@ Examples:
 * `list` followed by `deletepr 1 pr/LifeShield` deletes the "LifeShield" premium from the 1st person in the address book.
 * `find John` followed by `deletepr 1 pr/HealthPlus` deletes the "HealthPlus" premium from the 1st person in the results of the `find` command.
 
-### Locating persons by name: `find`
+#### <ins>Locating Persons By Name: `find`</ins>
 
 Finds persons whose names contain any of the given keywords.
 
@@ -225,7 +219,7 @@ Examples:
 * `find Alice Hoe` returns `John Doe`, `Alice Pauline`<br>
   ![result for 'find alice doe'](images/findAliceDoeResult.png)
 
-### Deleting a person : `delete`
+#### <ins>Deleting A Person: `delete`</ins>
 
 Deletes the specified person from the client list.
 
@@ -239,41 +233,44 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all person : `clear`
+#### <ins>Clearing All Person: `clear`</ins>
 
 Clears all person from your ClientNest.
 
 Format: `clear`
 
-### Adding a policy: `addpolicy`
+### Policy Related Command
+
+Fields     | Requirements
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**n/POLICY_NAME** | Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
+**pn/POLICY_NUMBER** | Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+**pc/PROVIDER_COMPANY** | Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
+**pl/POLICY_LINK** | Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
+
+#### <ins>Adding A Policy: `addpolicy`</ins>
 
 Adds a new policy to your ClientNest.
 
 Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_LINK​`
 
-* Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
-* Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
-* Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
-* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 * No 2 policy share the same policy number.
 * The policy name is used in the `findpolicy` command.
 
 Examples:
 * `addpolicy pn/POL123 n/LifeShield pc/ShieldCorp pl/https://www.shieldcorp.com/policy123 `
 
-### Listing all policies : `listpolicy`
+#### <ins>Listing All Policies: `listpolicy`</ins>
 
-Displays all policies details stored in ClientNest.
 Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
 
-### Editing a policy : `editpolicy`
+#### <ins>Editing A Policy: `editpolicy`</ins>
 
 Edits details of an existing policy details.
 
 Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPANY] [pl/POLICY_LINK]​`
-
 
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed policy list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the fields must be provided.
@@ -283,7 +280,7 @@ Format: `editpolicy INDEX [n/POLICY_NAME] [pn/POLICY_NUMBER] [pc/PROVIDER_COMPAN
 Examples:
 *  `editpolicy 1 n/Life Shield pl/https://www.lifeshield.com` Edits the policy name and policy link of the 1st policy to be `Life Shield` and `https://www.lifeshield.com` respectively.
 
-### Locating policy by name: `findpolicy`
+#### <ins>Locating Policy By Name: `findpolicy`</ins>
 
 Finds policies whose names contain any of the given keywords.
 
@@ -300,7 +297,7 @@ Examples:
 * `findpolicy Life` returns `LifeShield`, `Life Protect`
 * `findpolicy Health Life` returns `HealthCare Basic`, `LifeSecure Plus`
 
-### Deleting a policy : `deletepolicy`
+#### <ins>Deleting A Policy: `deletepolicy`</ins>
 
 Deletes the specified policy from the policy list.
 
@@ -314,13 +311,23 @@ Examples:
 * `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the policy book.
 * `findpolicy Health` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
-### Exiting the program : `exit`
+### ClientNest Commands
+
+#### <ins>Viewing Help: `help`</ins>
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+#### <ins>Exiting The Program: `exit`</ins>
 
 Exits the program.
 
 Format: `exit`
 
-### Editing User Profile : `profile`
+#### <ins>Editing User Profile: `profile`</ins>
 
 Edits details of the current user's profile.
 
@@ -334,34 +341,7 @@ Format: `profile [n/NAME] [p/PHONE] [e/EMAIL]`
 Examples:
 *  `profile n/John Doe p/91234567 e/johndoe@example.com` Edits the name, phone number and email address of the user to be `John Doe`, `91234567` and `johndoe@example.com` respectively.
 
-
-### Upcoming Birthdays Panel
-
-The **Upcoming Birthdays** panel displays a list of clients whose birthdays fall within the next 30 days.
-
-This panel appears to the right of the client list and updates automatically whenever a birthday is added or edited. You can scroll through the list to see upcoming birthdays and easily identify clients you may want to reach out to.
-
-No commands are required — just ensure each contact has a valid birthday entered, and ClientNest will handle the rest.
-
-### Viewing and Managing Tasks: `TaskManager`
-<p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
-
-You can access the TaskManager panel from the top menu bar. A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
-
-In TaskManager, you can:
-
-* Add To-Do, Deadline, and Event tasks
-* Mark and unmark tasks as done
-* Delete tasks
-* Search for tasks by keyword
-
-All commands are typed into the input box, similar to the main ClientNest window.
-
-> 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands.
-
-For more in-depth information about TaskManager commands and their formats, refer to the [ _Task Manager User Guide_ ](TaskManagerUserGuide.md)
-
-### Saving and Editing Client Data
+#### <ins>Saving and Editing Client Data</ins>
 
 ClientNest data is saved to your hard disk **automatically** after any command that changes the client or policy list. There is **no need to save manually**.
 
@@ -379,8 +359,7 @@ It’s **strongly recommended** to back up the file before editing.
 Also, be aware that invalid or out-of-range values (e.g. future birthdays or malformed emails) can cause unexpected app behavior.
 </box>
 
-
-### Saving and Editing User Profile Data
+#### <ins>Saving and Editing User Profile Data</ins>
 
 ClientNest user profile information is also saved **automatically** after any command that updates your name, phone number, or email.
 
@@ -400,6 +379,32 @@ Email: `guest@example.com`
 
 As with client data, it’s advisable to make a backup before editing, and only do so if you’re confident in maintaining the correct format.
 </box>
+
+#### <ins>Upcoming Birthdays Panel</ins>
+
+The **Upcoming Birthdays** panel displays a list of clients whose birthdays fall within the next 30 days.
+
+This panel appears to the right of the client list and updates automatically whenever a birthday is added or edited. You can scroll through the list to see upcoming birthdays and easily identify clients you may want to reach out to.
+
+No commands are required — just ensure each contact has a valid birthday entered, and ClientNest will handle the rest.
+
+#### <ins>Viewing and Managing Tasks: `TaskManager`</ins>
+<p align="center"> <img src="images/TaskManager.png" alt="Task Manager GUI" width="500"/> </p>
+
+You can access the TaskManager panel from the top menu bar. A new window will open, allowing you to type commands and manage tasks independently of your main contact list.
+
+In TaskManager, you can:
+
+* Add To-Do, Deadline, and Event tasks
+* Mark and unmark tasks as done
+* Delete tasks
+* Search for tasks by keyword
+
+All commands are typed into the input box, similar to the main ClientNest window.
+
+> 💡 **Tip:** Type `help` inside the TaskManager window to view all available task commands.
+
+For more in-depth information about TaskManager commands and their formats, refer to the [ _Task Manager User Guide_ ](TaskManagerUserGuide.md)
 
 --------------------------------------------------------------------------------------------------------------------
 
