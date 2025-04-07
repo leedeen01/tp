@@ -1,13 +1,61 @@
 # ClientNest Developer Guide
 
 <!-- * Table of Contents -->
+- [Acknowledgements](#acknowledgements)
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+  - [Architecture](#architecture)
+  - [UI component](#ui-component)
+  - [Logic component](#logic-component)
+  - [Model component](#model-component)
+  - [Storage component](#storage-component)
+  - [Task Manager](#task-manager)
+  - [Common classes](#common-classes)
+- [Implementation](#implementation)
+  - [Premium Management Feature](#premium-management-feature)
+    - [Premium Data Structure](#premium-data-structure)
+    - [Add Premium Command Implementation](#add-premium-command-implementation)
+    - [Edit Premium Command Implementation](#edit-premium-command-implementation)
+    - [Delete Premium Command Implementation](#delete-premium-command-implementation)
+    - [Design Considerations](#design-considerations)
+  - [[Proposed] Undo/redo feature](#proposed-undoredo-feature)
+    - [Proposed Implementation](#proposed-implementation)
+    - [Design considerations](#design-considerations-1)
+- [Planned Enhancement](#planned-enhancement)
+  - [Policy-Based Premium Management](#policy-based-premium-management)
+    - [Problem Statement](#problem-statement)
+    - [Solution](#solution)
+  - [Windows Compatibility Issues](#windows-compatibility-issues)
+    - [Problem Statement](#problem-statement-1)
+    - [Solution](#solution-1)
+  - [Inflexible Inputs for Commands field](#inflexible-inputs-for-commands-field)
+    - [Problem Statement](#problem-statement-2)
+    - [Solution](#solution-2)
+- [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product scope](#product-scope)
+  - [User stories](#user-stories)
+  - [Use cases](#use-cases)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  - [Launch and shutdown](#launch-and-shutdown)
+  - [Deleting A Person](#deleting-a-person)
+  - [Adding A Premium To A Person](#adding-a-premium-to-a-person)
+  - [Editing A Premium For A Person](#editing-a-premium-for-a-person)
+  - [Deleting A Premium From A Person](#deleting-a-premium-from-a-person)
+  - [Saving Data](#saving-data) 
+  - [Deleting A Premium From A Person](#deleting-a-premium-from-a-person)
+
+
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+We would like to express our sincere gratitude to Professor Damith Chatura Rajapakse and Professor Ganesh Neelakanta Iyer for their invaluable guidance and mentorship throughout this project. We also extend our thanks to our tutor, Yu Cong, for their consistent support and constructive feedback.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -114,7 +162,6 @@ How the parsing works:
 
 <img src="images/diagrams/ModelClassDiagram.png" width="450" />
 
-
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
@@ -127,20 +174,19 @@ The `Model` component,
 **Note:** The class diagrams below represent the internal structure of `AddressBook` and `PolicyBook` and their associated entities.
 The `AddressBook` manages a `UniquePersonList`, where each `Person` aggregates multiple immutable fields (e.g., `Name`, `Email`, `Birthday`) and maintains associations to a `PremiumList` (containing zero or more `Premium` objects) and to zero or more `Tag` objects.
 
-<img src="images/diagrams/ModelClassDiagram_AddressBook.png" width="200px">
+<img src="images/diagrams/ModelClassDiagram_AddressBook.png" width="400px">
 
 The `PolicyBook` manages a `UniquePolicyList`, where each `Policy` consists of value objects such as `PolicyName`, `PolicyNumber`, `PolicyLink`, and `ProviderCompany`. This parallel structure ensures consistency across both person and policy management within the app.
 
-<img src="images/diagrams/ModelClassDiagram_PolicyBook.png" width="200px">
+<img src="images/diagrams/ModelClassDiagram_PolicyBook.png" width="400px">
 
 </box>
-
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2425S2-CS2103-F10-2/tp/tree/master/src/main/java/seedu/address/storage)
 
-<img src="images/diagrams/StorageClassDiagram.png" width="700px">
+<img src="images/diagrams/StorageClassDiagram.png" width="800px">
 
 The `Storage` component,
 * can save both address book data, policy book data, user profile data and user preference data in JSON format, and read them back into corresponding objects.
@@ -288,7 +334,6 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 
 <img src="images/diagrams/UndoRedoState3.png" alt="UndoRedoState3" />
 
-
 <box type="info" seamless>
 
 **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
@@ -367,6 +412,32 @@ To enforce consistency between premiums and policies, the following enhancements
         * Proceed with adding the premium to the person under the given policy
         * Provide confirmation: "Premium with Policy ID POL123 has been added"
 
+### Windows Compatibility Issues
+
+#### Problem Statement:
+
+We're encountering an issue where, upon fullscreening the application on Windows, certain UI elements (such as the command box) end up partially hidden behind the Windows taskbar. This seems to be specific to how fullscreen dimensions are handled on Windows systems. Unfortunately, our team currently doesn't have access to a Windows environment, so we're unable to reproduce and resolve the bug directly.
+
+#### Solution:
+
+Possible solution our team can do in the future:
+1. Download windows virtual machine and use it to test our product
+
+### Inflexible Inputs for Commands field
+
+#### Problem Statement:
+
+The Command input field currently enforces strict validation rules, including restrictions on special characters in certain fields. As a result, commands that include characters users might reasonably expect to use (e.g., punctuation in names or notes) are rejected. This leads to a poor user experience, as users may find the behavior unintuitive and frustrating—especially if they are not familiar with the exact syntax or limitations. 
+
+Some examples but not limited are:
+1. Names with special characters `Anne-Marie`
+2. Policy Name with special characters `Health & Safety`
+3. Policy Number with special characters `#102`
+
+#### Solution:
+
+* Relex the validation rules by updating regrex to handle more useful cases
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -395,10 +466,7 @@ Target User: Alex
 * Sometimes, he feels overwhelmed managing client relationships manually.
 * He can type fast and prefers a CLI interface over mouse inputs
 
-
 **Value proposition**: Young financial advisors often struggle with managing a high volume of client interactions, making it easy to miss key follow-ups and important milestones. Keeping track of numerous touchpoints manually can feel overwhelming, leading to missed opportunities and weaker client relationships. ClientNest helps young financial advisors stay organized, manage clients more effectively, build stronger relationships, enhance trust, and focus on growing their business.
-
-
 
 ### User stories
 
@@ -554,6 +622,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. ClientNest modifies the client without affecting other premiums.
     * 3a2. Use case continues at step 4.
 
+**Use case: Edit a Premium for a Client**
+
+**MSS**
+
+1. User requests to edit a premium for a specific client by index.
+2. ClientNest validates the client index and premium details.
+3. ClientNest updates the premium for the client.
+4. ClientNest confirms the edit.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The client index is invalid.
+    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.
+
+* 2b. The premium format is invalid.
+    * 2b1. ClientNest shows an error message: "At least one field to edit must be provided."
+    * 2b2. Use case resumes at step 1.
+
+* 3a. The premium to edit does not exist for the client.
+    * 3a1. ClientNest shows an error message: "Premium name given does not exist."
+    * 3a2. Use case ends.
+
+**Use case: Delete a Premium from a Client**
+
+**MSS**
+
+1. User requests to delete a premium from a specific client by index.
+2. ClientNest validates the client index and premium name.
+3. ClientNest removes the premium from the client.
+4. ClientNest confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The client index is invalid.
+    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
+    * 2a2. Use case resumes at step 1.
+
+---
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -596,7 +708,7 @@ testers are expected to do more *exploratory* testing.
 
 </box>
 
-### Launch and shutdown
+### Launch and Shutdown
 
 1. Initial launch
 
@@ -611,9 +723,7 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
-### Deleting a person
+### Deleting A Person
 
 1. Deleting a person while all persons are being shown
 
@@ -628,9 +738,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
-
-### Adding a premium to a person
+### Adding A Premium To A Person
 
 1. Adding a premium to a person while all persons are being shown
 
@@ -648,7 +756,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect commands to try: `addpr`, `addpr 1`, `addpr 1 pr/`, `addpr x pr/LifeShield $300` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
 
-### Editing a premium for a person
+### Editing A Premium For A Person
 
 1. Editing a premium for a person while all persons are being shown
 
@@ -663,7 +771,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect commands to try: `editpr`, `editpr 1`, `editpr 1 pr/`, `editpr x pr/LifeShield $350` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
 
-### Deleting a premium from a person
+### Deleting A Premium From A Person
 
 1. Deleting a premium from a person while all persons are being shown
 
@@ -678,7 +786,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect commands to try: `deletepr`, `deletepr 1`, `deletepr 1 pr/`, `deletepr x pr/LifeShield` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
 
-### Saving data
+### Saving Data
 
 1. Dealing with missing/corrupted data files
 
@@ -696,47 +804,3 @@ testers are expected to do more *exploratory* testing.
     * 3a2. Use case ends.
 
 ---
-
-**Use case: Edit a Premium for a Client**
-
-**MSS**
-
-1. User requests to edit a premium for a specific client by index.
-2. ClientNest validates the client index and premium details.
-3. ClientNest updates the premium for the client.
-4. ClientNest confirms the edit.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The client index is invalid.
-    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
-
-* 2b. The premium format is invalid.
-    * 2b1. ClientNest shows an error message: "At least one field to edit must be provided."
-    * 2b2. Use case resumes at step 1.
-
-* 3a. The premium to edit does not exist for the client.
-    * 3a1. ClientNest shows an error message: "Premium name given does not exist."
-    * 3a2. Use case ends.
-
----
-
-**Use case: Delete a Premium from a Client**
-
-**MSS**
-
-1. User requests to delete a premium from a specific client by index.
-2. ClientNest validates the client index and premium name.
-3. ClientNest removes the premium from the client.
-4. ClientNest confirms the deletion.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The client index is invalid.
-    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
