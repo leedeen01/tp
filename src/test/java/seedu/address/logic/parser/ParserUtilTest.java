@@ -311,8 +311,21 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDeletePremium_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDeletePremium(null));
+    public void parsePremium_insufficientParts_throwsParseException() {
+        // Test with only a premium identifier but no value
+        String insufficientPartsInput = "P001";
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(insufficientPartsInput));
+
+        // Test with empty string
+        String emptyInput = "";
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(emptyInput));
+
+        // Test with just whitespace
+        String whitespaceInput = "   ";
+
+        assertThrows(ParseException.class, () -> ParserUtil.parsePremium(whitespaceInput));
     }
 
     @Test
@@ -331,6 +344,11 @@ public class ParserUtilTest {
         String specialCharsPremiumInput = "P001 $###500";
 
         assertThrows(ParseException.class, () -> ParserUtil.parsePremium(specialCharsPremiumInput));
+    }
+
+    @Test
+    public void parseDeletePremium_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDeletePremium(null));
     }
 
     @Test
