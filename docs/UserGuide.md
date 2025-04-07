@@ -256,7 +256,6 @@ Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_
 * Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
 * Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 * No 2 policy share the same policy number.
-* No two policies can share the same policy number.
 * The policy name is used in the `findpolicy` command.
 
 Examples:
@@ -292,7 +291,7 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `life` will match `Life`
 * The order of the keywords does not matter. e.g. `Life Health` will match `Health Life`
-* Only the name is searched.
+* Only the name is searched, not any other fields (company, link, number).
 * Full words and partial will be matched e.g. `Li` will match `Lifeshield`
 * Policies matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Life Health` will return `LifeShield`, `HealthPlus`
