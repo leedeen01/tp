@@ -3,13 +3,20 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Premium;
 import seedu.address.model.person.PremiumList;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PremiumListBuilder;
 
 /**
@@ -17,6 +24,52 @@ import seedu.address.testutil.PremiumListBuilder;
  * {@code DeletePremiumCommand}.
  */
 public class DeletePremiumCommandTest {
+
+    @Test
+    public void execute_invalidPremiumName_throwsCommandException() {
+        // Setup a person with specific premiums
+        Person personWithPremiums = new PersonBuilder()
+                .withPremiumList("HealthCare $150")
+                .build();
+        Model model = new ModelManager();
+        model.addPerson(personWithPremiums);
+
+        // Try to delete a premium that doesn't exist for this person
+        PremiumList premiumToDelete = new PremiumListBuilder()
+                .withPremium("LifeShield $200")
+                .build();
+
+        DeletePremiumCommand deletePremiumCommand = new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumToDelete);
+
+        // Command should throw exception with the INVALID_PREMIUM_NAME message
+        assertThrows(CommandException.class,
+                DeletePremiumCommand.MESSAGE_INVALID_PREMIUM_NAME, () -> deletePremiumCommand.execute(model));
+    }
+
+    @Test
+    public void deletePremium_premiumDoesNotExist_throwsParseException() {
+        // Create a person with specific premiums
+        PremiumList existingPremiums = new PremiumListBuilder()
+                .withPremium("HealthCare $150")
+                .build();
+        Person person = new PersonBuilder()
+                .withPremiumList(existingPremiums)
+                .build();
+
+        // Create premium that doesn't exist in the person's premium list
+        Premium nonExistentPremium = new Premium("LifeShield", 200);
+        PremiumList premiumsToDelete = new PremiumList();
+        premiumsToDelete.add(nonExistentPremium);
+
+        DeletePremiumCommand command = new DeletePremiumCommand(INDEX_FIRST_PERSON, premiumsToDelete);
+
+        // The deletePremium method is private, so we need to test it through execute
+        Model model = new ModelManager();
+        model.addPerson(person);
+
+        assertThrows(CommandException.class,
+                DeletePremiumCommand.MESSAGE_INVALID_PREMIUM_NAME, () -> command.execute(model));
+    }
 
     @Test
     public void equals() {
