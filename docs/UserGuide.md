@@ -8,26 +8,33 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
 ## Table of Contents
 - [Quick start](#quick-start)
 - [Features](#features)
-  - [Viewing help](#viewing-help--help)
-  - [Adding a person](#adding-a-person-add)
-  - [Listing all persons](#listing-all-persons-list)
-  - [Editing a person](#editing-a-person-edit)
-  - [Adding a premium](#adding-a-premium-to-a-person-addpr)
-  - [Editing a premium](#editing-a-premium-for-a-person-editpr)
-  - [Deleting a premium](#deleting-a-premium-from-a-person-deletepr)
-  - [Locating persons](#locating-persons-by-name-find)
-  - [Deleting a person](#deleting-a-person--delete)
-  - [Clearing all persons](#clearing-all-person--clear)
-  - [Adding a policy](#adding-a-policy-addpolicy)
-  - [Listing all policies](#listing-all-policies-listpolicy)
-  - [Editing a policy](#editing-a-policy--editpolicy)
-  - [Locating a policy](#locating-policy-by-name-findpolicy)
-  - [Deleting a policy](#deleting-a-policy--deletepolicy)
-  - [Exit](#exiting-the-program--exit)
-  - [Edit Profile](#editing-user-profile--profile)
-  - [Upcoming Birthdays Panel](#upcoming-birthdays-panel)
-  - [Task Manager](#viewing-and-managing-tasks-taskmanager)
-  - [Saving and Editing Client Data](#saving-and-editing-client-data)
+  - [Person Related Command](#person-related-command)
+    - [Adding a person](#adding-a-person-add)
+    - [listing all person](#listing-all-persons-list)
+    - [Editing a person](#editing-a-person-edit)
+    - [Adding a premium](#adding-a-premium-to-a-person-addpr)
+    - [Editing a premium](#editing-a-premium-for-a-person-editpr)
+    - [Deleting a premium](#deleting-a-premium-from-a-person-deletepr)
+    - [Locating persons](#locating-persons-by-name-find)
+    - [Deleting a person](#deleting-a-person-delete)
+    - [Clearing all persons](#clearing-all-person-clear)
+  - [Policy Related Command](#policy-related-command)
+    - [Adding a policy](#adding-a-policy-addpolicy)
+    - [Listing all policies](#listing-all-policies-listpolicy)
+    - [Editing a policy](#editing-a-policy-editpolicy)
+    - [Locating a policy](#locating-policy-by-name-findpolicy)
+    - [Deleting a policy](#deleting-a-policy-deletepolicy)
+  - [ClientNest Commands](#clientnest-commands)
+    - [Viewing help: `help`](#viewing-help-help)
+    - [Exiting the program: `exit`](#exiting-the-program-exit)
+    - [Editing User Profile: `profile`](#editing-user-profile-profile)
+    - [Saving and Editing Client Data](#saving-and-editing-client-data)
+    - [Saving and Editing User Profile Data](#saving-and-editing-user-profile-data)
+    - [Upcoming Birthdays Panel](#upcoming-birthdays-panel)
+    - [Viewing and Managing Tasks: `TaskManager`](#viewing-and-managing-tasks-taskmanager)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
+- [Command summary for ClientNest](#command-summary-for-clientnest)
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -79,8 +86,6 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
   </box>
 
 ### Person Related Command
-
-## Command summary for ClientNest
 
 Fields     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -290,7 +295,7 @@ Examples:
 * `findpolicy Life` returns `LifeShield`, `Life Protect`
 * `findpolicy Health Life` returns `HealthCare Basic`, `LifeSecure Plus`
 
-#### Deleting a policy : `deletepolicy`
+#### Deleting a policy: `deletepolicy`
 
 Deletes the specified policy from the policy list.
 
@@ -306,7 +311,7 @@ Examples:
 
 ### ClientNest Commands
 
-#### Viewing help : `help`
+#### Viewing help: `help`
 
 Shows a message explaining how to access the help page.
 
@@ -314,13 +319,13 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-#### Exiting the program : `exit`
+#### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
 
-#### Editing User Profile : `profile`
+#### Editing User Profile: `profile`
 
 Edits details of the current user's profile.
 
