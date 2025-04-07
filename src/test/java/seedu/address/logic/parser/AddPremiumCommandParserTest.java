@@ -37,7 +37,7 @@ public class AddPremiumCommandParserTest {
         assertParseFailure(parser, VALID_PREMIUM_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", AddPremiumCommand.MESSAGE_INVALID_PPREMIUM);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -56,6 +56,14 @@ public class AddPremiumCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_missingPremiumPrefix_failure() {
+        // index specified but no premium prefix
+        String userInput = "1 invalidInput";
+
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
