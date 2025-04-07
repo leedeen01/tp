@@ -87,12 +87,12 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
 
 ### Person Related Command
 
-Fields     | Format, Examples
+Fields     | Requirements
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **n/Name** | Names should only contain alphanumeric characters and spaces, 70 characters or less, and it should not be blank
 **p/PHONE_NUMBER** | Phone numbers should only contain numbers, and it should be between 3 to 15 digits long. <br> No spaces, symbols, or country codes are allowed (e.g. `+`, `()`, `-` are not valid).
 **e/EMAIL** | Emails must follow the format `local-part@domain`, and:<br>• The **local-part**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Must be at least 2 characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• May include letters, numbers, and `+`, `_`, `.`, `-`.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Cannot start or end with a special character.<br>• The **domain**:<br>&nbsp;&nbsp;&nbsp;&nbsp;• Consists of domain labels separated by periods.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Each label must start and end with alphanumeric characters.<br>&nbsp;&nbsp;&nbsp;&nbsp;• Labels may include hyphens in the middle.<br>&nbsp;&nbsp;&nbsp;&nbsp;• The final label must be at least 2 characters long.<br>• The full email must not exceed 70 characters.
-**a/ADDRESS** | Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank";
+**a/ADDRESS** | Addresses must contain at least one alphabetic character, be between 1 and 100 characters, and should not be blank"
 **b/BIRTHDAY** | Birthdays should be in the format `YYYY-MM-DD` and must not be a future date or earlier than 1900. <br>**Note:** If an invalid date is given (e.g., `2001-02-29`, `2024-04-31`), the system will adjust to the nearest valid date (e.g., `2001-02-28`, `2024-04-30`).
 **pr/PREMIUM_NAME PREMIUM_AMOUNT** | A premium entry must include a valid name followed by a non-negative integer. <br>• Each client can have multiple premiums, but only one per unique name. Adding a premium with an existing name will replace the previous entry.<br>• You can add multiple premiums using semicolons, e.g., `pr/Life 500; Accident 200` 
 **[t/TAG]…** | Optional field, Tag names should be alphanumeric
@@ -241,16 +241,19 @@ Format: `clear`
 
 ### Policy Related Command
 
+Fields     | Requirements
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**n/POLICY_NAME** | Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+**pn/POLICY_NUMBER** | Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
+**pc/PROVIDER_COMPANY** | Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
+**pl/POLICY_LINK** | Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
+
 #### Adding a policy: `addpolicy`
 
 Adds a new policy to your ClientNest.
 
 Format: `addpolicy n/POLICY_NAME pn/POLICY_NUMBER pc/PROVIDER_COMPANY pl/POLICY_LINK​`
 
-* Policy Number should only contain alphanumeric characters and spaces, not be longer than 20 characters, and it should not be blank
-* Policy Name should only contain alphanumeric characters and spaces, not be longer than 50 characters, and it should not be blank
-* Provider Company should only contain alphanumeric characters and spaces, not be longer than 70 characters, and it should not be blank
-* Policy Link can optionally start with 'http://', 'https://', or 'ftp://' and may include 'www.'. The domain name should consist of alphanumeric characters, underscores, or hyphens, followed by one or more top-level domains (e.g., '.com', '.org'). You can also include a path (starting with '/')
 * No 2 policy share the same policy number.
 * The policy name is used in the `findpolicy` command.
 
@@ -259,7 +262,6 @@ Examples:
 
 #### Listing all policies: `listpolicy`
 
-Displays all policies details stored in ClientNest.
 Displays all policies details stored in ClientNest.
 
 Format: `listpolicy`
