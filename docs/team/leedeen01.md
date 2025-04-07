@@ -22,15 +22,11 @@ Given below are my contributions to the project.
   * Managed releases `v1.3`(1 releases) on GitHub
 
 * **Enhancements to existing features**:
-  * Improve parsing for `list` and `listpolicy` to prevent extraneous parameters (Pull requests [\#33](), [\#34]())
-
+  * Improve parsing for `list` and `listpolicy` to prevent extraneous parameters (Pull requests [\#163](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/163))
+  * Improved Address input verification by setting limits and checking regex styles (Pull request [\#236](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/236))
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` [\#178]()
-    * Added implementation details of the `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` feature.
-
-* **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+    * Added documentation for the features `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` (Pull request [\#179](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/179))
+    * Added implementation details of the `addpolicy`, `deletepolicy`, `editpolicy` and `findpolicy` feature. (Pull request [\#179](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/179))
+  * DeveloperGuide:
+    * Update UML for Storage Diagram (Pull request [\#116](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/116))
