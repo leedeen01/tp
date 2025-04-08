@@ -39,7 +39,8 @@ public class AddPremiumCommand extends Command {
     public static final String MESSAGE_ADD_PREMIUM_SUCCESS = "Added Premium for Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one Premium to add must be provided.";
     public static final String MESSAGE_DUPLICATE_PREMIUM = "This premium already exists in the address book.";
-    public static final String MESSAGE_INVALID_PPREMIUM = "Premium name given does not exist.";
+    public static final String MESSAGE_INVALID_PPREMIUM = "A premium entry must include a valid name followed by a "
+            + "positive integer";
 
     private final Index index;
     private final PremiumList premiumList;
