@@ -518,76 +518,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. ClientNest shows an error message.
 
       Use case ends.
-
----
-
-**Use case: Add a Premium to a Client**
-
-**MSS**
-
-1. User requests to add a premium to a specific client by index.
-2. ClientNest validates the client index and premium details.
-3. ClientNest adds the premium to the client.
-4. ClientNest confirms the addition.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The client index is invalid.
-    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
-
-* 2b. The premium name is invalid or empty.
-    * 2b1. ClientNest shows an error message: "Premium name must be provided."
-    * 2b2. Use case resumes at step 1.
-
-* 3a. The premium to delete does not exist for the client.
-    * 3a1. ClientNest modifies the client without affecting other premiums.
-    * 3a2. Use case continues at step 4.
-
-**Use case: Edit a Premium for a Client**
-
-**MSS**
-
-1. User requests to edit a premium for a specific client by index.
-2. ClientNest validates the client index and premium details.
-3. ClientNest updates the premium for the client.
-4. ClientNest confirms the edit.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The client index is invalid.
-    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
-
-* 2b. The premium format is invalid.
-    * 2b1. ClientNest shows an error message: "At least one field to edit must be provided."
-    * 2b2. Use case resumes at step 1.
-
-* 3a. The premium to edit does not exist for the client.
-    * 3a1. ClientNest shows an error message: "Premium name given does not exist."
-    * 3a2. Use case ends.
-
-**Use case: Delete a Premium from a Client**
-
-**MSS**
-
-1. User requests to delete a premium from a specific client by index.
-2. ClientNest validates the client index and premium name.
-3. ClientNest removes the premium from the client.
-4. ClientNest confirms the deletion.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The client index is invalid.
-    * 2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
-
 ---
 
 ### Non-Functional Requirements
@@ -707,24 +637,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `deletepr 1 pr/NonExistentPremium`<br>
        Expected: No change to the person's premiums. Status message indicates that the person at index must have given premium name. 
 
-    1. Other incorrect commands to try: `deletepr`, `deletepr 1`, `deletepr 1 pr/`, `deletepr x pr/LifeShield` (where x is larger than the list size)<br>
-       Expected: Similar to previous error cases.
-
-### Saving Data
-
-1. Dealing with missing/corrupted data files
-
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }2a1. ClientNest shows an error message: "Invalid person displayed index."
-    * 2a2. Use case resumes at step 1.
-
-* 2b. The premium format is invalid.
-    * 2b1. ClientNest shows an error message: "At least one Premium to add must be provided."
-    * 2b2. Use case resumes at step 1.
-
-* 3a. The premium already exists for the client.
-    * 3a1. ClientNest shows an error message: "This premium already exists in the address book."
-    * 3a2. Use case ends.
+       1. Other incorrect commands to try: `deletepr`, `deletepr 1`, `deletepr 1 pr/`, `deletepr x pr/LifeShield` (where x is larger than the list size)<br>
+          Expected: Similar to previous error cases.
 
 ---
