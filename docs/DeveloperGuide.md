@@ -360,7 +360,8 @@ Some examples but not limited are:
 
 #### Solution:
 
-* Relex the validation rules by updating regrex to handle more useful cases
+* Relax the validation rules by updating regrex to handle more useful cases
+
 
 --------------------------------------------------------------------------------------------------------------------
 
