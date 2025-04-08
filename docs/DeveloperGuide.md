@@ -362,7 +362,6 @@ Some examples but not limited are:
 
 * Relax the validation rules by updating regrex to handle more useful cases
 
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
