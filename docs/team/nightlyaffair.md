@@ -9,38 +9,25 @@ ClientNest is a **desktop app for managing contacts, optimized for use via a  Li
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the ability to track premiums for each client.
+  * What it does: Introduced the premium attribute allowing users to track the premium name and amount each client has with them. 
+  * Justification: Financial advisors often have multiple clients with premiums of the same name but different amounts. This feature enables them to have clear oversight to the exact premium and amount purchased by each client.
+  * Highlights: Built custom `PremiumList` class that stores a list of a custom `Premium` class with validation logic and integrated it into the data model, parser, storage, UI, and test suites.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added the ability to add, edit and remove premium for each client.
+  * What it does: Allow users granular control over the premiums assigned to each client to ensure accuracy and ease of use to keep client's premiums up to date.
+  * Justification: As a client stays with a Financial Advisor, over time, the Premiums they buy will change or they may choose to change the amount for a Premium. This requires the system to provide an easy way to update Client's premiums.
+  * Highlights: Built 3 premium related commands, addpr, editpr and deletepr. Created their required command classes and parser classes with appropriate input and error handling.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2425s2.github.io/tp-dashboard/#/widget/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=FabianHeng&tabRepo=AY2425S2-CS2103-F10-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=9&chartIndex=3)
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-
-* **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Managed releases `v1.5` (1 releases) on GitHub
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Added documentation for the field `pr` in Person [\#255](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/255)
+    * Added documentation for the feature `addpr`,`editpr`,`deletepr`: [\#255](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/255)
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Update UML diagram for Model (Pull Request [\#145](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/145))
 
-* **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
