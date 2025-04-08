@@ -30,4 +30,5 @@ Given below are my contributions to the project.
     * Added documentation for the feature `addpr`,`editpr`,`deletepr`: [\#255](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/255)
   * Developer Guide:
     * Update UML diagram for Model (Pull Request [\#145](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/145))
+    * Added manual testing instructions for `addpr`,`editpr`,`deletepr`: [\#255](https://github.com/AY2425S2-CS2103-F10-2/tp/pull/255)
 

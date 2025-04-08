@@ -654,10 +654,10 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
     1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+       Expected: No person is deleted. Error details shown in the status message.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
@@ -669,13 +669,13 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `addpr 1 pr/LifeShield $300`<br>
-       Expected: A premium named "LifeShield" with amount "$300" is added to the first person in the list. Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+       Expected: A premium named "LifeShield" with amount "$300" is added to the first person in the list. Details of the updated person shown in the status message. 
 
     1. Test case: `addpr 0 pr/LifeShield $300`<br>
-       Expected: No premium is added. Error details shown in the status message. Status bar remains the same.
+       Expected: No premium is added. Error details shown in the status message. 
 
     1. Test case: `addpr 1 pr/LifeShield $300` (when the premium already exists)<br>
-       Expected: No premium is added. Error message indicating duplicate premium is shown. Status bar remains the same.
+       Expected: No premium is added. Error message indicating duplicate premium is shown. 
 
     1. Other incorrect commands to try: `addpr`, `addpr 1`, `addpr 1 pr/`, `addpr x pr/LifeShield $300` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
@@ -687,10 +687,10 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person has a premium named "LifeShield".
 
     1. Test case: `editpr 1 pr/LifeShield $350`<br>
-       Expected: The premium named "LifeShield" for the first person is updated to have amount "$350". Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+       Expected: The premium named "LifeShield" for the first person is updated to have amount "$350". Details of the updated person shown in the status message. 
 
     1. Test case: `editpr 1 pr/NonExistentPremium $350`<br>
-       Expected: No premium is edited. Error message indicating the premium doesn't exist is shown. Status bar remains the same.
+       Expected: No premium is edited. Error message indicating the premium doesn't exist is shown. 
 
     1. Other incorrect commands to try: `editpr`, `editpr 1`, `editpr 1 pr/`, `editpr x pr/LifeShield $350` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
@@ -702,10 +702,10 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person has a premium named "LifeShield".
 
     1. Test case: `deletepr 1 pr/LifeShield`<br>
-       Expected: The premium named "LifeShield" is removed from the first person. Details of the updated person shown in the status message. Timestamp in the status bar is updated.
+       Expected: The premium named "LifeShield" is removed from the first person. Details of the updated person shown in the status message. 
 
     1. Test case: `deletepr 1 pr/NonExistentPremium`<br>
-       Expected: No change to the person's premiums. Status message indicates successful execution even though no premium was found to delete. Timestamp in the status bar is updated.
+       Expected: No change to the person's premiums. Status message indicates that the person at index must have given premium name. 
 
     1. Other incorrect commands to try: `deletepr`, `deletepr 1`, `deletepr 1 pr/`, `deletepr x pr/LifeShield` (where x is larger than the list size)<br>
        Expected: Similar to previous error cases.
