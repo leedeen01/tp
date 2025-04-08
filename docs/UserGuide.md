@@ -60,8 +60,6 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
 
 ## Features
 
-<box type="info" seamless>
-
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
@@ -83,7 +81,6 @@ Whether you're adding new clients, planning engagement tasks, or tracking import
   e.g. if the command specifies `list 123`, the result display will notify user of the extraneous parameters and the command will be ignored.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</box>
 
 ### Person Related Command
 
@@ -110,15 +107,9 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/2002-11-24 pr/Gold 99999 t/friends t/owesMoney`
 * `add n/Alice Pauline p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 b/1990-01-01 pr/Silver 50000`
 
-<box type="info" seamless>
-
 **Parameter Order:**  
 You may enter parameters in any order. For example:  
 `add p/98765432 n/John Doe e/john@example.com ...` is also valid.
-
-</box>
-
-<box type="info" seamless>
 
 **Duplicate Contact Rule:**  
 ClientNest will prevent adding a contact that matches an existing one based on:
@@ -129,8 +120,6 @@ ClientNest will prevent adding a contact that matches an existing one based on:
 - Birthday
 
 Premiums and tags are not considered when detecting duplicates.
-
-</box>
 
 #### <ins>Listing All Persons: `list`</ins>
 
@@ -354,14 +343,11 @@ ClientNest stores client and policy data in a JSON file located at:
 
 Advanced users may edit this file directly.
 
-<box type="warning" seamless>
-
 > ⚠ CAUTION: If your edits make the file format invalid, ClientNest will discard all data and start with an empty address book upon the next launch.
 
 It’s **strongly recommended** to back up the file before editing.  
 
 Also, be aware that invalid or out-of-range values (e.g. future birthdays or malformed emails) can cause unexpected app behavior.
-</box>
 
 #### <ins>Saving and Editing User Profile Data</ins>
 
@@ -372,8 +358,6 @@ User profile data is stored in the JSON file:
 
 Advanced users may edit this file directly to customize their profile.
 
-<box type="warning" seamless>
-
 > ⚠ CAUTION: If your edits make the user profile file invalid, ClientNest will revert to **default user values** on the next run.
 
 Default values are:  
@@ -382,7 +366,6 @@ Phone: `00000000`
 Email: `guest@example.com`
 
 As with client data, it’s advisable to make a backup before editing, and only do so if you’re confident in maintaining the correct format.
-</box>
 
 #### <ins>Upcoming Birthdays Panel</ins>
 
