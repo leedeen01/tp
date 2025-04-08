@@ -40,4 +40,4 @@ To set up ClientNest on your system, follow these steps:
 This project is based on the [AddressBook-Level3](https://se-education.org/addressbook-level3) project created by the
 [SE-EDU initiative](https://se-education.org). It has been adapted to meet the specific needs of financial advisors.
 
-For more details, refer to our **[ClientNest Product Website](https://github.com/AY2425S2-CS2103-F10-2/tp)**.
+For more details, refer to our **[ClientNest Product Website](https://ay2425s2-cs2103-f10-2.github.io/tp/)**.
