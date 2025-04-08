@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <HBox alignment="CENTER" minHeight="50" GridPane.columnIndex="0" spacing="20">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="NEVER" spacing="5">
+                <HBox spacing="0.5" alignment="CENTER_LEFT">
+                    <Label fx:id="policyId" styleClass="cell_big_label, policy-name">
+                        <minWidth>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE" />
+                        </minWidth>
+                    </Label>
+                    <Label fx:id="policyName" wrapText="true" text="\$policyName" styleClass="cell_big_label, policy-name" />
+                </HBox>
+                <Hyperlink fx:id="policyLink" wrapText="true" styleClass="cell_small_label" text="$policyLink" />
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <HBox alignment="CENTER_LEFT" spacing="7" prefWidth="250" minWidth="300">
+                <Label fx:id="policyNumber" wrapText="true" styleClass="cell_small_label, policy-number" text="\$policyNumber" maxWidth="150" />
+                <Label fx:id="providerCompany" wrapText="true" styleClass="cell_small_label, policy-company" text="\$providerCompany" maxWidth="150" />
+            </HBox>
+
+        </HBox>
+    </GridPane>
+</HBox>
