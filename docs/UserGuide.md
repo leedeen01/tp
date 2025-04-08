@@ -411,6 +411,7 @@ For more in-depth information about TaskManager commands and their formats, refe
    - If your user profile name and/or email is more than 50 characters;
    - If your premium name is more than 35 characters.
 5. **Pressing the "up/down" arrow keys** will replace/erase the current command in the command box.
+6. **If you change the location of `data/addressbook.json`**, the Status Bar Footer may  not update to the new correct location. Instead, it may even create a new json file in `data/`.
 
 --------------------------------------------------------------------------------------------------------------------
 
